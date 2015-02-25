@@ -95,16 +95,14 @@ var ENV = ENV || (function() {
   };
 
   function generateData() {
+    var databases = [];
     var newData = getData();
     Object.keys(newData.databases).forEach(function(dbname) {
       var sampleInfo = newData.databases[dbname];
-
-      if (!lastDatabases[dbname]) {
-        lastDatabases[dbname] = {
-          dbname: dbname,
-          samples: []
-        }
-      }
+      var database = {
+        dbname: dbname,
+        samples: []
+      };
 
       function countClassName(queries) {
         var countClassName = "label";
@@ -128,7 +126,7 @@ var ENV = ENV || (function() {
         return tfq;
       }
 
-      var samples = lastDatabases[dbname].samples;
+      var samples = database.samples;
       samples.push({
         time: newData.start_at,
         queries: sampleInfo.queries,
@@ -138,12 +136,16 @@ var ENV = ENV || (function() {
       if (samples.length > 5) {
         samples.splice(0, samples.length - 5);
       }
-      var samples = lastDatabases[dbname].samples;
-      lastDatabases[dbname].lastSample = lastDatabases[dbname].samples[lastDatabases[dbname].samples.length - 1];
+      var samples = database.samples;
+      database.lastSample = database.samples[database.samples.length - 1];
+      databases.push(database);
     });
-    return lastDatabases;
+    return {
+      toArray: function() {
+        return databases;
+      }
+    };
   }
-
   return  {
     generateData: generateData,
     rows: 50,
