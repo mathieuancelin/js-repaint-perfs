@@ -1,92 +1,9 @@
 /** @jsx React.DOM */
-
-var start = Date.now();
-var loadCount = 0;
-
-function getData() {
-  // generate some dummy data
-  data = {
-    start_at: new Date().getTime() / 1000,
-    databases: {}
-  };
-
-  for (var i = 1; i <= ENV.rows; i++) {
-    data.databases["cluster" + i] = {
-      queries: []
-    };
-
-    data.databases["cluster" + i + "slave"] = {
-      queries: []
-    };
-  }
-
-  Object.keys(data.databases).forEach(function(dbname) {
-    var info = data.databases[dbname];
-
-    var r = Math.floor((Math.random() * 10) + 1);
-    for (var i = 0; i < r; i++) {
-      var q = {
-        canvas_action: null,
-        canvas_context_id: null,
-        canvas_controller: null,
-        canvas_hostname: null,
-        canvas_job_tag: null,
-        canvas_pid: null,
-        elapsed: Math.random() * 15,
-        query: "SELECT blah FROM something",
-        waiting: Math.random() < 0.5
-      };
-
-      if (Math.random() < 0.2) {
-        q.query = "<IDLE> in transaction";
-      }
-
-      if (Math.random() < 0.1) {
-        q.query = "vacuum";
-      }
-
-      info.queries.push(q);
-    }
-
-    info.queries = info.queries.sort(function(a, b) {
-      return b.elapsed - a.elapsed;
-    });
-  });
-
-  return data;
-}
-
-var _base;
-
-(_base = String.prototype).lpad || (_base.lpad = function(padding, toLength) {
-  return padding.repeat((toLength - this.length) / padding.length).concat(this);
-});
-
-function formatElapsed(value) {
-  str = parseFloat(value).toFixed(2);
-  if (value > 60) {
-    minutes = Math.floor(value / 60);
-    comps = (value % 60).toFixed(2).split('.');
-    seconds = comps[0].lpad('0', 2);
-    ms = comps[1];
-    str = minutes + ":" + seconds + "." + ms;
-  }
-  return str;
-}
-
 var Query = React.createClass({
   render: function() {
-    var className = "elapsed short";
-    if (this.props.elapsed >= 10.0) {
-      className = "elapsed warn_long";
-    }
-    else if (this.props.elapsed >= 1.0) {
-      className = "elapsed warn";
-    }
-
     return (
-      <td className={"Query " + className}>
-        {this.props.elapsed ? formatElapsed(this.props.elapsed) : ''}
+      <td className={ "Query " + this.props.elapsedClassName}>
+        {this.props.formatElapsed}
         <div className="popover left">
           <div className="popover-content">{this.props.query}</div>
           <div className="arrow"/>
@@ -96,38 +13,21 @@ var Query = React.createClass({
   }
 })
 
-var sample = function (queries, time) {
-  var topFiveQueries = queries.slice(0, 5);
-  while (topFiveQueries.length < 5) {
-    topFiveQueries.push({ query: "" });
-  }
-
+var sample = function (database) {
   var _queries = [];
-  topFiveQueries.forEach(function(query, index) {
+  database.lastSample.topFiveQueries.forEach(function(query, index) {
     _queries.push(
-      <Query
-        key={index}
+      <Query key={index}
         query={query.query}
         elapsed={query.elapsed}
-      />
+        formatElapsed={query.formatElapsed}
+        elapsedClassName={query.elapsedClassName} />
     );
   });
-
-  var countClassName = "label";
-  if (queries.length >= 20) {
-    countClassName += " label-important";
-  }
-  else if (queries.length >= 10) {
-    countClassName += " label-warning";
-  }
-  else {
-    countClassName += " label-success";
-  }
-
   return [
     <td className="query-count">
-      <span className={countClassName}>
-        {queries.length}
+      <span className={database.lastSample.countClassName}>
+        {database.lastSample.queries.length}
       </span>
     </td>,
     _queries
@@ -136,14 +36,13 @@ var sample = function (queries, time) {
 
 var Database = React.createClass({
   render: function() {
-    var lastSample = this.props.samples[this.props.samples.length - 1];
-
+    var lastSample = this.props.lastSample;
     return (
       <tr key={this.props.dbname}>
         <td className="dbname">
           {this.props.dbname}
         </td>
-        {sample(lastSample.queries, lastSample.time)}
+        {sample(this.props)}
       </tr>
     );
   }
@@ -152,34 +51,14 @@ var Database = React.createClass({
 var DBMon = React.createClass({
   getInitialState: function() {
     return {
-      databases: {}
+      databases: []
     };
   },
 
   loadSamples: function () {
-    loadCount++;
-    var newData = getData();
-
-    Object.keys(newData.databases).forEach(function(dbname) {
-      var sampleInfo = newData.databases[dbname];
-
-      if (!this.state.databases[dbname]) {
-        this.state.databases[dbname] = {
-          name: dbname,
-          samples: []
-        }
-      }
-
-      var samples = this.state.databases[dbname].samples;
-      samples.push({
-        time: newData.start_at,
-        queries: sampleInfo.queries
-      });
-      if (samples.length > 5) {
-        samples.splice(0, samples.length - 5);
-      }
-    }.bind(this));
-    this.setState(this.state);
+    this.setState({
+      databases: ENV.generateData().toArray()
+    });
     Monitoring.renderRate.ping();
     setTimeout(this.loadSamples, ENV.timeout);
   },
@@ -198,6 +77,13 @@ var DBMon = React.createClass({
       );
     }.bind(this));
 
+    var databases = this.state.databases.map(function(database) {
+      return <Database 
+        dbname={database.dbname}
+        samples={database.samples}
+        lastSample={database.lastSample} />
+    });
+
     return (
       <div>
         <table className="table table-striped latest-data">
@@ -210,6 +96,4 @@ var DBMon = React.createClass({
   }
 });
 
-React.render(<DBMon />, document.getElementById('dbmon'), function() {
-  console.log(Date.now() - start);
-});
+React.render(<DBMon />, document.getElementById('dbmon'));
