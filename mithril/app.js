@@ -1,6 +1,3 @@
-var renderRate = new RenderRate();
-document.body.appendChild( renderRate.domElement );
-
 var start = Date.now();
 var loadCount = 0;
 
@@ -174,7 +171,7 @@ function loadSamples() {
 
   m.endComputation();
   DB.databases = databases;
-  renderRate.ping();
+  Monitoring.renderRate.ping();
   m.startComputation();
   setTimeout(loadSamples, ENV.timeout);
 }

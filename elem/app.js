@@ -1,6 +1,3 @@
-var renderRate = new RenderRate();
-document.body.appendChild( renderRate.domElement );
-
 var start = Date.now();
 var loadCount = 0;
 
@@ -169,7 +166,7 @@ var DBMon = Elem.component({
     }.bind(this));
 
     state.set(state());
-    renderRate.ping();
+    Monitoring.renderRate.ping();
     setTimeout(function() { this.loadSamples(state); }.bind(this), ENV.timeout);
   },
 

@@ -1,6 +1,3 @@
-var renderRate = new RenderRate();
-document.body.appendChild( renderRate.domElement );
-
 var start = Date.now();
 var loadCount = 0;
 
@@ -128,7 +125,7 @@ function loadSamples() {
   });
 
   ractive.set('databases', databases);
-  renderRate.ping();
+  Monitoring.renderRate.ping();
   setTimeout(loadSamples, ENV.timeout);
 }
 

@@ -1,5 +1,3 @@
-var renderRate = new RenderRate();
-document.body.appendChild( renderRate.domElement );
 
 function getData() {
   // generate some dummy data
@@ -154,7 +152,7 @@ angular.module('app', [])
         
         $scope.topFiveQueries[dbname] = RenderService.getTopFiveQueries($scope.databases[dbname]);
       });
-      renderRate.ping();
+      Monitoring.renderRate.ping();
       $timeout(load, ENV.timeout);
     };
 

@@ -1,5 +1,3 @@
-var renderRate = new RenderRate();
-document.body.appendChild( renderRate.domElement );
 
 var start = Date.now();
 
@@ -95,7 +93,7 @@ Database.reopenClass({
     Ember.run.later(function() {
       loadCount++;
       Database.loadLatest();
-      renderRate.ping();
+      Monitoring.renderRate.ping();
     }, ENV.timeout);
   }
 });

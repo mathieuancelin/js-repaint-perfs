@@ -1,6 +1,4 @@
 /** @jsx React.DOM */
-var renderRate = new RenderRate();
-document.body.appendChild( renderRate.domElement );
 
 var start = Date.now();
 var loadCount = 0;
@@ -182,7 +180,7 @@ var DBMon = React.createClass({
       }
     }.bind(this));
     this.setState(this.state);
-    renderRate.ping();
+    Monitoring.renderRate.ping();
     setTimeout(this.loadSamples, ENV.timeout);
   },
 
