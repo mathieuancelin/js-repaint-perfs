@@ -14,24 +14,13 @@
         <tbody>
           {{#databases}}
             <tr>
-              <td class="dbname">{{name}}</td>
+              <td class="dbname">{{dbname}}</td>
               <td class="query-count">
-                <span class="label {{queriesCountLabelClass}}">{{queries.length}}</span>
+                <span class="label {{lastSample.countClassName}}">{{lastSample.queries.length}}</span>
               </td>
-              {{#queries}}
-                <td class="Query query elapsed {{elapsedClass}}">
-                  {{#waiting}}
-                    <i class="icon-lock"></i>
-                  {{/waiting}}
-                  {{#vacuum}}
-                    <i class="icon-trash"></i>
-                  {{/vacuum}}
-                  {{#idle}}
-                    <i class="icon-time"></i>
-                  {{/idle}}
-                  {{#elapsed}}
-                    {{formatElapsed}}
-                  {{/elapsed}}
+              {{#lastSample.topFiveQueries}}
+                <td class="Query {{elapsedClassName}}">
+                  {{formatElapsed}}
                   <div class="popover left">
                     <div class="popover-content">
                       {{query}}
@@ -39,7 +28,7 @@
                     <div class="arrow"></div>
                   </div>
                 </td>
-              {{/queries}}
+              {{/lastSample.topFiveQueries}}
             </tr>
           {{/databases}}
         </tbody>
