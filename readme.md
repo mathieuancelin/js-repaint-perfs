@@ -21,3 +21,4 @@ You can test it at http://ancelin.org/perfs/
 * [Vue.js](http://vuejs.org/)
 * [Knockout.js](http://knockoutjs.com/)
 * [Backbone.js](http://backbonejs.org/)
+* [Polymer](https://www.polymer-project.org/)
