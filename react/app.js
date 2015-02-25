@@ -1,4 +1,5 @@
 /** @jsx React.DOM */
+
 var Query = React.createClass({
   render: function() {
     return (
