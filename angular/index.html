@@ -14,19 +14,19 @@
     <table class="table table-striped latest-data">
       <tbody>
         <!-- Database -->
-        <tr ng-repeat="(key, db) in databases">
+        <tr ng-repeat="db in databases">
           <td class="dbname">
-            {{db.name}}
+            {{db.dbname}}
           </td>
           <!-- Sample -->
           <td class="query-count">
-            <span class="{{helper.getCountClassName(db)}}">
-              {{helper.getLastSample(db).queries.length}}
+            <span class="{{db.lastSample.countClassName}}">
+              {{db.lastSample.queries.length}}
             </span>
           </td>
           <!-- Query -->
-          <td ng-repeat="q in topFiveQueries[key]" class="{{helper.getElapsedClassName(q.elapsed)}}">
-            {{q.elapsed | formatElapsed}}
+          <td ng-repeat="q in db.lastSample.topFiveQueries" class="{{q.elapsedClassName}}">
+            {{q.formatElapsed}}
             <div class="popover left">
               <div class="popover-content">
                 {{q.query}}
