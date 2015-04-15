@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="description" content="DBMON NOT REACT"/>
+    <link href="../lib/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../styles.css" rel="stylesheet" type="text/css"/>
+    <title>dbmon</title>
+    <script id="template" type="text/x-dot-template">
+        <table class="table table-striped latest-data">
+            <tbody>
+            <!-- Database -->
+            {{~it.databases :db:index}}
+                <tr>
+                    <td class="dbname">
+                        {{=db.dbname}}
+                    </td>
+                    <td class="query-count">
+                        <span class="{{=db.lastSample.countClassName}}">
+                            {{=db.lastSample.queries.length}}
+                        </span>
+                    </td>
+                    <!-- Query -->
+                    {{~db.lastSample.topFiveQueries :q:indexQ}}
+                        <td class="{{=q.elapsedClassName}}">
+                            {{=q.formatElapsed || ''}}
+                            <div class="popover left">
+                                <div class="popover-content">
+                                    {{=q.query || ''}}
+                                </div>
+                                <div class="arrow"></div>
+                            </div>
+                        </td>
+                    {{~}}
+                </tr>
+            {{~}}
+            </tbody>
+        </table>
+    </script>
+</head>
+<body>
+<div id="app"></div>
+<script src="../ENV.js"></script>
+<script src="../lib/memory-stats.js"></script>
+<script src="../lib/monitor.js"></script>
+<script src="../lib/doT.min.js"></script>
+<script src="./app.js"></script>
+</body>
+</html>
+
