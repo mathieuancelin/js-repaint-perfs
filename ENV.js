@@ -32,6 +32,8 @@ var ENV = ENV || (function() {
     return className;
   }
 
+  var lastGeneratedDatabases = [];
+
   function getData() {
     // generate some dummy data
     data = {
@@ -50,40 +52,46 @@ var ENV = ENV || (function() {
     }
 
     Object.keys(data.databases).forEach(function(dbname) {
-      var info = data.databases[dbname];
 
-      var r = Math.floor((Math.random() * 10) + 1);
-      for (var i = 0; i < r; i++) {
-        var elapsed = Math.random() * 15;
-        var q = {
-          canvas_action: null,
-          canvas_context_id: null,
-          canvas_controller: null,
-          canvas_hostname: null,
-          canvas_job_tag: null,
-          canvas_pid: null,
-          elapsed: elapsed,
-          formatElapsed: formatElapsed(elapsed),
-          elapsedClassName: getElapsedClassName(elapsed),
-          query: "SELECT blah FROM something",
-          waiting: Math.random() < 0.5
-        };
+      if (lastGeneratedDatabases.length == 0 || Math.random() < ENV.mutations) {
+        var info = data.databases[dbname];
+        var r = Math.floor((Math.random() * 10) + 1);
+        for (var i = 0; i < r; i++) {
+          var elapsed = Math.random() * 15;
+          var q = {
+            canvas_action: null,
+            canvas_context_id: null,
+            canvas_controller: null,
+            canvas_hostname: null,
+            canvas_job_tag: null,
+            canvas_pid: null,
+            elapsed: elapsed,
+            formatElapsed: formatElapsed(elapsed),
+            elapsedClassName: getElapsedClassName(elapsed),
+            query: "SELECT blah FROM something",
+            waiting: Math.random() < 0.5
+          };
 
-        if (Math.random() < 0.2) {
-          q.query = "<IDLE> in transaction";
+          if (Math.random() < 0.2) {
+            q.query = "<IDLE> in transaction";
+          }
+
+          if (Math.random() < 0.1) {
+            q.query = "vacuum";
+          }
+
+          info.queries.push(q);
         }
 
-        if (Math.random() < 0.1) {
-          q.query = "vacuum";
-        }
-
-        info.queries.push(q);
+        info.queries = info.queries.sort(function (a, b) {
+          return b.elapsed - a.elapsed;
+        });
+      } else {
+        data.databases[dbname] = lastGeneratedDatabases[dbname];
       }
-
-      info.queries = info.queries.sort(function(a, b) {
-        return b.elapsed - a.elapsed;
-      });
     });
+
+    lastGeneratedDatabases = data.databases;
 
     return data;
   }
@@ -149,7 +157,8 @@ var ENV = ENV || (function() {
   return  {
     generateData: generateData,
     rows: 50,
-    timeout: 0
+    timeout: 0,
+    mutations: 0.5
   };
 })();
 
