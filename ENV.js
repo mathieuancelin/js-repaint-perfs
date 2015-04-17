@@ -173,13 +173,13 @@ var ENV = ENV || (function() {
   sliderContainer.style.cssText = "display: flex";
   var slider = document.createElement('input');
   var text = document.createElement('label');
-  text.innerHTML = 'mutation ratio : ' + mutationsValue + ' %';
+  text.innerHTML = 'mutations : ' + mutationsValue + '%';
   text.id = "ratioval";
   slider.setAttribute("type", "range");
   slider.style.cssText = 'margin-bottom: 10px; margin-top: 5px';
   slider.addEventListener('change', function(e) {
     ENV.mutations(e.target.value / 100);
-    document.querySelector('#ratioval').innerHTML = 'mutation ratio : ' + ENV.mutations() + ' %';
+    document.querySelector('#ratioval').innerHTML = 'mutations : ' + ENV.mutations() + '%';
   });
   sliderContainer.appendChild( text );
   sliderContainer.appendChild( slider );
