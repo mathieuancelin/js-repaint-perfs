@@ -53,7 +53,7 @@ var ENV = ENV || (function() {
 
     Object.keys(data.databases).forEach(function(dbname) {
 
-      if (lastGeneratedDatabases.length == 0 || Math.random() < ENV.mutations) {
+      if (lastGeneratedDatabases.length == 0 || Math.random() < ENV.mutations()) {
         var info = data.databases[dbname];
         var r = Math.floor((Math.random() * 10) + 1);
         for (var i = 0; i < r; i++) {
@@ -154,11 +154,40 @@ var ENV = ENV || (function() {
       }
     };
   }
+
+  var mutationsValue = 0.5;
+
+  function mutations(value) {
+    if (value) {
+      mutationsValue = value;
+      return mutationsValue;
+    } else {
+      return mutationsValue;
+    }
+  }
+
+  var body = document.querySelector('body');
+  var theFirstChild = body.firstChild;
+
+  var sliderContainer = document.createElement( 'div' );
+  sliderContainer.style.cssText = "display: flex";
+  var slider = document.createElement('input');
+  var text = document.createElement('label');
+  text.innerHTML = 'mutation ratio';
+  slider.setAttribute("type", "range");
+  slider.style.cssText = 'margin-bottom: 10px; margin-top: 5px';
+  slider.addEventListener('change', function(e) {
+    ENV.mutations(e.target.value / 100);
+  });
+  sliderContainer.appendChild( text );
+  sliderContainer.appendChild( slider );
+  body.insertBefore( sliderContainer, theFirstChild );
+
   return  {
     generateData: generateData,
     rows: 50,
     timeout: 0,
-    mutations: 0.5
+    mutations: mutations
   };
 })();
 
