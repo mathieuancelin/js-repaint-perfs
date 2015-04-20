@@ -1,0 +1,29 @@
+<div id="latest-data">
+      <table class="table table-striped latest-data">
+      <tbody>
+        <% for ( var j = 0; j < data.length; j++ ) { %>
+        <tr>
+            <td class="dbname"><%=data[j].dbname%></td>
+            <td class="query-count">
+                <span class="label <%=data[j].lastSample.countClassName%>"><%=data[j].lastSample.queries.length%></span>
+            </td>
+            <% for ( var i = 0; i < data[j].lastSample.topFiveQueries.length; i++ ) { %>
+            <td class="Query <%=data[j].lastSample.topFiveQueries[i].elapsedClassName%>">
+                <%if(data[j].lastSample.topFiveQueries[i].formatElapsed){%>
+                    <%=data[j].lastSample.topFiveQueries[i].formatElapsed%>
+                <%}%>
+                <div class="popover left">
+                    <div class="popover-content">
+
+                    <%=data[j].lastSample.topFiveQueries[i].query%>
+
+                    </div>
+                    <div class="arrow"></div>
+                </div>
+            </td>
+            <% } %>
+        </tr>
+        <% } %>
+    </tbody>
+    </table>
+</div>
