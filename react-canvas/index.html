@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="description" content="DBMON REACT CANVAS" />
+  <meta charset="utf-8">
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link href="../lib/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="../styles.css" rel="stylesheet" type="text/css" />
+  <title>dbmon (React Canvas)</title>
+  <script src="./touch-emulator.js"></script>
+  <script type="text/javascript">
+    TouchEmulator();
+  </script>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      font: 16px Helvetica, sans-serif;
+      height: 100%;
+      overflow: hidden;
+      background: #ddd;
+    }
+
+    #main {
+      background: #fff;
+      position: relative;
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div id="main"></div>
+  <script src="../ENV.js"></script>
+  <script src="../lib/memory-stats.js"></script>
+  <script src="../lib/monitor.js"></script>
+  <script src="./jsxtransformer132.js"></script>  
+  <script src="./reactcanvas.js"></script>
+  <script src="./app.js" type="text/jsx"></script>
+</body>
+</html>
