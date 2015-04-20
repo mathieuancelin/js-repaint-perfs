@@ -4,6 +4,8 @@ var Group = ReactCanvas.Group;
 var Layer = ReactCanvas.Layer;
 var Image = ReactCanvas.Image;
 var Text = ReactCanvas.Text;
+var Surface = ReactCanvas.Surface;
+var ListView = ReactCanvas.ListView;
 
 var Item = React.createClass({
 
@@ -94,9 +96,6 @@ var Item = React.createClass({
 
 });
 
-var Surface = ReactCanvas.Surface;
-var ListView = ReactCanvas.ListView;
-
 var App = React.createClass({
 
   getInitialState: function() {
@@ -110,7 +109,7 @@ var App = React.createClass({
       databases: ENV.generateData().toArray()
     });
     Monitoring.renderRate.ping();
-    setTimeout(this.loadSamples, ENV.timeout);
+    //setTimeout(this.loadSamples, ENV.timeout);
   },
 
   componentDidMount: function() {
@@ -135,7 +134,7 @@ var App = React.createClass({
     var cellWidth = parseInt(size.width / 7);
     var row = this.state.databases[itemIndex];
     return (
-        <Item width={this.getSize().width}
+        <Item width={size.width}
               height={Item.getItemHeight()} 
               row={row} 
               key={itemIndex} 
