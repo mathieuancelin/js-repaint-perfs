@@ -1,6 +1,7 @@
 /** @jsx React.DOM */
 
 var Group = ReactCanvas.Group;
+var Layer = ReactCanvas.Layer;
 var Image = ReactCanvas.Image;
 var Text = ReactCanvas.Text;
 
@@ -20,11 +21,13 @@ var Item = React.createClass({
   render: function () {
     var cells = [];    
     this.left = (-this.props.cellWidth) + 20;
-    var cellStyle = this.getTitleStyle();
-    //cellStyle.backgroundColor = '#FF0000';
-    cells.push(<Text key="99999" style={cellStyle}>{this.props.row.dbname}</Text>);
-    cells.push(<Text key="99998" style={this.getTitleStyle()}>{this.props.row.samples[0].queries.length + ''}</Text>);
-    this.props.row.samples[0].topFiveQueries.forEach(function(e, i) { 
+    cells.push(<Text key="99999" style={this.getFirstStyle()}>{this.props.row.dbname}</Text>);
+    cells.push(
+      <Group key="99998" style={this.getTitleStyle()}>
+        <Text style={this.getCountStyle(this.props.row.lastSample.queries.length)}>{this.props.row.lastSample.queries.length + ''}</Text>  
+      </Group>
+    );
+    this.props.row.lastSample.topFiveQueries.forEach(function(e, i) { 
       cells.push(<Text key={i} style={this.getTitleStyle()}>{e.formatElapsed}</Text>)
     }.bind(this));
     return (
@@ -38,12 +41,47 @@ var Item = React.createClass({
     return {
       width: this.props.width,
       height: Item.getItemHeight(),
-      backgroundColor: (this.props.itemIndex % 2) ? '#eee' : '#a5d2ee'
+      backgroundColor: '#FFFFFF',
+      borderWidth: 1, 
+      borderColor: '#000000'
+    };
+  },
+
+  getCountStyle: function(count) {
+    var color = '#5cb85c';
+    if (count >= 20) {
+      color = "#d9534f";
+    }
+    else if (count >= 10) {
+      color = "#f0ad4e";
+    }
+    return {
+      top: 5,
+      left: this.props.cellWidth,
+      width: 25,
+      height: 18,
+      fontSize: 14,
+      lineHeight: 18,
+      textAlign: 'center',
+      backgroundColor: color
     };
   },
 
   getTitleStyle: function () {
   	var left = this.getLeft();
+    return {
+      top: 5,
+      left: left,
+      width: this.props.cellWidth,
+      height: 18,
+      fontSize: 14,
+      textAlign: 'center',
+      lineHeight: 18
+    };
+  },
+
+  getFirstStyle: function () {
+    var left = this.getLeft();
     return {
       top: 5,
       left: left,
