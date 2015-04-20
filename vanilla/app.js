@@ -1,11 +1,26 @@
+var lastDatabases = [];
+
 var render = function () {
 
-    var databases = ENV.generateData().toArray();
+    function renderTable() {
+        var html = '<table class="table table-striped latest-data"><tbody id="table">';
+        html += renderRows();
+        html +='</tbody></table>';
 
-    var html = '<table class="table table-striped latest-data"><tbody>';
-    for (var index = 0; index < databases.length; index++) {
-        var db = databases[index];
-        html += '<tr><td class="dbname">' + db.dbname + '</td>';
+        return html;
+    }
+
+    function renderRows() {
+        var html = '';
+        for (var index = 0; index < databases.length; index++) {
+            var db = databases[index];
+            html += '<tr>' + renderRow(db) + '</tr>';
+        }
+        return html;
+    }
+
+    function renderRow(db) {
+        var html = '<td class="dbname">' + db.dbname + '</td>';
         html += '<td class="query-count">';
         html += '<span class="' + db.lastSample.countClassName + '">' + db.lastSample.queries.length + '</span></td>';
 
@@ -21,13 +36,27 @@ var render = function () {
             html +=     '</div>';
             html += '</td>';
         }
-        html += '</tr>';
+        return html;
     }
 
-    html += '</tbody></table>';
+    var databases = ENV.generateData().toArray();
 
-    document.getElementById("app").innerHTML = html;
+    if (lastDatabases.length !== databases.length) {
+        document.getElementById("app").innerHTML = renderTable();
+    } else {
+        var table = document.getElementById("table");
 
+        for (var index = 0; index < databases.length; index++) {
+            var db = databases[index];
+            var lastDb = lastDatabases[index];
+            if (renderRow(db) !== renderRow(lastDb)) {
+                table.children.item(index).innerHTML = renderRow(db);
+            }
+        }
+    }
+
+
+    lastDatabases = databases;
 
     Monitoring.renderRate.ping();
     setTimeout(render, ENV.timeout);
