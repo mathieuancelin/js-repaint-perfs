@@ -109,7 +109,7 @@ var App = React.createClass({
       databases: ENV.generateData().toArray()
     });
     Monitoring.renderRate.ping();
-    //setTimeout(this.loadSamples, ENV.timeout);
+    setTimeout(this.loadSamples, ENV.timeout);
   },
 
   componentDidMount: function() {
