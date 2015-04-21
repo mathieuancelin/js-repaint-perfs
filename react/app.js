@@ -1,54 +1,5 @@
 /** @jsx React.DOM */
 
-var Query = React.createClass({
-  render: function() {
-    return (
-      <td className={ "Query " + this.props.elapsedClassName}>
-        {this.props.formatElapsed}
-        <div className="popover left">
-          <div className="popover-content">{this.props.query}</div>
-          <div className="arrow"/>
-        </div>
-      </td>
-    );
-  }
-})
-
-var sample = function (database) {
-  var _queries = [];
-  database.lastSample.topFiveQueries.forEach(function(query, index) {
-    _queries.push(
-      <Query key={index}
-        query={query.query}
-        elapsed={query.elapsed}
-        formatElapsed={query.formatElapsed}
-        elapsedClassName={query.elapsedClassName} />
-    );
-  });
-  return [
-    <td className="query-count">
-      <span className={database.lastSample.countClassName}>
-        {database.lastSample.queries.length}
-      </span>
-    </td>,
-    _queries
-  ];
-};
-
-var Database = React.createClass({
-  render: function() {
-    var lastSample = this.props.lastSample;
-    return (
-      <tr key={this.props.dbname}>
-        <td className="dbname">
-          {this.props.dbname}
-        </td>
-        {sample(this.props)}
-      </tr>
-    );
-  }
-});
-
 var DBMon = React.createClass({
   getInitialState: function() {
     return {
@@ -57,9 +8,7 @@ var DBMon = React.createClass({
   },
 
   loadSamples: function () {
-    this.setState({
-      databases: ENV.generateData().toArray()
-    });
+    this.setState({ databases: ENV.generateData().toArray() });
     Monitoring.renderRate.ping();
     setTimeout(this.loadSamples, ENV.timeout);
   },
@@ -69,27 +18,39 @@ var DBMon = React.createClass({
   },
 
   render: function() {
-    var databases = [];
-    Object.keys(this.state.databases).forEach(function(dbname) {
-      databases.push(
-        <Database key={dbname}
-          dbname={dbname}
-          samples={this.state.databases[dbname].samples} />
-      );
-    }.bind(this));
-
-    var databases = this.state.databases.map(function(database) {
-      return <Database 
-        dbname={database.dbname}
-        samples={database.samples}
-        lastSample={database.lastSample} />
-    });
-
     return (
       <div>
         <table className="table table-striped latest-data">
           <tbody>
-            {databases}
+            {
+              this.state.databases.map(function(database) {
+                return (
+                  <tr key={database.dbname}>
+                    <td className="dbname">
+                      {database.dbname}
+                    </td>
+                    <td className="query-count">
+                      <span className={database.lastSample.countClassName}>
+                        {database.lastSample.queries.length}
+                      </span>
+                    </td>
+                      {
+                        database.lastSample.topFiveQueries.map(function(query, index) {
+                          return (
+                            <td className={ "Query " + query.elapsedClassName}>
+                              {query.formatElapsed}
+                              <div className="popover left">
+                                <div className="popover-content">{query.query}</div>
+                                <div className="arrow"/>
+                              </div>
+                            </td>
+                          );
+                        })
+                      }
+                  </tr>
+                );
+              })
+            }
           </tbody>
         </table>
       </div>
