@@ -14,11 +14,16 @@ You can test it at http://mathieuancelin.github.io/js-repaint-perfs/
 * [Mithril](http://lhorie.github.io/mithril/)
 * [Ractive](http://www.ractivejs.org/)
 * [React](http://facebook.github.io/react/)
+* [React-canvas](#)
 * [Riot.js](https://muut.com/riotjs/)
+* [Vanilla](#)
+* [Sammy](#)
+* [DotT](#)
+* [Canvas](#)
+* [Polymer](https://www.polymer-project.org/)
 
 ## Todo
 
 * [Vue.js](http://vuejs.org/)
 * [Knockout.js](http://knockoutjs.com/)
 * [Backbone.js](http://backbonejs.org/)
-* [Polymer](https://www.polymer-project.org/)
