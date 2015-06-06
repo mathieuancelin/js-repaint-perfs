@@ -21,9 +21,10 @@ You can test it at http://mathieuancelin.github.io/js-repaint-perfs/
 * [DotT](#)
 * [Canvas](#)
 * [Polymer](https://www.polymer-project.org/)
+* [Vue.js](http://vuejs.org/)
+* [Backbone.js](http://backbonejs.org/)
 
 ## Todo
 
-* [Vue.js](http://vuejs.org/)
 * [Knockout.js](http://knockoutjs.com/)
-* [Backbone.js](http://backbonejs.org/)
+* [Aurelia](#)
