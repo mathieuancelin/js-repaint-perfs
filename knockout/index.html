@@ -24,9 +24,9 @@
             </td>
             <!-- Query -->
             <!-- ko foreach: lastSample.topFiveQueries -->
-            <td data-bind="text: $data.formatElapsed ? formatElapsed : '', attr: { class: $data.elapsedClassName ? elapsedClassName : ''}">
+            <td data-bind="text: formatElapsed, attr: { class: elapsedClassName}">
                 <div class="popover left">
-                    <div class="popover-content" data-bind="text: $data.query ? query : ''">
+                    <div class="popover-content" data-bind="text: query">
                     </div>
                     <div class="arrow"></div>
                 </div>

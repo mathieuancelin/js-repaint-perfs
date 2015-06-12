@@ -99,7 +99,7 @@ var ENV = ENV || (function() {
   var lastDatabases = {
     toArray: function() {
       return Object.keys(this).filter(function(k) { return k !== 'toArray'; }).map(function(k) { return this[k]; }.bind(this))
-    } 
+    }
   };
 
   function generateData() {
@@ -129,7 +129,7 @@ var ENV = ENV || (function() {
       function topFiveQueries(queries) {
         var tfq = queries.slice(0, 5);
         while (tfq.length < 5) {
-          tfq.push({ query: "" });
+          tfq.push({ query: "", formatElapsed: '', elapsedClassName: '' });
         }
         return tfq;
       }
@@ -139,7 +139,7 @@ var ENV = ENV || (function() {
         time: newData.start_at,
         queries: sampleInfo.queries,
         topFiveQueries: topFiveQueries(sampleInfo.queries),
-        countClassName: countClassName(sampleInfo.queries) 
+        countClassName: countClassName(sampleInfo.queries)
       });
       if (samples.length > 5) {
         samples.splice(0, samples.length - 5);
@@ -192,5 +192,3 @@ var ENV = ENV || (function() {
     mutations: mutations
   };
 })();
-
-
