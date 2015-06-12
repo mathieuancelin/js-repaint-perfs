@@ -23,8 +23,8 @@ You can test it at http://mathieuancelin.github.io/js-repaint-perfs/
 * [Polymer](https://www.polymer-project.org/)
 * [Vue.js](http://vuejs.org/)
 * [Backbone.js](http://backbonejs.org/)
+* [Knockout.js](http://knockoutjs.com/)
 
 ## Todo
 
-* [Knockout.js](http://knockoutjs.com/)
-* [Aurelia](#)
+* [Aurelia](http://aurelia.io/)
