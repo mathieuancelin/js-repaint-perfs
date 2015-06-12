@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="description" content="DBMON Knockout"/>
+    <script src="../lib/knockout-min.js"></script>
+    <link href="../lib/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="../styles.css" rel="stylesheet" type="text/css"/>
+    <meta charset="utf-8">
+    <title>dbmon (knockout)</title>
+</head>
+<body>
+<!-- DBMon -->
+<div>
+    <table class="table table-striped latest-data">
+        <tbody data-bind="foreach: databases">
+        <!-- Database -->
+        <tr>
+            <td class="dbname" data-bind="text: dbname">
+            </td>
+            <!-- Sample -->
+            <td class="query-count">
+                <span data-bind="text: lastSample.queries.length, attr: { class: lastSample.countClassName}">
+                </span>
+            </td>
+            <!-- Query -->
+            <!-- ko foreach: lastSample.topFiveQueries -->
+            <td data-bind="text: $data.formatElapsed ? formatElapsed : '', attr: { class: $data.elapsedClassName ? elapsedClassName : ''}">
+                <div class="popover left">
+                    <div class="popover-content" data-bind="text: $data.query ? query : ''">
+                    </div>
+                    <div class="arrow"></div>
+                </div>
+            </td>
+            <!-- /ko -->
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script src="../ENV.js"></script>
+<script src="../lib/memory-stats.js"></script>
+<script src="../lib/monitor.js"></script>
+<script src="app.js"></script>
+<script src="../ga.js"></script>
+</body>
+</html>
