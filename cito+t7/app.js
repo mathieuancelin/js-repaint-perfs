@@ -14,10 +14,10 @@ function queries(query) {
 
 function database(db) {
   return t7`
-    <tr key="${ db.name }">
+    <tr key="${ db.dbname }">
 
       <td class="dbname">
-        ${ db.name }
+        ${ db.dbname }
       </td>
 
       <td class="query-count">
