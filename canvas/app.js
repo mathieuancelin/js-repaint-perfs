@@ -1,17 +1,25 @@
+var canvas = document.getElementById("app");
+var context = canvas.getContext("2d");
+var ratio = window.devicePixelRatio || 1;
+var previousWidth = -1;
+
 var render = function () {
 
     var databases = ENV.generateData().toArray();
 
-    var canvas = document.getElementById("app");
-    var context = canvas.getContext("2d");
-
     var width = window.innerWidth - 16;
-
+    var height = 37 * databases.length;
     var columnWidth = width / 7;
 
-    canvas.width = width;
-    canvas.height = 37 * databases.length;
-
+    if (width !== previousWidth) {
+        canvas.width = width * ratio;
+        canvas.height = height * ratio;
+        canvas.style.width = width + 'px';
+        canvas.style.height = height + 'px';
+        context.scale(ratio, ratio);
+        previousWidth = width;
+    }
+    
     context.moveTo(0, 0);
     var currentY = 0;
     var grey = true;
