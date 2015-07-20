@@ -12,6 +12,7 @@ var DBMon = Elem.component({
   loadSamples: function() {
     var db = ENV.generateData().toArray();
     this.setState({ databases: db });
+    Monitoring.renderRate.ping(); 
     setTimeout(this.loadSamples, ENV.timeout);
   },
 
