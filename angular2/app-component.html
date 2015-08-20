@@ -1,0 +1,29 @@
+<div>
+    {{testName}}
+    <table class="table table-striped latest-data">
+        <tbody>
+        <!-- Database -->
+        <tr *ng-for="#db of databases">
+            <td class="dbname">
+                {{db.dbname}}
+            </td>
+            <!-- Sample -->
+            <td class="query-count">
+            <span [class-name]="db.lastSample.countClassName">
+              {{db.lastSample.queries.length}}
+            </span>
+            </td>
+            <!-- Query -->
+            <td *ng-for="#q of db.lastSample.topFiveQueries" [class-name]="q.elapsedClassName">
+                {{q.formatElapsed}}
+                <div class="popover left">
+                    <div class="popover-content">
+                        {{q.query}}
+                    </div>
+                    <div class="arrow"></div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
