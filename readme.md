@@ -9,6 +9,7 @@ You can test it at http://mathieuancelin.github.io/js-repaint-perfs/
 ## Done
 
 * [Angular](https://angularjs.org/)
+* [Angular 2.0](https://angularjs.org/)
 * [Elem](https://github.com/mathieuancelin/Elem)
 * [Ember](http://emberjs.com/)
 * [Mithril](http://lhorie.github.io/mithril/)
