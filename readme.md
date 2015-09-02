@@ -16,6 +16,7 @@ You can test it at http://mathieuancelin.github.io/js-repaint-perfs/
 * [React](http://facebook.github.io/react/)
 * [React-canvas](#)
 * [Cito](https://github.com/joelrich/citojs) + [t7](https://github.com/trueadm/t7)
+* [Inferno](https://github.com/trueadm/inferno)
 * [Riot.js](https://muut.com/riotjs/)
 * [Vanilla](#)
 * [Sammy](#)
