@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="description" content="DBMON NOT REACT" />
+<link href="../lib/bootstrap.min.css" rel="stylesheet" type="text/css" />
+<link href="../styles.css" rel="stylesheet" type="text/css" />
+<title>dbmon (Regularjs)</title>
+</head>
+<body>
+  <div id="app"></div>
+  <script id="tpl" type="text/tpl">
+    <div id="latest-data">
+      <table class="table table-striped latest-data">
+        <tbody>
+          {#list databases as db}
+            <tr>
+              <td class="dbname">{db.dbname}</td>
+              <td class="query-count">
+                <span class="label {db.lastSample.countClassName}">{db.lastSample.queries.length}</span>
+              </td>
+              {#list db.lastSample.topFiveQueries as query}
+                <td class="Query {query.elapsedClassName}">
+                  {query.formatElapsed} 
+                  <div class="popover left">
+                    <div class="popover-content">
+                      {query.query}
+                    </div>
+                    <div class="arrow"></div>
+                  </div>
+                </td>
+              {/list}
+            </tr>
+          {/list}
+        </tbody>
+      </table>
+    </div>
+  </script>
+
+  <script src="../lib/jquery-2.1.0.min.js"></script>
+  <script src="../lib/regular.js"></script>
+  <script src="../ENV.js"></script>
+  <script src="../lib/memory-stats.js"></script>
+  <script src="../lib/monitor.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
+
