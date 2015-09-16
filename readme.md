@@ -11,6 +11,7 @@ You can test it at http://mathieuancelin.github.io/js-repaint-perfs/
 * [Angular](https://angularjs.org/)
 * [Angular 2.0](https://angularjs.org/)
 * [Elem](https://github.com/mathieuancelin/Elem)
+* [elem-vdom](https://github.com/mathieuancelin/elem-vdom)
 * [Ember](http://emberjs.com/)
 * [Mithril](http://lhorie.github.io/mithril/)
 * [Ractive](http://www.ractivejs.org/)
