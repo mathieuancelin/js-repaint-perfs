@@ -1,24 +1,24 @@
-function AppComponent() {
-    var me = this;
-    this.databases = [];
-    var load = function() {
-        me.databases = ENV.generateData().toArray();
-        Monitoring.renderRate.ping();
-        setTimeout(load, ENV.timeout);
-    };
-    load();
-}
-
-AppComponent.annotations = [
-    new angular.ComponentAnnotation({
-        selector: 'my-app'
-    }),
-    new angular.ViewAnnotation({
-        directives: [angular.NgFor],
-        templateUrl: 'app-component.html'
-    })
-];
+var AppComponent = ng.
+  Component({
+    selector: 'my-app'
+  }).
+  View({
+    directives: [ng.NgFor],
+    templateUrl: 'app-component.html'
+  }).
+  Class({
+    constructor: function AppComponent() {
+      var me = this;
+      this.databases = [];
+      var load = function() {
+          me.databases = ENV.generateData().toArray();
+          Monitoring.renderRate.ping();
+          setTimeout(load, ENV.timeout);
+      };
+      load();
+    }
+  })
 
 document.addEventListener('DOMContentLoaded', function() {
-    angular.bootstrap(AppComponent);
+  ng.bootstrap(AppComponent);
 });
