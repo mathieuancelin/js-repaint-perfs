@@ -1,19 +1,21 @@
-var DBMon = Elem.component({
+var DBMon = Elem.createComponent({
+
+  name: 'DBMon',
+
   init: function() {
-    this.loadSamples();
+    function update() {
+      var db = ENV.generateData().toArray();
+      this.setState({ databases: db });
+      Monitoring.renderRate.ping(); 
+      setTimeout(update.bind(this), ENV.timeout);
+    }
+    setTimeout(update.bind(this), ENV.timeout);
   },
 
   getInitialState: function() {
     return {
       databases: []
     };
-  },
-
-  loadSamples: function() {
-    var db = ENV.generateData().toArray();
-    this.setState({ databases: db });
-    Monitoring.renderRate.ping(); 
-    setTimeout(this.loadSamples, ENV.timeout);
   },
 
   render: function() {
@@ -45,4 +47,5 @@ var DBMon = Elem.component({
     return finalElem;
   }
 });
-DBMon().renderTo('#dbmon');
+
+Elem.render(DBMon, '#dbmon');
