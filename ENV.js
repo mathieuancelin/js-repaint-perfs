@@ -86,7 +86,6 @@ var ENV = ENV || (function() {
     }
     for (var i = 0; i < 5; i++) {
       var source = object.lastSample.queries[i];
-      //console.log(source);
       if (!source) {
         source = {
           query: "",
