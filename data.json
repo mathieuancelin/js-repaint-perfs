@@ -1,0 +1,136 @@
+{
+  "dbname": "cluster1",
+  "samples": [{
+    "time": 1442481062.027,
+    "queries": [
+      {
+      "canvas_action": null,
+      "canvas_context_id": null,
+      "canvas_controller": null,
+      "canvas_hostname": null,
+      "canvas_job_tag": null,
+      "canvas_pid": null,
+      "elapsed": 12.834690765012056,
+      "formatElapsed": "12.83",
+      "elapsedClassName": "Query elapsed warn_long",
+      "query": "SELECT blah FROM something",
+      "waiting": true
+    }, {
+      "canvas_action": null,
+      "canvas_context_id": null,
+      "canvas_controller": null,
+      "canvas_hostname": null,
+      "canvas_job_tag": null,
+      "canvas_pid": null,
+      "elapsed": 8.213763611856848,
+      "formatElapsed": "8.21",
+      "elapsedClassName": "Query elapsed warn",
+      "query": "SELECT blah FROM something",
+      "waiting": false
+    }],
+    "topFiveQueries": [{
+      "canvas_action": null,
+      "canvas_context_id": null,
+      "canvas_controller": null,
+      "canvas_hostname": null,
+      "canvas_job_tag": null,
+      "canvas_pid": null,
+      "elapsed": 12.834690765012056,
+      "formatElapsed": "12.83",
+      "elapsedClassName": "Query elapsed warn_long",
+      "query": "SELECT blah FROM something",
+      "waiting": true
+    }, {
+      "canvas_action": null,
+      "canvas_context_id": null,
+      "canvas_controller": null,
+      "canvas_hostname": null,
+      "canvas_job_tag": null,
+      "canvas_pid": null,
+      "elapsed": 8.213763611856848,
+      "formatElapsed": "8.21",
+      "elapsedClassName": "Query elapsed warn",
+      "query": "SELECT blah FROM something",
+      "waiting": false
+    }, {
+      "query": "",
+      "formatElapsed": "",
+      "elapsedClassName": ""
+    }, {
+      "query": "",
+      "formatElapsed": "",
+      "elapsedClassName": ""
+    }, {
+      "query": "",
+      "formatElapsed": "",
+      "elapsedClassName": ""
+    }],
+    "countClassName": "label label-success"
+  }],
+  "lastSample": {
+    "time": 1442481062.027,
+    "queries": [{
+      "canvas_action": null,
+      "canvas_context_id": null,
+      "canvas_controller": null,
+      "canvas_hostname": null,
+      "canvas_job_tag": null,
+      "canvas_pid": null,
+      "elapsed": 12.834690765012056,
+      "formatElapsed": "12.83",
+      "elapsedClassName": "Query elapsed warn_long",
+      "query": "SELECT blah FROM something",
+      "waiting": true
+    }, {
+      "canvas_action": null,
+      "canvas_context_id": null,
+      "canvas_controller": null,
+      "canvas_hostname": null,
+      "canvas_job_tag": null,
+      "canvas_pid": null,
+      "elapsed": 8.213763611856848,
+      "formatElapsed": "8.21",
+      "elapsedClassName": "Query elapsed warn",
+      "query": "SELECT blah FROM something",
+      "waiting": false
+    }],
+    "topFiveQueries": [{
+      "canvas_action": null,
+      "canvas_context_id": null,
+      "canvas_controller": null,
+      "canvas_hostname": null,
+      "canvas_job_tag": null,
+      "canvas_pid": null,
+      "elapsed": 12.834690765012056,
+      "formatElapsed": "12.83",
+      "elapsedClassName": "Query elapsed warn_long",
+      "query": "SELECT blah FROM something",
+      "waiting": true
+    }, {
+      "canvas_action": null,
+      "canvas_context_id": null,
+      "canvas_controller": null,
+      "canvas_hostname": null,
+      "canvas_job_tag": null,
+      "canvas_pid": null,
+      "elapsed": 8.213763611856848,
+      "formatElapsed": "8.21",
+      "elapsedClassName": "Query elapsed warn",
+      "query": "SELECT blah FROM something",
+      "waiting": false
+    }, {
+      "query": "",
+      "formatElapsed": "",
+      "elapsedClassName": ""
+    }, {
+      "query": "",
+      "formatElapsed": "",
+      "elapsedClassName": ""
+    }, {
+      "query": "",
+      "formatElapsed": "",
+      "elapsedClassName": ""
+    }],
+    "countClassName": "label label-success"
+  }
+}

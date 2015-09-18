@@ -1,7 +1,7 @@
 var ENV = ENV || (function() {
 
+  var data;
   var _base;
-
   (_base = String.prototype).lpad || (_base.lpad = function(padding, toLength) {
     return padding.repeat((toLength - this.length) / padding.length).concat(this);
   });
@@ -32,125 +32,98 @@ var ENV = ENV || (function() {
     return className;
   }
 
-  var lastGeneratedDatabases = [];
-
-  function getData() {
-    // generate some dummy data
-    data = {
-      start_at: new Date().getTime() / 1000,
-      databases: {}
-    };
-
-    for (var i = 1; i <= ENV.rows; i++) {
-      data.databases["cluster" + i] = {
-        queries: []
-      };
-
-      data.databases["cluster" + i + "slave"] = {
-        queries: []
-      };
+  function countClassName(queries) {
+    var countClassName = "label";
+    if (queries.length >= 20) {
+      countClassName += " label-important";
     }
-
-    Object.keys(data.databases).forEach(function(dbname) {
-
-      if (lastGeneratedDatabases.length == 0 || Math.random() < ENV.mutations()) {
-        var info = data.databases[dbname];
-        var r = Math.floor((Math.random() * 10) + 1);
-        for (var i = 0; i < r; i++) {
-          var elapsed = Math.random() * 15;
-          var q = {
-            canvas_action: null,
-            canvas_context_id: null,
-            canvas_controller: null,
-            canvas_hostname: null,
-            canvas_job_tag: null,
-            canvas_pid: null,
-            elapsed: elapsed,
-            formatElapsed: formatElapsed(elapsed),
-            elapsedClassName: getElapsedClassName(elapsed),
-            query: "SELECT blah FROM something",
-            waiting: Math.random() < 0.5
-          };
-
-          if (Math.random() < 0.2) {
-            q.query = "<IDLE> in transaction";
-          }
-
-          if (Math.random() < 0.1) {
-            q.query = "vacuum";
-          }
-
-          info.queries.push(q);
-        }
-
-        info.queries = info.queries.sort(function (a, b) {
-          return b.elapsed - a.elapsed;
-        });
-      } else {
-        data.databases[dbname] = lastGeneratedDatabases[dbname];
-      }
-    });
-
-    lastGeneratedDatabases = data.databases;
-
-    return data;
+    else if (queries.length >= 10) {
+      countClassName += " label-warning";
+    }
+    else {
+      countClassName += " label-success";
+    }
+    return countClassName;
   }
 
-  var lastDatabases = {
-    toArray: function() {
-      return Object.keys(this).filter(function(k) { return k !== 'toArray'; }).map(function(k) { return this[k]; }.bind(this))
+  function updateQuery(object) {
+    if (!object) {
+      object = {};
     }
-  };
+    var elapsed = Math.random() * 15;
+    object.elapsed = elapsed;
+    object.formatElapsed = formatElapsed(elapsed);
+    object.elapsedClassName = getElapsedClassName(elapsed);
+    object.query = "SELECT blah FROM something";
+    object.waiting = Math.random() < 0.5;
+    if (Math.random() < 0.2) {
+      object.query = "<IDLE> in transaction";
+    }
+    if (Math.random() < 0.1) {
+      object.query = "vacuum";
+    }
+    return object;
+  }
 
-  function generateData() {
-    var databases = [];
-    var newData = getData();
-    Object.keys(newData.databases).forEach(function(dbname) {
-      var sampleInfo = newData.databases[dbname];
-      var database = {
-        dbname: dbname,
-        samples: []
-      };
+  function generateRow(object) {
+    var nbQueries = Math.floor((Math.random() * 10) + 1);
+    if (!object) {
+      object = {};
+    }
+    if (!object.lastSample) {
+      object.lastSample = {};
+    }
+    //if (!object.lastSample.queries) {
+    object.lastSample.queries = [];
+    //}
 
-      function countClassName(queries) {
-        var countClassName = "label";
-        if (queries.length >= 20) {
-          countClassName += " label-important";
-        }
-        else if (queries.length >= 10) {
-          countClassName += " label-warning";
-        }
-        else {
-          countClassName += " label-success";
-        }
-        return countClassName;
+    for (var j = 0; j < nbQueries; j++) {
+      var query = updateQuery();
+      object.lastSample.queries.push(query);
+    }
+    if (!object.lastSample.topFiveQueries) {
+      object.lastSample.topFiveQueries = [];
+    }
+    for (var i = 0; i < 5; i++) {
+      var source = object.lastSample.queries[i];
+      //console.log(source);
+      if (!source) {
+        source = {
+          query: "",
+          formatElapsed: "",
+          elapsedClassName: ""
+        };
       }
+      object.lastSample.topFiveQueries[i] = source;
+    }
+    object.lastSample.countClassName = countClassName(object.lastSample.queries);
+    return object;
+  }
 
-      function topFiveQueries(queries) {
-        var tfq = queries.slice(0, 5);
-        while (tfq.length < 5) {
-          tfq.push({ query: "", formatElapsed: '', elapsedClassName: '' });
-        }
-        return tfq;
+  function getData(keepIdentity) {
+    if (!keepIdentity) {
+      data = [];
+      for (var i = 1; i <= ENV.rows; i++) {
+        data.push({ dbname: 'cluster' + i, query: "", formatElapsed: "", elapsedClassName: "" });
+        data.push({ dbname: 'cluster' + i + ' slave', query: "", formatElapsed: "", elapsedClassName: "" });
       }
-
-      var samples = database.samples;
-      samples.push({
-        time: newData.start_at,
-        queries: sampleInfo.queries,
-        topFiveQueries: topFiveQueries(sampleInfo.queries),
-        countClassName: countClassName(sampleInfo.queries)
-      });
-      if (samples.length > 5) {
-        samples.splice(0, samples.length - 5);
+    }
+    if (!data) {
+      data = [];
+      for (var i = 1; i <= ENV.rows; i++) {
+        data.push({ dbname: 'cluster' + i });
+        data.push({ dbname: 'cluster' + i + ' slave' });
       }
-      var samples = database.samples;
-      database.lastSample = database.samples[database.samples.length - 1];
-      databases.push(database);
-    });
+    }
+    for (var i in data) {
+      var row = data[i];
+      if (!row.lastSample || Math.random() < ENV.mutations()) {
+        generateRow(row);
+      }
+    }
     return {
       toArray: function() {
-        return databases;
+        return data;
       }
     };
   }
@@ -186,7 +159,7 @@ var ENV = ENV || (function() {
   body.insertBefore( sliderContainer, theFirstChild );
 
   return  {
-    generateData: generateData,
+    generateData: getData,
     rows: 50,
     timeout: 0,
     mutations: mutations
