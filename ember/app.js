@@ -132,7 +132,7 @@ App.SampleController = Ember.ObjectController.extend({
   }).property('content.queries.@each'),
   queriesCountLabelClass: (function() {
     var count;
-    count = this.get('content.queries.length');
+    count = this.get('content.nbQueries');
     if (count >= 20) {
       return "label-important";
     }

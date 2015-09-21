@@ -5,7 +5,7 @@
         <tr>
             <td class="dbname"><%=data[j].dbname%></td>
             <td class="query-count">
-                <span class="label <%=data[j].lastSample.countClassName%>"><%=data[j].lastSample.queries.length%></span>
+                <span class="label <%=data[j].lastSample.countClassName%>"><%=data[j].lastSample.nbQueries%></span>
             </td>
             <% for ( var i = 0; i < data[j].lastSample.topFiveQueries.length; i++ ) { %>
             <td class="Query <%=data[j].lastSample.topFiveQueries[i].elapsedClassName%>">

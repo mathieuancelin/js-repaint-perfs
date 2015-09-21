@@ -26,7 +26,7 @@ var Item = React.createClass({
     cells.push(<Text key="99999" style={this.getFirstStyle()}>{this.props.row.dbname}</Text>);
     cells.push(
       <Group key="99998" style={this.getTitleStyle()}>
-        <Text style={this.getCountStyle(this.props.row.lastSample.queries.length)}>{this.props.row.lastSample.queries.length + ''}</Text>  
+        <Text style={this.getCountStyle(this.props.row.lastSample.nbQueries)}>{this.props.row.lastSample.nbQueries + ''}</Text>  
       </Group>
     );
     this.props.row.lastSample.topFiveQueries.forEach(function(e, i) { 

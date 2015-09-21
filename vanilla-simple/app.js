@@ -7,7 +7,7 @@ var render = function () {
         var db = databases[index];
         html += '<tr><td class="dbname">' + db.dbname + '</td>';
         html += '<td class="query-count">';
-        html += '<span class="' + db.lastSample.countClassName + '">' + db.lastSample.queries.length + '</span></td>';
+        html += '<span class="' + db.lastSample.countClassName + '">' + db.lastSample.nbQueries + '</span></td>';
 
         for (var indexQ = 0; indexQ < db.lastSample.topFiveQueries.length; indexQ++) {
             var q = db.lastSample.topFiveQueries[indexQ];

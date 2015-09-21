@@ -24,7 +24,7 @@ function sample(database) {
     );
   });
   return [
-    m('td', { className: "query-count" }, m('span', { className: database.lastSample.countClassName }, database.lastSample.queries.length))
+    m('td', { className: "query-count" }, m('span', { className: database.lastSample.countClassName }, database.lastSample.nbQueries))
   ].concat(_queries);
 };
 

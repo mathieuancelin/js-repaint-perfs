@@ -10,7 +10,7 @@
           <!-- Sample -->
           <td class="query-count">
             <span class={ lastSample.countClassName }>
-              { lastSample.queries.length }
+              { lastSample.nbQueries }
             </span>
           </td>
           <!-- Query -->

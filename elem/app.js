@@ -20,7 +20,7 @@ var DBMon = Elem.component({
             return Elem.el('tr', { key: database.dbname }, [
                 Elem.el('td', { className: "dbname" }, database.dbname),
                 Elem.el('td', { className: "query-count" }, 
-                  Elem.el('span', { className: database.lastSample.countClassName }, database.lastSample.queries.length)
+                  Elem.el('span', { className: database.lastSample.countClassName }, database.lastSample.nbQueries)
                 )
               ].concat(
                 database.lastSample.topFiveQueries.map(function(query, index) {

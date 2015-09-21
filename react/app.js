@@ -31,7 +31,7 @@ var DBMon = React.createClass({
                     </td>
                     <td className="query-count">
                       <span className={database.lastSample.countClassName}>
-                        {database.lastSample.queries.length}
+                        {database.lastSample.nbQueries}
                       </span>
                     </td>
                       {

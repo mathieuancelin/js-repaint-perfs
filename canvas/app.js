@@ -39,7 +39,7 @@ var render = function () {
         context.font = "14px Helvetica";
         context.fillText(db.dbname, 8, currentY+25);
         var currentX = columnWidth;
-        var queryCount = db.lastSample.queries.length;
+        var queryCount = db.lastSample.nbQueries;
         context.fillStyle = "#5cb85c";
         if (queryCount >= 10) {
             context.fillStyle = "#f0ad4e";
@@ -47,7 +47,7 @@ var render = function () {
         context.fillRect(currentX + 8.5, currentY + 8.5, 20, 20);
         context.fillStyle = "#000000";
         context.font = "10px Helvetica";
-        context.fillText('' + db.lastSample.queries.length, currentX+12, currentY+23);
+        context.fillText('' + db.lastSample.nbQueries, currentX+12, currentY+23);
 
         currentX += columnWidth;
         context.fillStyle = "#000000";

@@ -16,7 +16,7 @@
             <tr>
               <td class="dbname">{db.dbname}</td>
               <td class="query-count">
-                <span class="label {db.lastSample.countClassName}">{db.lastSample.queries.length}</span>
+                <span class="label {db.lastSample.countClassName}">{db.lastSample.nbQueries}</span>
               </td>
               {#list db.lastSample.topFiveQueries as query}
                 <td class="Query {query.elapsedClassName}">

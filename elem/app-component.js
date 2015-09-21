@@ -24,7 +24,7 @@ function sample(database) {
     );
   });
   return [
-    Elem.el('td', { className: "query-count" }, Elem.el('span', { className: database.lastSample.countClassName }, database.lastSample.queries.length))
+    Elem.el('td', { className: "query-count" }, Elem.el('span', { className: database.lastSample.countClassName }, database.lastSample.nbQueries))
   ].concat(_queries);
 };
 

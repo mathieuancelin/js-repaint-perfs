@@ -23,7 +23,7 @@ var DBMon = Elem.createComponent({
       var base = [
         Elem.el('td', { className: "dbname" }, [database.dbname]),
         Elem.el('td', { className: "query-count" }, [
-          Elem.el('span', { className: database.lastSample.countClassName }, [database.lastSample.queries.length])
+          Elem.el('span', { className: database.lastSample.countClassName }, [database.lastSample.nbQueries])
         ])
       ];
       base = base.concat(

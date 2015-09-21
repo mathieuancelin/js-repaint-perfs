@@ -13,7 +13,7 @@ var Database = Backbone.Model.extend({
         var queries = sample.topFiveQueries;
         this.sample.set({
             countClassName: sample.countClassName,
-            length: sample.queries.length
+            length: sample.nbQueries
         });
         this.queries.set(queries, { parse: true });
 

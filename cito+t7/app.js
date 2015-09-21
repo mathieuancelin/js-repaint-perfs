@@ -22,7 +22,7 @@ function database(db) {
 
       <td class="query-count">
         <span class="${ db.lastSample.countClassName }">
-          ${ db.lastSample.queries.length }
+          ${ db.lastSample.nbQueries }
         </span>
       </td>
 

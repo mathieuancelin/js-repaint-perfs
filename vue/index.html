@@ -13,7 +13,7 @@
         <tr v-repeat="db: databases" track-by="$index">
           <td class="dbname">{{db.dbname}}</td>
           <td class="query-count">
-            <span class="{{db.lastSample.countClassName}}">{{db.lastSample.queries.length}}</span>
+            <span class="{{db.lastSample.countClassName}}">{{db.lastSample.nbQueries}}</span>
           </td>
           <td v-repeat="q: db.lastSample.topFiveQueries" track-by="$index" class="Query {{q.elapsedClassName}}">
             {{q.formatElapsed}}

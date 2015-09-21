@@ -34,10 +34,10 @@ var ENV = ENV || (function() {
 
   function countClassName(queries) {
     var countClassName = "label";
-    if (queries.length >= 20) {
+    if (queries >= 20) {
       countClassName += " label-important";
     }
-    else if (queries.length >= 10) {
+    else if (queries >= 10) {
       countClassName += " label-warning";
     }
     else {
@@ -65,37 +65,67 @@ var ENV = ENV || (function() {
     return object;
   }
 
-  function generateRow(object) {
+  function cleanQuery(value) {
+    if (value) {
+      value.formatElapsed = "";
+      value.elapsedClassName = "";
+      value.query = "";
+      delete value.elapsed;
+      delete value.waiting;
+    } else {
+      return {
+        query: "***",
+        formatElapsed: "",
+        elapsedClassName: ""
+      };
+    }
+  }
+
+  function generateRow(object, keepIdentity) {
     var nbQueries = Math.floor((Math.random() * 10) + 1);
+    object.nbQueries = nbQueries;
     if (!object) {
       object = {};
     }
     if (!object.lastSample) {
       object.lastSample = {};
     }
-    //if (!object.lastSample.queries) {
-    object.lastSample.queries = [];
-    //}
-
-    for (var j = 0; j < nbQueries; j++) {
-      var query = updateQuery();
-      object.lastSample.queries.push(query);
-    }
     if (!object.lastSample.topFiveQueries) {
       object.lastSample.topFiveQueries = [];
     }
+    if (keepIdentity) {
+      // for Angular optimization
+      if (!object.lastSample.queries) {
+        object.lastSample.queries = [];
+        for (var l = 0; l < 12; l++) {
+          object.lastSample.queries[l] = cleanQuery();
+        }
+      }
+      for (var j in object.lastSample.queries) {
+        var value = object.lastSample.queries[j];
+        if (j <= nbQueries) {
+          updateQuery(value);
+        } else {
+          cleanQuery(value);
+        }
+      }
+    } else {
+      object.lastSample.queries = [];
+      for (var j = 0; j < 12; j++) {
+        if (j < nbQueries) {
+          var value = updateQuery(cleanQuery());
+          object.lastSample.queries.push(value);
+        } else {
+          object.lastSample.queries.push(cleanQuery());
+        }
+      }
+    }
     for (var i = 0; i < 5; i++) {
       var source = object.lastSample.queries[i];
-      if (!source) {
-        source = {
-          query: "",
-          formatElapsed: "",
-          elapsedClassName: ""
-        };
-      }
       object.lastSample.topFiveQueries[i] = source;
     }
-    object.lastSample.countClassName = countClassName(object.lastSample.queries);
+    object.lastSample.nbQueries = nbQueries;
+    object.lastSample.countClassName = countClassName(nbQueries);
     return object;
   }
 
@@ -117,7 +147,7 @@ var ENV = ENV || (function() {
     for (var i in data) {
       var row = data[i];
       if (!row.lastSample || Math.random() < ENV.mutations()) {
-        generateRow(row);
+        generateRow(row, keepIdentity);
       }
     }
     return {

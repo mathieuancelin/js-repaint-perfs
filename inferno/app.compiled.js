@@ -5,7 +5,7 @@ function queries(query) {
 };
 
 function database(db) {
-  return t7.precompile([db.dbname, db.dbname, db.lastSample.countClassName, db.lastSample.queries.length, db.lastSample.topFiveQueries.map( queries), {template: __at0Ss,templateKey: -1593225952, components: null}]);
+  return t7.precompile([db.dbname, db.dbname, db.lastSample.countClassName, db.lastSample.nbQueries, db.lastSample.topFiveQueries.map( queries), {template: __at0Ss,templateKey: -1593225952, components: null}]);
 };
 
 var appElem = document.getElementById("app");

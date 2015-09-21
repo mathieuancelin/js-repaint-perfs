@@ -28,7 +28,7 @@ var sample = function (database) {
   return [
     <td className="query-count">
       <span className={database.lastSample.countClassName}>
-        {database.lastSample.queries.length}
+        {database.lastSample.nbQueries}
       </span>
     </td>,
     _queries

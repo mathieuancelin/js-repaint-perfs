@@ -5,7 +5,7 @@ function queries(query) {
 };
 
 function database(db) {
-  return {tag:"tr",key:db.dbname,children:[{tag:"td",attrs:{"class":"dbname"},children:db.dbname},{tag:"td",attrs:{"class":"query-count"},children:{tag:"span",attrs:{"class":db.lastSample.countClassName},children:db.lastSample.queries.length+""}},].concat(db.lastSample.topFiveQueries.map(queries))};
+  return {tag:"tr",key:db.dbname,children:[{tag:"td",attrs:{"class":"dbname"},children:db.dbname},{tag:"td",attrs:{"class":"query-count"},children:{tag:"span",attrs:{"class":db.lastSample.countClassName},children:db.lastSample.nbQueries+""}},].concat(db.lastSample.topFiveQueries.map(queries))};
 };
 
 function loadSamples() {
