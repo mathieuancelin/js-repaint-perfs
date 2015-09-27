@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="description" content="DBMON Angular Light" />
+  <script src="../lib/alight.min.js"></script>
+  <link href="../lib/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="../styles.css" rel="stylesheet" type="text/css" />
+  <meta charset="utf-8">
+  <title>dbmon (angular light)</title>
+</head>
+<body al-app="DBMonCtrl">
+  <!-- DBMon -->
+  <div>
+    <table class="table table-striped latest-data">
+      <tbody>
+        <!-- Database -->
+        <tr al-repeat="db in databases track by $index">
+          <td class="dbname">
+            {{db.dbname}}
+          </td>
+          <!-- Sample -->
+          <td class="query-count">
+            <span class="{{db.lastSample.countClassName}}">
+              {{db.lastSample.nbQueries}}
+            </span>
+          </td>
+          <!-- Query -->
+          <td al-repeat="q in db.lastSample.topFiveQueries track by $index" class="{{q.elapsedClassName}}">
+            {{q.formatElapsed}}
+            <div class="popover left">
+              <div class="popover-content">
+                {{q.query}}
+              </div>
+              <div class="arrow"></div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <script src="../ENV.js"></script>
+  <script src="../lib/memory-stats.js"></script>
+  <script src="../lib/monitor.js"></script>
+  <script src="app.js"></script>
+  <script src="../ga.js"></script>
+</body>
+</html>
