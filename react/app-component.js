@@ -1,6 +1,12 @@
 /** @jsx React.DOM */
 
 var Query = React.createClass({
+  shouldComponentUpdate: function(nextProps, nextState) {
+    if (nextProps.elapsedClassName !== this.props.elapsedClassName) return true;
+    if (nextProps.formatElapsed !== this.props.formatElapsed) return true;
+    if (nextProps.query !== this.props.query) return true;
+    return false;
+  },
   render: function() {
     return (
       <td className={ "Query " + this.props.elapsedClassName}>
@@ -12,30 +18,13 @@ var Query = React.createClass({
       </td>
     );
   }
-})
-
-var sample = function (database) {
-  var _queries = [];
-  database.lastSample.topFiveQueries.forEach(function(query, index) {
-    _queries.push(
-      <Query key={index}
-        query={query.query}
-        elapsed={query.elapsed}
-        formatElapsed={query.formatElapsed}
-        elapsedClassName={query.elapsedClassName} />
-    );
-  });
-  return [
-    <td className="query-count">
-      <span className={database.lastSample.countClassName}>
-        {database.lastSample.nbQueries}
-      </span>
-    </td>,
-    _queries
-  ];
-};
+});
 
 var Database = React.createClass({
+  shouldComponentUpdate: function(nextProps, nextState) {
+    if (nextProps.lastMutationId === this.props.lastMutationId) return false;
+    return true;
+  },
   render: function() {
     var lastSample = this.props.lastSample;
     return (
@@ -43,7 +32,18 @@ var Database = React.createClass({
         <td className="dbname">
           {this.props.dbname}
         </td>
-        {sample(this.props)}
+        <td className="query-count">
+          <span className={this.props.lastSample.countClassName}>
+            {this.props.lastSample.nbQueries}
+          </span>
+        </td>
+        {this.props.lastSample.topFiveQueries.map(function(query, index) {
+            return <Query key={index}
+              query={query.query}
+              elapsed={query.elapsed}
+              formatElapsed={query.formatElapsed}
+              elapsedClassName={query.elapsedClassName} />
+          })}
       </tr>
     );
   }
@@ -58,7 +58,7 @@ var DBMon = React.createClass({
 
   loadSamples: function () {
     this.setState({
-      databases: ENV.generateData().toArray()
+      databases: ENV.generateData(true).toArray()
     });
     Monitoring.renderRate.ping();
     setTimeout(this.loadSamples, ENV.timeout);
@@ -69,20 +69,14 @@ var DBMon = React.createClass({
   },
 
   render: function() {
-    var databases = [];
-    Object.keys(this.state.databases).forEach(function(dbname) {
-      databases.push(
-        <Database key={dbname}
-          dbname={dbname}
-          samples={this.state.databases[dbname].samples} />
-      );
-    }.bind(this));
 
     var databases = this.state.databases.map(function(database) {
-      return <Database 
-        dbname={database.dbname}
-        samples={database.samples}
-        lastSample={database.lastSample} />
+      return <Database
+                key={database.dbname}
+                lastMutationId={database.lastMutationId}
+                dbname={database.dbname}
+                samples={database.samples}
+                lastSample={database.lastSample} />
     });
 
     return (
