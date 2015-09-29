@@ -1,0 +1,7 @@
+{
+  "name": "js-repaint-perfs",
+  "private": true,
+  "dependencies": {
+    "maskjs": "^0.54.11"
+  }
+}
