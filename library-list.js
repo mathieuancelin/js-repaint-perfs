@@ -7,7 +7,6 @@
     { type: 'naive', id: 'angular-light', url: './angular-light', label: 'DBMON Angular Light' },
     { type: 'naive', id: 'angular2', url: './angular2', label: 'DBMON Angular 2.0 Alpha' },
     { type: 'naive', id: 'react', url: './react', label: 'DBMON React' },
-    { type: 'optimized', id: 'react', url: './react/opt.html', label: 'DBMON React' },
     { type: 'naive', id: 'elem', url: './elem', label: 'DBMON Elem' },
     { type: 'naive', id: 'elem-vdom', url: './elem-vdom', label: 'DBMON Elem vdom' },
     { type: 'naive', id: 'ractive', url: './ractive', label: 'DBMON Ractive' },
@@ -26,6 +25,7 @@
     { type: 'naive', id: 'knockout', url: './knockout', label: 'DBMON Knockout' },
     { type: 'naive', id: 'regularjs', url: './regularjs', label: 'DBMON Regularjs' },
     { type: 'naive', id: 'maskjs', url: './mask/index.html', label: 'DBMON MaskJS' },
+    { type: 'optimized', id: 'react', url: './react/opt.html', label: 'DBMON React' },
     { type: 'optimized', id: 'angular', url: './angular/opt.html', label: 'DBMON Angular' },
     { type: 'optimized', id: 'angular-light', url: './angular-light/opt.html', label: 'DBMON Angular Light' },
     { type: 'optimized', id: 'angular2', url: './angular2/opt.html', label: 'DBMON Angular 2.0 Alpha' },
@@ -35,8 +35,9 @@
   ];
 
   function Library() {
-    return Elem.el('div', { className: 'child ' + this.props.lib.type }, [
-      Elem.el('a', { href: this.props.lib.url }, this.props.lib.label)
+    var url = this.props.lib.url;
+    return Elem.el('div', { className: 'child ' + this.props.lib.type, onClick: function() { window.location.href = url; } }, [
+      Elem.el('a', { href: url }, this.props.lib.label)
     ]);
   }
 

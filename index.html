@@ -11,8 +11,17 @@
       }
       .title {
         color: rgb(102, 102, 102);
-        font-size: 80px;
         font-weight: bold;
+      }
+      @media(min-width: 1025px) {
+        .title {
+          font-size: 80px;
+        }
+      }
+      @media(max-width: 1024px) {
+        .title {
+          font-size: 40px;
+        }
       }
       a {
         color: white;
@@ -34,7 +43,7 @@
         flex-wrap: wrap;
         padding: 0;
         margin: 0;
-        justify-content: space-around;
+        justify-content: flex-start;
       }
       .legend {
         display: flex;
@@ -54,6 +63,7 @@
         text-align: center;
         display: flex;
         align-items: center;
+        cursor: pointer;
       }
       .child:hover {
         animation-name: blop;
@@ -95,7 +105,7 @@
     </style>
   </head>
   <body>
-    <div style="display: flex; justify-content: space-between">
+    <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
       <span class="title">REPAINT RATE CHALLENGE</span>
       <div class="legend">
         <div class="legendChild">
