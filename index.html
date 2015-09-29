@@ -6,22 +6,27 @@
     <link href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700" rel="stylesheet" type="text/css">
     <style>
       body {
+        background-color: rgb(28, 28, 28);
         font-family: "Open Sans Condensed", "Helvetica Neue";
-        text-align: center;
+      }
+      .title {
+        color: rgb(102, 102, 102);
+        font-size: 80px;
+        font-weight: bold;
       }
       a {
-        color: #000;
+        color: white;
         text-decoration: none;
         width: 100%;
       }
       .optimized {
-        background-color: #FFB4B4;
+        background-color: #FF6347;/*#FF6347;*/
       }
       .todo {
-        background-color: #A8F99B;
+        background-color: #2167FF; /*#0EB26D;*/
       }
       .naive {
-        background-color: #eee;
+        background-color: #EBA636;/*rgb(100, 100, 100);*/
       }
       .container {
         display: flex;
@@ -33,20 +38,18 @@
       }
       .legend {
         display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        padding: 0;
-        margin: 0;
-        justify-content: space-around;
-        margin-bottom: 40px;
+        flex-direction: column;
+        justify-content: flex-end;
       }
       .child {
-        padding: 5px;
+        padding: 0px;
         width: 200px;
-        height: 50px;
+        height: 200px;
         margin-top: 10px;
+        margin-left: 5px;
+        margin-right: 5px;
         color: white;
-        font-weight: normal;
+        font-weight: bold;
         font-size: 20px;
         text-align: center;
         display: flex;
@@ -59,18 +62,24 @@
         animation-duration: 2s;
       }
       .legendChild {
-        padding: 5px;
         width: 200px;
-        margin-top: 10px;
+        margin-top: 5px;
         color: white;
         text-align: center;
         display: flex;
         align-items: center;
       }
+      .color {
+        width: 15px;
+        height: 15px;
+      }
       .fw {
-        font-size: 15px;
-        color: black;
-        width: 100%;
+        margin-left: 10px;
+        margin-right: 10px;
+        font-size: 12px;
+        color: white;
+        width: 120px;
+        text-align: right;
       }
       @keyframes blop {
         0% {
@@ -86,11 +95,22 @@
     </style>
   </head>
   <body>
-    <h1>REPAINT RATE CHALLENGE</h1>
-    <div class="legend">
-      <div class="legendChild naive"><span class="fw">Naive implementation</span></div>
-      <div class="legendChild optimized"><span class="fw">Optimized implementation</span></div>
-      <div class="legendChild todo"><span class="fw">Todo</span></div>
+    <div style="display: flex; justify-content: space-between">
+      <span class="title">REPAINT RATE CHALLENGE</span>
+      <div class="legend">
+        <div class="legendChild">
+          <span class="fw">Todo implementation</span>
+          <div class="color todo"></div>
+        </div>
+        <div class="legendChild">
+          <span class="fw">Naive implementation</span>
+          <div class="color naive"></div>
+        </div>
+        <div class="legendChild">
+          <span class="fw">Optimized implementation</span>
+          <div class="color optimized"></div>
+        </div>
+      </div>
     </div>
     <div id="list"></div>
     <script src="./elem-vdom/elem.js"></script>
