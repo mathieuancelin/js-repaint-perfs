@@ -3,106 +3,98 @@
   <head>
     <meta charset="utf-8">
     <title>dbmon</title>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700" rel="stylesheet" type="text/css">
     <style>
       body {
-        font-family: "Helvetica Neue";
+        font-family: "Open Sans Condensed", "Helvetica Neue";
         text-align: center;
-        font-size: 40;
-        font-weight: 200;
-        line-height: 1.7;
       }
-
-      ul {
-        list-style: none;
+      a {
+        color: #000;
+        text-decoration: none;
+        width: 100%;
+      }
+      .optimized {
+        background-color: #FFB4B4;
+      }
+      .todo {
+        background-color: #A8F99B;
+      }
+      .naive {
+        background-color: #eee;
+      }
+      .container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
         padding: 0;
         margin: 0;
+        justify-content: space-around;
+      }
+      .legend {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding: 0;
+        margin: 0;
+        justify-content: space-around;
+        margin-bottom: 40px;
+      }
+      .child {
+        padding: 5px;
+        width: 200px;
+        height: 50px;
+        margin-top: 10px;
+        color: white;
+        font-weight: normal;
+        font-size: 20px;
         text-align: center;
+        display: flex;
+        align-items: center;
       }
-
-      a {
-        background: #eee;
-        color: #000;
-        padding: 0.125em 0.25em;
-        text-decoration: none;
+      .child:hover {
+        animation-name: blop;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+        animation-duration: 2s;
       }
-
-      p {
-        font-size: 100%;
-        margin: 0;
-        color: #ccc;
+      .legendChild {
+        padding: 5px;
+        width: 200px;
+        margin-top: 10px;
+        color: white;
+        text-align: center;
+        display: flex;
+        align-items: center;
       }
-
-      .text {
-        position: absolute;
-        font-size: 100%;
-        margin: 0;
-        color: grey;
-        width: 400px;
-        left: 50%;
-        margin-left: -200px;
-        text-align: justify;
+      .fw {
+        font-size: 15px;
+        color: black;
+        width: 100%;
       }
-
-      a:hover {
-        background: #aaa;
+      @keyframes blop {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
       }
     </style>
   </head>
   <body>
-    <div class="text">
-      <span>
-        Start Chrome with <code>--enable-precise-memory-info</code> otherwise the results from
-        <code>performance.memory</code> are bucketed and the memory widget will not provide any useful information
-      </span>
-      <br/>
-      <br/>
-      <ul>
-        <li><a href="./ember">DBMON Ember</a></li>
-        <li><a href="./angular">DBMON Angular</a></li>
-        <li><a href="./angular-light">DBMON Angular Light</a></li>
-        <li><a href="./angular2">DBMON Angular 2.0 Alpha</a></li>
-        <li><a href="./react">DBMON React</a></li>
-        <li><a href="./elem">DBMON Elem</a></li>
-        <li><a href="./elem-vdom">DBMON Elem vdom</a></li>
-        <li><a href="./ractive">DBMON Ractive</a></li>
-        <li><a href="./mithril">DBMON Mithril</a></li>
-        <li><a href="./cito+t7-precompiled">DBMON Cito+t7</a></li>
-        <li><a href="./inferno">DBMON Inferno</a></li>
-        <li><a href="./riot">DBMON Riot.js</a></li>
-        <li><a href="./polymer">DBMON Polymer</a></li>
-        <li><a href="./vanilla-simple">DBMON vanilla</a></li>
-        <li><a href="./dotT">DBMON dotT</a></li>
-        <li><a href="./canvas">DBMON canvas</a></li>
-        <li><a href="./react-canvas">DBMON react-canvas</a></li>
-        <li><a href="./sammy">DBMON sammy</a></li>
-        <li><a href="./vue">DBMON Vue.js</a></li>
-        <li><a href="./backbone">DBMON Backbone</a></li>
-        <li><a href="./knockout">DBMON Knockout</a></li>
-        <li><a href="./regularjs">DBMON Regularjs</a></li>
-      </ul>
-      <br/>
-      <span>
-        Todo
-      </span>
-      <br/>
-      <br/>
-      <ul>
-        <li><a href="#">DBMON Aurelia</a></li>
-      </ul>
-      <br/>
-      <span>
-        Optimized versions
-      </span>
-      <br/>
-      <br/>
-      <ul>
-        <li><a href="./angular/opt.html">DBMON Angular with same identities</a></li>
-        <li><a href="./angular-light/opt.html">DBMON Angular Light with same identities</a></li>
-        <li><a href="./angular2/opt.html">DBMON Angular 2 with same identities</a></li>
-        <li><a href="./angular-track-by">DBMON Angular with track by $index</a></li>
-        <li><a href="./vanilla-optimized">DBMON vanilla</a></li>
-      </ul>
+    <h1>REPAINT RATE CHALLENGE</h1>
+    <div class="legend">
+      <div class="legendChild naive"><span class="fw">Naive implementation</span></div>
+      <div class="legendChild optimized"><span class="fw">Optimized implementation</span></div>
+      <div class="legendChild todo"><span class="fw">Todo</span></div>
     </div>
+    <div id="list"></div>
+    <script src="./elem-vdom/elem.js"></script>
+    <script src="./library-list.js"></script>
     <script src="./ga.js"></script>
   </body>
 </html>
