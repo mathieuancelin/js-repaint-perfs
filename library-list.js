@@ -7,8 +7,8 @@
     { type: 'naive', id: 'angular-light', url: './angular-light', label: 'DBMON Angular Light' },
     { type: 'naive', id: 'angular2', url: './angular2', label: 'DBMON Angular 2.0 Alpha' },
     { type: 'naive', id: 'react', url: './react', label: 'DBMON React' },
-    { type: 'naive', id: 'elem', url: './elem', label: 'DBMON Elem' },
-    { type: 'naive', id: 'elem-vdom', url: './elem-vdom', label: 'DBMON Elem vdom' },
+    { type: 'naive', id: 'elem', url: './elem', label: 'DBMON elem' },
+    { type: 'naive', id: 'elem-vdom', url: './elem-vdom', label: 'DBMON elem-vdom' },
     { type: 'naive', id: 'ractive', url: './ractive', label: 'DBMON Ractive' },
     { type: 'naive', id: 'mithril', url: './mithril', label: 'DBMON Mithril' },
     { type: 'naive', id: 'citot7', url: './cito+t7-precompiled', label: 'DBMON Cito+t7' },
@@ -29,15 +29,15 @@
     { type: 'optimized', id: 'angular', url: './angular/opt.html', label: 'DBMON Angular' },
     { type: 'optimized', id: 'angular-light', url: './angular-light/opt.html', label: 'DBMON Angular Light' },
     { type: 'optimized', id: 'angular2', url: './angular2/opt.html', label: 'DBMON Angular 2.0 Alpha' },
-    { type: 'optimized', id: 'angular-track-by', url: './angular-track-by', label: 'DBMON Angular with track by $index' },
+    { type: 'optimized', id: 'angular-track-by', url: './angular-track-by', label: 'DBMON Angular (track by $index)' },
     { type: 'optimized', id: 'vanilla', url: './vanilla-optimized', label: 'DBMON vanilla' },
     { type: 'optimized', id: 'maskjs', url: './mask/index_opt.html', label: 'DBMON MaskJS' },
   ];
 
   function Library() {
     var url = this.props.lib.url;
-    return Elem.el('div', { className: 'child ' + this.props.lib.type, onClick: function() { window.location.href = url; } }, [
-      Elem.el('a', { href: url }, this.props.lib.label)
+    return Elem.el('div', { className: 'child ' + this.props.lib.type, onClick: function() { window.open(url, '_blank'); } }, [
+      Elem.el('a', { href: url, target: '_blank' }, this.props.lib.label)
     ]);
   }
 
