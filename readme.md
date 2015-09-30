@@ -28,6 +28,7 @@ You can test it at http://mathieuancelin.github.io/js-repaint-perfs/
 * [Vue.js](http://vuejs.org/)
 * [Backbone.js](http://backbonejs.org/)
 * [Knockout.js](http://knockoutjs.com/)
+* [Matreshka.js](http://matreshka.io/)
 
 ## Todo
 
