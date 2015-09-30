@@ -1,5 +1,7 @@
 var ENV = ENV || (function() {
 
+  var first = true;
+  var counter = 0;
   var data;
   var _base;
   (_base = String.prototype).lpad || (_base.lpad = function(padding, toLength) {
@@ -81,8 +83,9 @@ var ENV = ENV || (function() {
     }
   }
 
-  function generateRow(object, keepIdentity) {
+  function generateRow(object, keepIdentity, counter) {
     var nbQueries = Math.floor((Math.random() * 10) + 1);
+    object.lastMutationId = counter;
     object.nbQueries = nbQueries;
     if (!object) {
       object = {};
@@ -130,26 +133,35 @@ var ENV = ENV || (function() {
   }
 
   function getData(keepIdentity) {
-    if (!keepIdentity) {
+    var oldData = data;
+    if (!keepIdentity) { // reset for each tick when !keepIdentity
       data = [];
       for (var i = 1; i <= ENV.rows; i++) {
         data.push({ dbname: 'cluster' + i, query: "", formatElapsed: "", elapsedClassName: "" });
         data.push({ dbname: 'cluster' + i + ' slave', query: "", formatElapsed: "", elapsedClassName: "" });
       }
     }
-    if (!data) {
+    if (!data) { // first init when keepIdentity
       data = [];
       for (var i = 1; i <= ENV.rows; i++) {
         data.push({ dbname: 'cluster' + i });
         data.push({ dbname: 'cluster' + i + ' slave' });
       }
+      oldData = data;
     }
     for (var i in data) {
       var row = data[i];
+      if (!keepIdentity && oldData && oldData[i]) {
+        row.lastSample = oldData[i].lastSample;
+      }
       if (!row.lastSample || Math.random() < ENV.mutations()) {
-        generateRow(row, keepIdentity);
+        counter = counter + 1;
+        generateRow(row, keepIdentity, counter);
+      } else {
+        data[i] = oldData[i];
       }
     }
+    first = false;
     return {
       toArray: function() {
         return data;

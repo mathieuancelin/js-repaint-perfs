@@ -3,105 +3,128 @@
   <head>
     <meta charset="utf-8">
     <title>dbmon</title>
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700" rel="stylesheet" type="text/css">
     <style>
       body {
-        font-family: "Helvetica Neue";
-        text-align: center;
-        font-size: 40;
-        font-weight: 200;
-        line-height: 1.7;
+        background-color: rgb(28, 28, 28);
+        font-family: "Open Sans Condensed", "Helvetica Neue";
       }
-
-      ul {
-        list-style: none;
+      .title {
+        color: rgb(102, 102, 102);
+        font-weight: bold;
+      }
+      @media(min-width: 1025px) {
+        .title {
+          font-size: 80px;
+        }
+      }
+      @media(max-width: 1024px) {
+        .title {
+          font-size: 40px;
+        }
+      }
+      a {
+        color: white;
+        text-decoration: none;
+        width: 100%;
+      }
+      .optimized {
+        background-color: #FF6347; /*#FF6347;*/
+      }
+      .todo {
+        background-color: #2167FF; /*#0EB26D;*/
+      }
+      .naive {
+        background-color: #EBA636; /*rgb(100, 100, 100);*/
+      }
+      .container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
         padding: 0;
         margin: 0;
+        justify-content: flex-start;
+      }
+      .legend {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+      }
+      .child {
+        padding: 0px;
+        width: 200px;
+        height: 200px;
+        margin-top: 10px;
+        margin-left: 5px;
+        margin-right: 5px;
+        color: white;
+        font-weight: bold;
+        font-size: 20px;
         text-align: center;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
       }
-
-      a {
-        background: #eee;
-        color: #000;
-        padding: 0.125em 0.25em;
-        text-decoration: none;
+      .child:hover {
+        animation-name: blop;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+        animation-duration: 2s;
       }
-
-      p {
-        font-size: 100%;
-        margin: 0;
-        color: #ccc;
+      .legendChild {
+        width: 200px;
+        margin-top: 5px;
+        color: white;
+        text-align: center;
+        display: flex;
+        align-items: center;
       }
-
-      .text {
-        position: absolute;
-        font-size: 100%;
-        margin: 0;
-        color: grey;
-        width: 400px;
-        left: 50%;
-        margin-left: -200px;
-        text-align: justify;
+      .color {
+        width: 15px;
+        height: 15px;
       }
-
-      a:hover {
-        background: #aaa;
+      .fw {
+        margin-left: 10px;
+        margin-right: 10px;
+        font-size: 12px;
+        color: white;
+        width: 120px;
+        text-align: right;
+      }
+      @keyframes blop {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.05);
+        }
+        100% {
+          transform: scale(1);
+        }
       }
     </style>
   </head>
   <body>
-    <div class="text">
-      <span>
-        Start Chrome with <code>--enable-precise-memory-info</code> otherwise the results from
-        <code>performance.memory</code> are bucketed and the memory widget will not provide any useful information
-      </span>
-      <br/>
-      <br/>
-      <ul>
-        <li><a href="./ember">DBMON Ember</a></li>
-        <li><a href="./angular">DBMON Angular</a></li>
-        <li><a href="./angular2">DBMON Angular 2.0 Alpha</a></li>
-        <li><a href="./react">DBMON React</a></li>
-        <li><a href="./elem">DBMON Elem</a></li>
-        <li><a href="./elem-vdom">DBMON Elem vdom</a></li>
-        <li><a href="./ractive">DBMON Ractive</a></li>
-        <li><a href="./mithril">DBMON Mithril</a></li>
-        <li><a href="./cito+t7-precompiled">DBMON Cito+t7</a></li>
-        <li><a href="./inferno">DBMON Inferno</a></li>
-        <li><a href="./riot">DBMON Riot.js</a></li>
-        <li><a href="./polymer">DBMON Polymer</a></li>
-        <li><a href="./vanilla-simple">DBMON vanilla</a></li>
-        <li><a href="./dotT">DBMON dotT</a></li>
-        <li><a href="./canvas">DBMON canvas</a></li>
-        <li><a href="./react-canvas">DBMON react-canvas</a></li>
-        <li><a href="./sammy">DBMON sammy</a></li>
-        <li><a href="./vue">DBMON Vue.js</a></li>
-        <li><a href="./backbone">DBMON Backbone</a></li>
-        <li><a href="./knockout">DBMON Knockout</a></li>
-        <li><a href="./regularjs">DBMON Regularjs</a></li>
-        <li><a href="./matreshka">DBMON Matreshka.js</a></li>
-      </ul>
-      <br/>
-      <span>
-        Todo
-      </span>
-      <br/>
-      <br/>
-      <ul>
-        <li><a href="#">DBMON Aurelia</a></li>
-      </ul>
-      <br/>
-      <span>
-        Optimized versions
-      </span>
-      <br/>
-      <br/>
-      <ul>
-        <li><a href="./angular/opt.html">DBMON Angular with same identities</a></li>
-        <li><a href="./angular2/opt.html">DBMON Angular 2 with same identities</a></li>
-        <li><a href="./angular-track-by">DBMON Angular with track by $index</a></li>
-        <li><a href="./vanilla-optimized">DBMON vanilla</a></li>
-      </ul>
+    <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+      <span class="title">REPAINT RATE CHALLENGE</span>
+      <div class="legend">
+        <div class="legendChild">
+          <span class="fw">Todo implementation</span>
+          <div class="color todo"></div>
+        </div>
+        <div class="legendChild">
+          <span class="fw">Naive implementation</span>
+          <div class="color naive"></div>
+        </div>
+        <div class="legendChild">
+          <span class="fw">Optimized implementation</span>
+          <div class="color optimized"></div>
+        </div>
+      </div>
     </div>
+    <div id="list"></div>
+    <script src="./elem-vdom/elem.js"></script>
+    <script src="./library-list.js"></script>
     <script src="./ga.js"></script>
   </body>
 </html>

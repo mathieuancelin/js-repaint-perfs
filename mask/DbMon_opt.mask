@@ -1,0 +1,35 @@
+define DbMon {
+
+    table.table.table-striped.latest-data > tbody > +each (databases) > tr {
+        td.dbname > '~[bind: dbname]'
+        td.query-count >
+            span.~[bind: lastSample.countClassName] >
+                '~[bind: lastSample.nbQueries]'
+
+        each (lastSample.topFiveQueries) > td.~[bind: elapsedClassName] {
+            '~[bind: formatElapsed]'
+
+            .popover.left {
+                .popover-content > '~[bind: query]'
+                .arrow;
+            }
+        }
+    }
+
+    function onRenderStart () {
+        this.tick = this.tick.bind(this);
+        this.model = {
+            databases: ENV.generateData().toArray()
+        };
+    }
+
+    slot domInsert () {
+        this.tick();
+    }
+
+    function tick () {
+        this.model.databases = ENV.generateData(true).toArray();
+        Monitoring.renderRate.ping();
+        setTimeout(this.tick, ENV.timeout);
+    }
+}
