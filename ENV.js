@@ -85,11 +85,11 @@ var ENV = ENV || (function() {
 
   function generateRow(object, keepIdentity, counter) {
     var nbQueries = Math.floor((Math.random() * 10) + 1);
-    object.lastMutationId = counter;
-    object.nbQueries = nbQueries;
     if (!object) {
       object = {};
     }
+    object.lastMutationId = counter;
+    object.nbQueries = nbQueries;
     if (!object.lastSample) {
       object.lastSample = {};
     }
@@ -156,6 +156,9 @@ var ENV = ENV || (function() {
       }
       if (!row.lastSample || Math.random() < ENV.mutations()) {
         counter = counter + 1;
+        if (!keepIdentity) {
+          delete row.lastSample;
+        }
         generateRow(row, keepIdentity, counter);
       } else {
         data[i] = oldData[i];
