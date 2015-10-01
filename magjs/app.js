@@ -1,61 +1,26 @@
-function Query(props) {
-  return (
-    m('td', { className: "Query " + props.elapsedClassName }, [
-      m('span', props.formatElapsed),
-      m('div', { className: "popover left" }, [
-        m('div', { className: "popover-content" }, props.query),
-        m('div', { className: "arrow" }, '')
-      ])
-    ])
-  );
-}
-
-function sample(database) {
-  var _queries = [];
-  database.lastSample.topFiveQueries.forEach(function(query, index) {
-    _queries.push(
-      Query({
-        key: index,
-        query: query.query,
-        elapsed: query.elapsed,
-        formatElapsed: query.formatElapsed,
-        elapsedClassName: query.elapsedClassName
-      })
-    );
-  });
-  return [
-    m('td', { className: "query-count" }, m('span', { className: database.lastSample.countClassName }, database.lastSample.nbQueries))
-  ].concat(_queries);
-};
-
-function Database(props) {
-  var lastSample = props.lastSample;
-  return m('tr', { key: props.dbname }, [
-    m('td', { className: "dbname" }, props.dbname)
-    ].concat(sample(props))
-  );
-}
-
 var DB = {}
 
-DB.databases = [];
-
-DB.controller = function() {};
-
-DB.view = function(ctrl) {
-  var databases = DB.databases.map(function(database) {
-    return Database({
+DB.view = function(state) {
+  
+  state.databases = DB.databases.map(function(database) {
+    
+    return {
       dbname: database.dbname,
-      samples: database.samples,
-      lastSample: database.lastSample
-    });
+      samples: database.lastSample.topFiveQueries.map(function(query, index) {
+        return {
+          _class: "Query " + query.elapsedClassName,
+          _text: query.formatElapsed,
+          'popover-content': query.query
+        }
+      }),
+      span: {
+        _text: database.lastSample.nbQueries,
+        _class: database.lastSample.countClassName
+      }
+    }
+
   });
-  var fragment = m('div', [
-    m('table', { className: "table table-striped latest-data" }, [
-      m('tbody', databases)
-    ])
-  ]);
-  return fragment;
+
 }
 
 function loadSamples() {
@@ -64,7 +29,5 @@ function loadSamples() {
   setTimeout(loadSamples, ENV.timeout);
 }
 
-$(function() {
-  mag.module(document.getElementById("app"), {view: DB.view, controller: DB.controller});
-  loadSamples();
-});
+loadSamples();
+mag.module("dbmon", DB);
