@@ -7,6 +7,7 @@
     { type: 'naive', id: 'angular-light', url: './angular-light', label: 'DBMON Angular Light' },
     { type: 'naive', id: 'angular2', url: './angular2', label: 'DBMON Angular 2.0 Alpha' },
     { type: 'naive', id: 'react', url: './react', label: 'DBMON React' },
+    { type: 'naive', id: 'magjs', url: './magjs', label: 'DBMON MagJS' },
     { type: 'naive', id: 'elem', url: './elem', label: 'DBMON elem' },
     { type: 'naive', id: 'elem-vdom', url: './elem-vdom', label: 'DBMON elem-vdom' },
     { type: 'naive', id: 'ractive', url: './ractive', label: 'DBMON Ractive' },
