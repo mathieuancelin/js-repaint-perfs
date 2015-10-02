@@ -6,11 +6,11 @@ var Query = Class({
 	},
 	onRender: function() {
 		this
-			.bindNode('elapsedClassName', this.sandbox
+			.bindNode('elapsedClassName', ':sandbox'
 				, MK.binders.property('className'))
-			.bindNode('formatElapsed',this.sandbox.querySelector('span')
+			.bindNode('formatElapsed', ':sandbox span'
 				, MK.binders.innerText())
-			.bindNode('query',this.sandbox.querySelector('.popover-content')
+			.bindNode('query', ':sandbox .popover-content'
 				, MK.binders.innerText());
 	}
 });
@@ -31,7 +31,7 @@ var Database = Class({
 	renderer: '<tr><td class="dbname"></td><td class="query-count"><span></span></td></tr>',
 	constructor: function(data) {
 		this.queries = new Queries(this);
-		this.set(data);
+		this.jset(data);
 		this.on('lastSample@change:topFiveQueries', function() {
 			this.queries.recreate(this.lastSample.topFiveQueries);
 		}, true);
