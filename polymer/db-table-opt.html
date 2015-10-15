@@ -3,7 +3,6 @@
 <dom-module id="db-table">
 <!-- <link rel="import" type="css" href="../lib/bootstrap.min.css"> -->
 <!-- <link rel="import" type="css" href="../styles.css"> -->
-
 <template strip-whitespace>
   <table class="table table-striped latest-data">
     <tbody>
@@ -37,14 +36,21 @@
         value: function() { return []; }
       }
     },
+    hi: function() {
+      return true;
+    },
     attached: function() {
-      // when we are inserted into DOM, start watching the time
+      // when we are inserted into DOM, start refreshing data.
+      this.databases = ENV.generateData().toArray();
+
+      this._refreshCallback = this.refreshData.bind(this);
       this.refreshData();
     },
     refreshData: function() {
-      this.databases = ENV.generateData().toArray();
+      ENV.generateData(true);
+      //this.databases = ENV.generateData().toArray();
       Monitoring.renderRate.ping();
-      this.async(this.refreshData, 1);//ENV.timeout);
+      setTimeout(this._refreshCallback, ENV.timeout);
     }
   });
 </script>
