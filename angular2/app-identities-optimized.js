@@ -17,7 +17,7 @@ var AppComponent = ng.
       };
       load();
     }
-  })
+  });
 
 document.addEventListener('DOMContentLoaded', function() {
   ng.bootstrap(AppComponent);
