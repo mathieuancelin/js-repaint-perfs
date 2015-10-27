@@ -34,6 +34,7 @@
     { type: 'optimized', id: 'angular-track-by', url: './angular-track-by', label: 'DBMON Angular (track by $index)' },
     { type: 'optimized', id: 'vanilla', url: './vanilla-optimized', label: 'DBMON vanilla' },
     { type: 'optimized', id: 'maskjs', url: './mask/index_opt.html', label: 'DBMON MaskJS' },
+    { type: 'optimized', id: 'vue', url: './vue/opt.html', label: 'DBMON Vue.js' },
   ];
 
   function Library() {
