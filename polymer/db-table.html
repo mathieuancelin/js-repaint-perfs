@@ -13,7 +13,8 @@
           <td class="query-count">
             <span class$="[[db.lastSample.countClassName]]">[[db.lastSample.nbQueries]]</span>
           </td>
-          <template is="dom-repeat" items="[[db.lastSample.topFiveQueries]]" as="q" strip-whitespace>
+          <template is="dom-repeat" items="[[db.lastSample.topFiveQueries]]" as="q"
+                    strip-whitespace>
             <td class$="[[q.elapsedClassName]]">
               <span>[[q.formatElapsed]]</span>
               <div class="popover left">
