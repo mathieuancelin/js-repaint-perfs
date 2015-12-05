@@ -30,6 +30,7 @@ You can test it at http://mathieuancelin.github.io/js-repaint-perfs/
 * [Backbone.js](http://backbonejs.org/)
 * [Knockout.js](http://knockoutjs.com/)
 * [Matreshka.js](http://matreshka.io/)
+* [RotorJS](https://github.com/kuraga/rotorjs)
 
 ## Todo
 
