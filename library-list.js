@@ -27,6 +27,7 @@
     { type: 'naive', id: 'regularjs', url: './regularjs', label: 'DBMON Regularjs' },
     { type: 'naive', id: 'maskjs', url: './mask/index.html', label: 'DBMON MaskJS' },
     { type: 'naive', id: 'matreshkajs', url: './matreshka/index.html', label: 'DBMON Matreshka.js' },
+    { type: 'naive', id: 'rotorjs', url: './rotorjs/index.html', label: 'DBMON RotorJS' },
     { type: 'optimized', id: 'react', url: './react/opt.html', label: 'DBMON React' },
     { type: 'optimized', id: 'angular', url: './angular/opt.html', label: 'DBMON Angular' },
     { type: 'optimized', id: 'angular-light', url: './angular-light/opt.html', label: 'DBMON Angular Light' },
@@ -35,6 +36,7 @@
     { type: 'optimized', id: 'vanilla', url: './vanilla-optimized', label: 'DBMON vanilla' },
     { type: 'optimized', id: 'maskjs', url: './mask/index_opt.html', label: 'DBMON MaskJS' },
     { type: 'optimized', id: 'vue', url: './vue/opt.html', label: 'DBMON Vue.js' },
+    { type: 'optimized', id: 'rotorjs', url: './rotorjs/with_thunks.html', label: 'DBMON RotorJS (with using VnodeImmutableThunk)' },
   ];
 
   function Library() {
