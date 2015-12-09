@@ -72,8 +72,8 @@ var ENV = ENV || (function() {
       value.formatElapsed = "";
       value.elapsedClassName = "";
       value.query = "";
-      delete value.elapsed;
-      delete value.waiting;
+      value.elapsed = null;
+      value.waiting = null;
     } else {
       return {
         query: "***",
@@ -157,7 +157,7 @@ var ENV = ENV || (function() {
       if (!row.lastSample || Math.random() < ENV.mutations()) {
         counter = counter + 1;
         if (!keepIdentity) {
-          delete row.lastSample;
+          row.lastSample = null;
         }
         generateRow(row, keepIdentity, counter);
       } else {
