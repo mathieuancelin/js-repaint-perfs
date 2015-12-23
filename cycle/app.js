@@ -37,11 +37,12 @@ function main(sources) {
 
 
 function DBMONDriver(){
-  return Rx.Observable.interval(1).map(function() {
-    var databases = ENV.generateData(true).toArray()
-    Monitoring.renderRate.ping()
-    return Rx.Observable.of(databases)
-  }).switch()
+  return Rx.Observable.timer(1, 1, Rx.Scheduler.requestAnimationFrame)
+    .map(function() {
+      var databases = ENV.generateData(true).toArray()
+      Monitoring.renderRate.ping()
+      return databases
+    })
 }
 
 Cycle.run(main, {
