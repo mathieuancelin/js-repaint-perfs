@@ -37,12 +37,14 @@ function main(sources) {
 
 
 function DBMONDriver(){
-  return Rx.Observable.timer(1, 1, Rx.Scheduler.requestAnimationFrame)
-    .map(function() {
-      var databases = ENV.generateData(true).toArray()
-      Monitoring.renderRate.ping()
-      return databases
-    })
+  var subject = new Rx.Subject()
+  function load(){
+    subject.onNext(ENV.generateData(true).toArray())
+    Monitoring.renderRate.ping()
+    setTimeout(load, ENV.timeout)
+  }
+  load()
+  return subject
 }
 
 Cycle.run(main, {

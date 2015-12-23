@@ -7694,47 +7694,6 @@ define(function() {
 
 }).call(this,require('_process'))
 },{"_process":91}],106:[function(require,module,exports){
-'use strict';
-
-var _most = require('most');
-
-var _most2 = _interopRequireDefault(_most);
-
-var _core = require('@motorcycle/core');
-
-var _dom = require('@motorcycle/dom');
-
-var _array = require('fast.js/array');
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var dbMap = function dbMap(q) {
-  return (0, _dom.h)('td.' + q.elapsedClassName, [(0, _dom.h)('span.foo', [q.formatElapsed]), (0, _dom.h)('div.popover.left', [(0, _dom.h)('div.popover-content', [q.query]), (0, _dom.h)('div.arrow')])]);
-};
-
-var databasesMap = function databasesMap(db) {
-  return (0, _dom.h)('tr', (0, _array.concat)([(0, _dom.h)('td.dbname', [db.dbname]), (0, _dom.h)('td.query-count', [(0, _dom.h)('span', { className: db.lastSample.countClassName }, [db.lastSample.nbQueries])])], (0, _array.map)(db.lastSample.topFiveQueries, dbMap)));
-};
-
-var main = function main(sources) {
-  return {
-    DOM: sources.databases.map(function (databases) {
-      return (0, _dom.h)('div', [(0, _dom.h)('table.table.table-striped.latest-data', {}, [(0, _dom.h)('tbody', (0, _array.map)(databases, databasesMap))])]);
-    })
-  };
-};
-
-var data = ENV.generateData();
-
-var DBMONDriver = function DBMONDriver() {
-  return _most2.default.periodic(16, 1).tap(Monitoring.renderRate.ping).map(function () {
-    return _most2.default.of(ENV.generateData(true).toArray());
-  }).join();
-};
-
-(0, _core.run)(main, {
-  DOM: (0, _dom.makeDOMDriver)('#app-container'),
-  databases: DBMONDriver
-});
+"use strict";function _interopRequireDefault(r){return r&&r.__esModule?r:{"default":r}}function _toConsumableArray(r){if(Array.isArray(r)){for(var e=0,a=Array(r.length);e<r.length;e++)a[e]=r[e];return a}return Array.from(r)}var _most=require("most"),_most2=_interopRequireDefault(_most),_core=require("@motorcycle/core"),_dom=require("@motorcycle/dom"),_array=require("fast.js/array"),dbMap=function(r){return(0,_dom.h)("td."+r.elapsedClassName,[(0,_dom.h)("span.foo",[r.formatElapsed]),(0,_dom.h)("div.popover.left",[(0,_dom.h)("div.popover-content",[r.query]),(0,_dom.h)("div.arrow")])])},databasesMap=function(r){return(0,_dom.h)("tr",[(0,_dom.h)("td.dbname",[r.dbname]),(0,_dom.h)("td.query-count",[(0,_dom.h)("span."+r.lastSample.countClassName,[r.lastSample.nbQueries])])].concat(_toConsumableArray((0,_array.map)(r.lastSample.topFiveQueries,dbMap))))},main=function(r){return{DOM:r.databases.map(function(r){return(0,_dom.h)("div",[(0,_dom.h)("table.table.table-striped.latest-data",[(0,_dom.h)("tbody",(0,_array.map)(r,databasesMap))])])})}},DBMONDriver=function(){return _most2["default"].create(function(r){var e=function a(){r(ENV.generateData(!0).toArray()),Monitoring.renderRate.ping(),setTimeout(a,ENV.timeout)};e()})};(0,_core.run)(main,{DOM:(0,_dom.makeDOMDriver)("#app-container"),databases:DBMONDriver});
 
 },{"@motorcycle/core":2,"@motorcycle/dom":4,"fast.js/array":13,"most":90}]},{},[106]);
