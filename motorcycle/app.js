@@ -7727,7 +7727,7 @@ var main = function main(sources) {
 var data = ENV.generateData();
 
 var DBMONDriver = function DBMONDriver() {
-  return _most2.default.periodic(25, 1).tap(Monitoring.renderRate.ping).map(function () {
+  return _most2.default.periodic(16, 1).tap(Monitoring.renderRate.ping).map(function () {
     return _most2.default.of(ENV.generateData(true).toArray());
   }).join();
 };
