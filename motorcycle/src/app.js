@@ -32,7 +32,7 @@ const main = sources => ({
 
 const data = ENV.generateData()
 
-const DBMONDriver = () => most.periodic(25, 1)
+const DBMONDriver = () => most.periodic(16, 1)
   .tap(Monitoring.renderRate.ping)
   .map(() => most.of(ENV.generateData(true).toArray()))
   .join()
