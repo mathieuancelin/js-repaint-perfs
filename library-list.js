@@ -2,7 +2,7 @@
 
   var list = [
     { type: 'todo', id: 'aurelia', label: 'DBMON Aurelia', url: '#' },
-    { type: 'naive', id: 'motorcycle', label: 'DBMON Motorcycle.js', url: './motorcycle'},
+    { type: 'optimized', id: 'motorcycle', label: 'DBMON Motorcycle.js', url: './motorcycle'},
     { type: 'naive', id: 'cycle', label: 'DBMON Cycle.js', url: './cycle'},
     { type: 'naive', id: 'ember', url: './ember', label: 'DBMON Ember' },
     { type: 'naive', id: 'angular', url: './angular', label: 'DBMON Angular' },

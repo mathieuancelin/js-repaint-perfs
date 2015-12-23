@@ -33,14 +33,15 @@ const main = sources => ({
 
 const DBMONDriver = () => most.create(add => {
   const load = () => {
-    add(ENV.generateData(true).toArray())
+    add(ENV.generateData().toArray())
     Monitoring.renderRate.ping()
     setTimeout(load, ENV.timeout)
   }
   load()
 })
 
+
 run(main, {
-  DOM: makeDOMDriver('#app-container'),
+  DOM: makeDOMDriver('#app-container', [], true),
   databases: DBMONDriver
 })
