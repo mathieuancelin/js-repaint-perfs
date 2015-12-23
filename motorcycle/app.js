@@ -7727,12 +7727,8 @@ var main = function main(sources) {
 var data = ENV.generateData();
 
 var DBMONDriver = function DBMONDriver() {
-  return _most2.default.periodic(24, 1).tap(Monitoring.renderRate.ping).map(function () {
-    return ENV.generateData();
-  }).map(function (data) {
-    return data.toArray();
-  }).map(function (x) {
-    return _most2.default.of(x);
+  return _most2.default.periodic(25, 1).tap(Monitoring.renderRate.ping).map(function () {
+    return _most2.default.of(ENV.generateData(true).toArray());
   }).join();
 };
 

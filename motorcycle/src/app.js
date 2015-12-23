@@ -32,11 +32,9 @@ const main = sources => ({
 
 const data = ENV.generateData()
 
-const DBMONDriver = () => most.periodic(24, 1)
+const DBMONDriver = () => most.periodic(25, 1)
   .tap(Monitoring.renderRate.ping)
-  .map(() => ENV.generateData())
-  .map(data => data.toArray())
-  .map(x => most.of(x))
+  .map(() => most.of(ENV.generateData(true).toArray()))
   .join()
 
 run(main, {
