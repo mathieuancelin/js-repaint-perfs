@@ -31,6 +31,7 @@ You can test it at http://mathieuancelin.github.io/js-repaint-perfs/
 * [Knockout.js](http://knockoutjs.com/)
 * [Matreshka.js](http://matreshka.io/)
 * [RotorJS](https://github.com/kuraga/rotorjs)
+* [domvm](https://github.com/leeoniya/domvm)
 
 ## Todo
 
