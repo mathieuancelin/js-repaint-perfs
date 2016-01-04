@@ -28,6 +28,7 @@
     { type: 'naive', id: 'maskjs', url: './mask/index.html', label: 'DBMON MaskJS' },
     { type: 'naive', id: 'matreshkajs', url: './matreshka/index.html', label: 'DBMON Matreshka.js' },
     { type: 'naive', id: 'rotorjs', url: './rotorjs/index.html', label: 'DBMON RotorJS' },
+    { type: 'naive', id: 'domvm', url: './domvm/index.html', label: 'DBMON domvm' },
     { type: 'optimized', id: 'react', url: './react/opt.html', label: 'DBMON React' },
     { type: 'optimized', id: 'angular', url: './angular/opt.html', label: 'DBMON Angular' },
     { type: 'optimized', id: 'angular-light', url: './angular-light/opt.html', label: 'DBMON Angular Light' },
