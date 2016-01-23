@@ -32,6 +32,8 @@ You can test it at http://mathieuancelin.github.io/js-repaint-perfs/
 * [Matreshka.js](http://matreshka.io/)
 * [RotorJS](https://github.com/kuraga/rotorjs)
 * [domvm](https://github.com/leeoniya/domvm)
+* [once](https://github.com/utilise/utilise#--once)
+* [Ripple](https://github.com/pemrouz/ripple)
 
 ## Todo
 
