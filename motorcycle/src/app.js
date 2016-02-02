@@ -1,4 +1,4 @@
-import most from 'most'
+import {subject} from 'most-subject'
 import {run} from '@motorcycle/core'
 import {makeDOMDriver, h} from '@motorcycle/dom'
 import map from 'fast.js/array/map'
@@ -40,13 +40,17 @@ function main(sources) {
   }
 }
 
-function load(add) {
-  add(ENV.generateData().toArray())
+function load(sink) {
+  sink.add(ENV.generateData().toArray())
   Monitoring.renderRate.ping()
-  setTimeout(function () {load(add)}, ENV.timeout)
+  setTimeout(function () {load(sink)}, ENV.timeout)
 }
 
 run(main, {
   DOM: makeDOMDriver('#app-container'),
-  databases: function() {return most.create(load)}
+  databases: function() {
+    const {sink, stream} = subject()
+    load(sink)
+    return stream
+  }
 })
