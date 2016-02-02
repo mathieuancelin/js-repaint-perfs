@@ -24,7 +24,7 @@ const databasesMap = db =>  h('tr', [
 ])
 
 const main = sources => ({
-  DOM: sources.databases.map(databases => h('div', [
+  DOM: sources.databases.map(databases => h('div', {static: true}, [
     h('table.table.table-striped.latest-data', [
       h('tbody', map(databases, databasesMap))
     ])

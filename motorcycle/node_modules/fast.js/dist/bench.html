@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Fast.js Benchmarks</title>
+  </head>
+  <body>
+    <h1>Please open your JavaScript console, then <button id="starter" onclick="startAll()">Click to Start</button></h1>
+    <script>
+    function startAll () {
+      document.getElementById('starter').remove();
+      new Worker("bench.js");
+    }
+    </script>
+  </body>
+</html>
