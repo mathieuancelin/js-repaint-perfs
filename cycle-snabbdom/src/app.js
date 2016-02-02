@@ -3,7 +3,7 @@ import {run} from '@cycle/core'
 import {makeDOMDriver, h} from 'cycle-snabbdom'
 
 function dbMap(q) {
-  return h('td', {className: q.elapsedClassName}, [
+  return h('td.' + q.elapsedClassName, [
     h('span.foo', [q.formatElapsed]),
     h('div.popover.left', [
       h('div.popover-content', [
@@ -18,7 +18,7 @@ function databasesMap(db) {
   return h('tr', [
     h('td.dbname', [db.dbname]),
     h('td.query-count', [
-      h('span', {className: db.lastSample.countClassName}, [
+      h('span.' + db.lastSample.countClassName, [
         db.lastSample.nbQueries
       ])
     ]),
