@@ -1,6 +1,7 @@
 import most from 'most'
 import {run} from '@motorcycle/core'
 import {makeDOMDriver, h} from '@motorcycle/dom'
+import map from 'fast.js/array/map'
 
 function dbMap(q) {
   return h('td', {className: q.elapsedClassName}, [
@@ -22,34 +23,30 @@ function databasesMap(db) {
         db.lastSample.nbQueries
       ])
     ]),
-  ].concat(db.lastSample.topFiveQueries.map(dbMap)))
+  ].concat(map(db.lastSample.topFiveQueries, dbMap)))
+}
+
+function mainMap(databases) {
+  return h ('div', {static: true}, [
+    h('table.table.table-striped.latest-data', {}, [
+      h('tbody', map(databases, databasesMap))
+    ])
+  ])
 }
 
 function main(sources) {
   return {
-    DOM: sources.databases.map(function(databases) {
-      return h ('div', {static: true}, [
-        h('table.table.table-striped.latest-data', {}, [
-          h('tbody', databases.map(databasesMap))
-        ])
-      ])
-    })
+    DOM: sources.databases.map(mainMap)
   }
 }
 
-
-function DBMONDriver(){
-  return most.create(function(add){
-    function load() {
-      add(ENV.generateData().toArray())
-      Monitoring.renderRate.ping()
-      setTimeout(load, ENV.timeout)
-    }
-    load()
-  })
+function load(add) {
+  add(ENV.generateData().toArray())
+  Monitoring.renderRate.ping()
+  setTimeout(function () {load(add)}, ENV.timeout)
 }
 
 run(main, {
   DOM: makeDOMDriver('#app-container'),
-  databases: DBMONDriver
+  databases: function() {return most.create(load)}
 })
