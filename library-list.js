@@ -37,7 +37,7 @@
     { type: 'optimized', id: 'angular-light', url: './angular-light/opt.html', label: 'DBMON Angular Light' },
     { type: 'optimized', id: 'angular2', url: './angular2/opt.html', label: 'DBMON Angular 2.0 Alpha' },
     { type: 'optimized', id: 'angular-track-by', url: './angular-track-by', label: 'DBMON Angular (track by $index)' },
-    { type: 'optimized', id: 'elem', url: './elm', label: 'DBMON elm' },
+    { type: 'optimized', id: 'elem', url: './elm/opt.html', label: 'DBMON elm' },
     { type: 'optimized', id: 'vanilla', url: './vanilla-optimized', label: 'DBMON vanilla' },
     { type: 'optimized', id: 'maskjs', url: './mask/index_opt.html', label: 'DBMON MaskJS' },
     { type: 'optimized', id: 'vue', url: './vue/opt.html', label: 'DBMON Vue.js' },
