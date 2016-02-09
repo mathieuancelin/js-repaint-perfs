@@ -32,6 +32,8 @@
     { type: 'naive', id: 'once', url: './once/index.html', label: 'DBMON once' },
     { type: 'naive', id: 'ripple', url: './ripple/index.html', label: 'DBMON ripple' },
     { type: 'optimized', id: 'react', url: './react/opt.html', label: 'DBMON React' },
+    { type: 'optimized', id: 'preact', url: './preact', label: 'DBMON Preact' },
+    { type: 'naive', id: 'preact-functional', url: './preact/functional.html', label: 'DBMON Preact (Functional)' },
     { type: 'optimized', id: 'angular', url: './angular/opt.html', label: 'DBMON Angular' },
     { type: 'optimized', id: 'angular-light', url: './angular-light/opt.html', label: 'DBMON Angular Light' },
     { type: 'optimized', id: 'angular2', url: './angular2/opt.html', label: 'DBMON Angular 2.0 Alpha' },
