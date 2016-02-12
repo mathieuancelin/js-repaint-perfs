@@ -31,6 +31,7 @@
     { type: 'naive', id: 'domvm', url: './domvm/index.html', label: 'DBMON domvm' },
     { type: 'naive', id: 'once', url: './once/index.html', label: 'DBMON once' },
     { type: 'naive', id: 'ripple', url: './ripple/index.html', label: 'DBMON ripple' },
+    { type: 'naive', id: 'diffhtml', url: './diffhtml/index.html', label: 'DBMON diffHTML' },
     { type: 'optimized', id: 'react', url: './react/opt.html', label: 'DBMON React' },
     { type: 'optimized', id: 'preact', url: './preact', label: 'DBMON Preact' },
     { type: 'naive', id: 'preact-functional', url: './preact/functional.html', label: 'DBMON Preact (Functional)' },
