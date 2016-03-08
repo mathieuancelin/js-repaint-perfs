@@ -43,6 +43,7 @@
     { type: 'optimized', id: 'maskjs', url: './mask/index_opt.html', label: 'DBMON MaskJS' },
     { type: 'optimized', id: 'vue', url: './vue/opt.html', label: 'DBMON Vue.js' },
     { type: 'optimized', id: 'rotorjs', url: './rotorjs/with_thunks.html', label: 'DBMON RotorJS (with using VnodeImmutableThunk)' },
+	{ type: 'naive', id: 're-frame', url: './re-frame/index.html', label: 're-frame (Reagent)' },
   ];
 
   function Library() {
