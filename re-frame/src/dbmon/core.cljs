@@ -6,9 +6,9 @@
             [dbmon.handlers]
             [dbmon.views :refer [app-component]]))
 
-(enable-console-print!)
+;;(enable-console-print!)
 
-(println "Edits to this text should show up in your developer console.")
+;;(println "Edits to this text should show up in your developer console.")
 
 (defn loadSamples
   []

@@ -23,11 +23,11 @@
       [:tr {:key dbname}
         [:td {:class "dbname"} dbname]
         [:td {:class "query-count"}
-          [:span {:class (get @lastSample "countClassName")} @nbQueries]
-          (map-indexed (fn [index q]
-                        [query {:key index :query (get q "query")
-                                :formatElapsed (get q "formatElapsed")
-                                :elapsedClassName (get q "elapsedClassName")}]) @topFiveQueries)]])))
+          [:span {:class (get @lastSample "countClassName")} @nbQueries]]
+        (map-indexed (fn [index q]
+                      [query {:key index :query (get q "query")
+                              :formatElapsed (get q "formatElapsed")
+                              :elapsedClassName (get q "elapsedClassName")}]) @topFiveQueries)])))
 
 
 (defn dbmon
