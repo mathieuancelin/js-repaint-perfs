@@ -1,7 +1,6 @@
 (ns dbmon.core
   (:require [reagent.core :as reagent :refer [atom render-component]]
             [re-frame.core :refer [dispatch-sync dispatch]]
-            [cognitect.transit :as transit]
             [dbmon.subs]
             [dbmon.handlers]
             [dbmon.views :refer [app-component]]))
@@ -12,12 +11,9 @@
 
 (defn loadSamples
   []
-  (let [jsdata (.toArray (.generateData js/ENV true))
-        json (.stringify js/JSON jsdata)
-        reader (transit/reader :json)
-        data (transit/read reader json)]
+  (let [jsdata (.toArray (.generateData js/ENV true))]
     (.ping js/Monitoring.renderRate)
-    (dispatch [:sample data])
+    (dispatch [:sample jsdata])
     (.setTimeout js/window loadSamples (.-timeout js/ENV))))
 
 (defn ^:export run ;; ^:export exposes this to javascript

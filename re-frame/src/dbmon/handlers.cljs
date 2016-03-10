@@ -6,6 +6,21 @@
 (def standard-middlewares (if ^boolean goog.DEBUG
                             debug))
 
+(defn extract-query
+  [query]
+  {"query" (.-query query)
+    "formatElapsed" (.-formatElapsed query)
+    "elapsedClassName" (.-elapsedClassName query)})
+
+(defn extract-database
+  [database]
+  (let [lastSample (.-lastSample database)
+        topFiveQueries (map extract-query (.-topFiveQueries lastSample))]
+    {"dbname" (.-dbname database)
+     "lastSample" {"countClassName" (.-countClassName lastSample)
+                    "nbQueries" (.-nbQueries lastSample)
+                    "topFiveQueries" topFiveQueries}}))
+
 ;; handlers handle dispatched events
 (register-handler
   :init-db
@@ -19,4 +34,5 @@
   ;standard-middlewares
   (fn
     [db [_ databases]]
-    (assoc db :databases databases)))
+    (let [dbs (map extract-database databases)]
+      (assoc db :databases dbs))))

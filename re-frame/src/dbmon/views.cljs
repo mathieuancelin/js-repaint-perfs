@@ -7,7 +7,7 @@
         formatElapsed (:formatElapsed props)
         query (:query props)
         key (:key props)]
-      [:td {:key key :class (str "Query " elapsedClassName)}
+      [:td {:key key :class elapsedClassName}
         formatElapsed
         [:div {:class "popover left"}
           [:div {:class "popover-content"} query]
