@@ -29,15 +29,16 @@
   </div>
   <script>
 
-    this.databasesArray = [];
+    this.databasesArray = []
 
     loadSamples() {
-      Monitoring.renderRate.ping();
-      this.update({ databasesArray: ENV.generateData().toArray() });
-      setTimeout(function() { this.loadSamples(); }.bind(this), ENV.timeout);
+      this.databasesArray = ENV.generateData().toArray()
+      this.update()
+      Monitoring.renderRate.ping()
+      setTimeout(this.loadSamples, ENV.timeout)
     }
 
-    this.loadSamples();
+    this.loadSamples()
 
   </script>
 </dbmon>
