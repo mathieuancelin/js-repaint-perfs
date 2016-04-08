@@ -10,6 +10,7 @@
     { type: 'naive', id: 'magjs', url: './magjs', label: 'DBMON MagJS' },
     { type: 'naive', id: 'elem', url: './elem', label: 'DBMON elem' },
     { type: 'naive', id: 'elem-vdom', url: './elem-vdom', label: 'DBMON elem-vdom' },
+    { type: 'naive', id: 'elm', url: './elm', label: 'DBMON elm' },
     { type: 'naive', id: 'ractive', url: './ractive', label: 'DBMON Ractive' },
     { type: 'naive', id: 'mithril', url: './mithril', label: 'DBMON Mithril' },
     { type: 'naive', id: 'citot7', url: './cito+t7-precompiled', label: 'DBMON Cito+t7' },
