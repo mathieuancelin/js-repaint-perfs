@@ -3,22 +3,22 @@
     <table class="table table-striped latest-data">
       <tbody>
         <!-- Database -->
-        <tr each={ databasesArray } no-reorder>
+        <tr each={ db in databasesArray } no-reorder>
           <td class="dbname">
-            { dbname }
+            { db.dbname }
           </td>
           <!-- Sample -->
           <td class="query-count">
-            <span class={ lastSample.countClassName }>
-              { lastSample.nbQueries }
+            <span class={ db.lastSample.countClassName }>
+              { db.lastSample.nbQueries }
             </span>
           </td>
           <!-- Query -->
-          <td each={ lastSample.topFiveQueries } no-reorder class={ elapsedClassName }>
-            { formatElapsed }
+          <td each={ query in db.lastSample.topFiveQueries } no-reorder class={ query.elapsedClassName }>
+            { query.formatElapsed }
             <div class="popover left">
               <div class="popover-content">
-                { query }
+                { query.query }
               </div>
               <div class="arrow"></div>
             </div>
