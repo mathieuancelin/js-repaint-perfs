@@ -10,11 +10,13 @@
     { type: 'naive', id: 'magjs', url: './magjs', label: 'DBMON MagJS' },
     { type: 'naive', id: 'elem', url: './elem', label: 'DBMON elem' },
     { type: 'naive', id: 'elem-vdom', url: './elem-vdom', label: 'DBMON elem-vdom' },
+    { type: 'naive', id: 'elm', url: './elm', label: 'DBMON elm' },
     { type: 'naive', id: 'ractive', url: './ractive', label: 'DBMON Ractive' },
     { type: 'naive', id: 'mithril', url: './mithril', label: 'DBMON Mithril' },
     { type: 'naive', id: 'citot7', url: './cito+t7-precompiled', label: 'DBMON Cito+t7' },
     { type: 'naive', id: 'inferno', url: './inferno', label: 'DBMON Inferno' },
     { type: 'naive', id: 'riot', url: './riot', label: 'DBMON Riot.js' },
+    { type: 'optimized', id: 'riot', url: './riot/no-reorder.html', label: 'DBMON Riot.js ( no-reorder )' },
     { type: 'naive', id: 'polymer', url: './polymer', label: 'DBMON Polymer 1.0' },
     { type: 'naive', id: 'vanilla', url: './vanilla-simple', label: 'DBMON vanilla' },
     { type: 'naive', id: 'dott', url: './dotT', label: 'DBMON dotT' },
@@ -43,7 +45,9 @@
     { type: 'optimized', id: 'maskjs', url: './mask/index_opt.html', label: 'DBMON MaskJS' },
     { type: 'optimized', id: 'vue', url: './vue/opt.html', label: 'DBMON Vue.js' },
     { type: 'optimized', id: 'rotorjs', url: './rotorjs/with_thunks.html', label: 'DBMON RotorJS (with using VnodeImmutableThunk)' },
-	{ type: 'naive', id: 're-frame', url: './re-frame/index.html', label: 're-frame (Reagent)' },
+    { type: 'naive', id: 're-frame', url: './re-frame/index.html', label: 're-frame (Reagent)' },
+    { type: 'naive', id: 'd3', url: './d3/index.html', label: 'DBMON D3' },
+    { type: 'naive', id: 'morphdom', url: './morphdom/index.html', label: 'DBMON Morphdom' },
   ];
 
   function Library() {

@@ -3,7 +3,7 @@
     <table class="table table-striped latest-data">
       <tbody>
         <!-- Database -->
-        <tr each={ db in databasesArray }>
+        <tr each={ db in databasesArray } no-reorder>
           <td class="dbname">
             { db.dbname }
           </td>
@@ -14,7 +14,7 @@
             </span>
           </td>
           <!-- Query -->
-          <td each={ query in db.lastSample.topFiveQueries } class={ query.elapsedClassName }>
+          <td each={ query in db.lastSample.topFiveQueries } no-reorder class={ query.elapsedClassName }>
             { query.formatElapsed }
             <div class="popover left">
               <div class="popover-content">

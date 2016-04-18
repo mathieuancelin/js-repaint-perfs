@@ -34,6 +34,7 @@ You can test it at http://mathieuancelin.github.io/js-repaint-perfs/
 * [domvm](https://github.com/leeoniya/domvm)
 * [once](https://github.com/utilise/utilise#--once)
 * [Ripple](https://github.com/pemrouz/ripple)
+* [Morphdom](https://github.com/patrick-steele-idem/morphdom)
 
 ## Todo
 
