@@ -48,6 +48,7 @@
     { type: 'naive', id: 're-frame', url: './re-frame/index.html', label: 're-frame (Reagent)' },
     { type: 'naive', id: 'd3', url: './d3/index.html', label: 'DBMON D3' },
     { type: 'naive', id: 'morphdom', url: './morphdom/index.html', label: 'DBMON Morphdom' },
+    { type: 'optimized', id: 'frzr', url: './frzr/index.html', label: 'DBMON FRZR' }
   ];
 
   function Library() {
