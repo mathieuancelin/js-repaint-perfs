@@ -35,6 +35,7 @@ You can test it at http://mathieuancelin.github.io/js-repaint-perfs/
 * [once](https://github.com/utilise/utilise#--once)
 * [Ripple](https://github.com/pemrouz/ripple)
 * [Morphdom](https://github.com/patrick-steele-idem/morphdom)
+* [FRZR](https://frzr.js.org)
 
 ## Todo
 
