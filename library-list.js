@@ -2,6 +2,7 @@
 
   var list = [
     { type: 'todo', id: 'aurelia', label: 'DBMON Aurelia', url: '#' },
+    { type: 'naive', id: 'cycle', label: 'DBMON Cycle.js', url: './cycle'},
     { type: 'naive', id: 'ember', url: './ember', label: 'DBMON Ember' },
     { type: 'naive', id: 'angular', url: './angular', label: 'DBMON Angular' },
     { type: 'naive', id: 'angular-light', url: './angular-light', label: 'DBMON Angular Light' },
@@ -30,6 +31,8 @@
     { type: 'naive', id: 'maskjs', url: './mask/index.html', label: 'DBMON MaskJS' },
     { type: 'naive', id: 'matreshkajs', url: './matreshka/index.html', label: 'DBMON Matreshka.js' },
     { type: 'naive', id: 'rotorjs', url: './rotorjs/index.html', label: 'DBMON RotorJS' },
+    { type: 'optimized', id: "cycle + snabbdom", label: "DBMON Cycle.js + Snabbdom", url: "./cycle-snabbdom"},
+    { type: 'optimized', id: 'motorcycle', label: 'DBMON Motorcycle.js', url: './motorcycle'},
     { type: 'naive', id: 'domvm', url: './domvm/index.html', label: 'DBMON domvm' },
     { type: 'naive', id: 'once', url: './once/index.html', label: 'DBMON once' },
     { type: 'naive', id: 'ripple', url: './ripple/index.html', label: 'DBMON ripple' },
@@ -41,6 +44,7 @@
     { type: 'optimized', id: 'angular-light', url: './angular-light/opt.html', label: 'DBMON Angular Light' },
     { type: 'optimized', id: 'angular2', url: './angular2/opt.html', label: 'DBMON Angular 2.0 Alpha' },
     { type: 'optimized', id: 'angular-track-by', url: './angular-track-by', label: 'DBMON Angular (track by $index)' },
+    { type: 'optimized', id: 'elem', url: './elm/opt.html', label: 'DBMON elm' },
     { type: 'optimized', id: 'vanilla', url: './vanilla-optimized', label: 'DBMON vanilla' },
     { type: 'optimized', id: 'maskjs', url: './mask/index_opt.html', label: 'DBMON MaskJS' },
     { type: 'optimized', id: 'vue', url: './vue/opt.html', label: 'DBMON Vue.js' },
