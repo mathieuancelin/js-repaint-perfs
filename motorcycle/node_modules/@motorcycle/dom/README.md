@@ -63,14 +63,16 @@ makeDOMDriver('#app', [
 ])
 ```
 
-### h(selector, data, children)
+### snabbdom - h() / thunk()
 
 ###### Importing
 ```js
-import {h} from '@motorcycle/dom'
+import {h, thunk} from '@motorcycle/dom'
 ```
 
 For more information on how to use `h()`, please refer to the [original documentation](https://github.com/paldepind/snabbdom#snabbdomh).
+
+For more information on how to use `thunk)`, please refer to the [original documentation](https://github.com/paldepind/snabbdom#thunks)
 
 ### hyperscript-helpers
 
@@ -80,3 +82,28 @@ import {div, h1, p} from '@motorcycle/dom'
 ```
 
 For more information on [how to use hyperscript-helpers](https://github.com/ohanhi/hyperscript-helpers#how-to-use).
+
+###### mockDOMSource()
+A testing utility which aids in creating a queryable collection of Observables. Call mockDOMSource giving it an object specifying selectors, eventTypes and their Observables, and get as output an object following the same format as the DOM Driver's source.
+
+Example:
+```js
+const userEvents = mockDOMSource({
+ '.foo': {
+   'click': most.just({target: {}}),
+   'mouseover': most.just({target: {}})
+ },
+ '.bar': {
+   'scroll': most.just({target: {}})
+ }
+});
+
+// Usage
+const click$ = userEvents.select('.foo').events('click')
+```
+Arguments:
+
+mockedSelectors :: Object an object where keys are selector strings and values are objects. Those nested objects have eventType strings as keys and values are Observables you created.
+Return:
+
+(Object) fake DOM source object, containing a function select() which can be used just like the DOM Driver's source. Call select(selector).events(eventType) on the source object to get the Observable you defined in the input of mockDOMSource.

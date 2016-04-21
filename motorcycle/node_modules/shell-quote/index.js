@@ -33,8 +33,8 @@ for (var i = 0; i < 4; i++) {
     TOKEN += (Math.pow(16,8)*Math.random()).toString(16);
 }
 
-exports.parse = function (s, env) {
-    var mapped = parse(s, env);
+exports.parse = function (s, env, opts) {
+    var mapped = parse(s, env, opts);
     if (typeof env !== 'function') return mapped;
     return reduce(mapped, function (acc, s) {
         if (typeof s === 'object') return acc.concat(s);
@@ -49,15 +49,16 @@ exports.parse = function (s, env) {
     }, []);
 };
 
-function parse (s, env) {
+function parse (s, env, opts) {
     var chunker = new RegExp([
         '(' + CONTROL + ')', // control chars
         '(' + BAREWORD + '|' + SINGLE_QUOTE + '|' + DOUBLE_QUOTE + ')*'
     ].join('|'), 'g');
     var match = filter(s.match(chunker), Boolean);
-    
+
     if (!match) return [];
     if (!env) env = {};
+    if (!opts) opts = {};
     return map(match, function (s) {
         if (RegExp('^' + CONTROL + '$').test(s)) {
             return { op: s };
@@ -76,8 +77,8 @@ function parse (s, env) {
         //     "allonetoken")
         var SQ = "'";
         var DQ = '"';
-        var BS = '\\';
         var DS = '$';
+        var BS = opts.escape || '\\';
         var quote = false;
         var varname = false;
         var esc = false;
@@ -168,11 +169,11 @@ function parse (s, env) {
             return getVar(null, '', varname);
         }
     });
-    
+
     function getVar (_, pre, key) {
         var r = typeof env === 'function' ? env(key) : env[key];
         if (r === undefined) r = '';
-        
+
         if (typeof r === 'object') {
             return pre + TOKEN + json.stringify(r) + TOKEN;
         }

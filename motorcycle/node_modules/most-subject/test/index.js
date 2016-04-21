@@ -1,29 +1,21 @@
+/* eslint max-nested-callbacks: 0 */
+/* global describe, it */
 import assert from 'assert'
 import {Stream} from 'most'
 import {subject, holdSubject} from '../src'
 
 describe('subject()', () => {
-  it('should return Object with stream and sink', done => {
+  it('should return Object with stream and observer', () => {
     const s = subject()
     assert.strictEqual(typeof s, 'object')
     assert.strictEqual(typeof s.stream, 'object')
-    assert.strictEqual(typeof s.sink, 'object')
-    done()
-  })
-
-  it('should have alias `observer` for `sink`', done => {
-    const s = subject()
     assert.strictEqual(typeof s.observer, 'object')
-    assert.strictEqual(typeof s.observer, 'object')
-    assert.strictEqual(s.observer, s.observer)
-    done()
   })
 
   describe('stream', () => {
-    it('should be an extension of Stream', done => {
+    it('should be an extension of Stream', () => {
       const {stream} = subject()
       assert.strictEqual(stream instanceof Stream, true)
-      done()
     })
 
     it('should inherit Stream combinators', done => {
@@ -33,8 +25,7 @@ describe('subject()', () => {
         .map(x => x * x)
         .forEach(x => {
           assert.strictEqual(x, 25)
-          done()
-        })
+        }).then(done)
 
       observer.next(5)
       observer.complete()
@@ -42,13 +33,9 @@ describe('subject()', () => {
   })
 
   describe('observer', () => {
-    it('should have add and next for sending new values', done => {
+    it('should have next for sending new values', () => {
       const {observer} = subject()
-
-      assert.strictEqual(typeof observer.add, 'function')
       assert.strictEqual(typeof observer.next, 'function')
-
-      done()
     })
 
     it('should allow nexting events', done => {
@@ -58,8 +45,7 @@ describe('subject()', () => {
 
       stream.forEach(x => {
         assert.strictEqual(x, 1)
-        done()
-      })
+      }).then(done)
 
       observer.next(1)
       observer.complete()
@@ -82,13 +68,9 @@ describe('subject()', () => {
       observer.error(new Error('Error Message'))
     })
 
-    it('should have end and complete for ending stream', done => {
+    it('should have complete for ending stream', () => {
       const {observer} = subject()
-
-      assert.strictEqual(typeof observer.end, 'function')
       assert.strictEqual(typeof observer.complete, 'function')
-
-      done()
     })
 
     it('should allow ending of stream', done => {
@@ -105,34 +87,24 @@ describe('subject()', () => {
     it('should not allow events after end', done => {
       const {observer, stream} = subject()
 
-      const now = () => setTimeout(done, 10)
       stream
         .forEach(assert.fail)
-        .then(now)
+        .then(done)
         .catch(assert.fail)
 
       observer.complete()
       observer.next(1)
     })
   })
-
-  it('should allow starting with an initialValue', done => {
-    const {observer, stream} = subject(1)
-
-    stream.observe(x => {
-      assert.strictEqual(x, 1)
-    })
-
-    stream.observe(x => {
-      assert.strictEqual(x, 1)
-    })
-
-    observer.complete()
-    setTimeout(done, 10)
-  })
 })
 
 describe('holdSubject', () => {
+  it('should throw if given a bufferSize less than 0', () => {
+    assert.throws(() => {
+      holdSubject(-1)
+    })
+  })
+
   it('should replay the last value', done => {
     const {observer, stream} = holdSubject()
     observer.next(1)
@@ -173,7 +145,7 @@ describe('holdSubject', () => {
     stream.reduce((x, y) => x.concat(y), [])
       .then(x => {
         assert.deepEqual(x, [1, 2, 3, 4])
-        setTimeout(done, 25)
+        done()
       })
 
     observer.complete()

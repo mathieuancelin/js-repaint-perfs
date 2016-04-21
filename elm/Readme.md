@@ -1,5 +1,5 @@
-# compile Naive implementation
-elm make Naive.elm --output naive.js
+# install elm
+npm install -g elm
 
-# compile Optimized implementation
-elm make Opt.elm --output opt.js
+# compile Naive implementation
+elm make Main.elm --output main.js --yes

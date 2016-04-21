@@ -2,79 +2,79 @@
 
 Subject and Subject-like interface to Most.js
 
-# Usage
+# API
 
-```js
-import {subject} from 'most-subject'
+## holdSubject(bufferSize = 1[, initialValue])
 
-const {sink, stream} = subject(1) // starts with initial value of 1
+[src/index.js:25-31](https://github.com/tylors/most-subject/tree/master/src/index.js#L25-L31 "Source code on GitHub")
 
-stream.forEach(x => console.log(x)) // 1, 2
+Creates a subject that replays past events that a new observer may have missed.
 
-sink.add(2) // Pushes 2 to stream
-sink.error(new Error('Error Message')) // Send an error
-sink.end() // End the stream
-```
+**Parameters**
 
-```js
+-   `bufferSize` **integer** [= 1] - how many values to keep buffered.
+    Must be an integer 1 or greater.
+-   `initialValue` **any** an initialValue to start with
+
+**Examples**
+
+```javascript
 import {holdSubject} from 'most-subject'
 
-// create subject with buffersize of 4
-// and an initial value of 1
-const {observer, stream} = holdSubject(4, 1) // observer is an alias for sink
+// will keep 4 items buffered with an initialValue of 1
+const {observer, stream} = holdSubject(4, 1)
 
-observer.next(2) // next is an alias for add()
+observer.next(2)
 observer.next(3)
 observer.next(4)
 
-stream.observe(x => console.log(x)) // 1, 2, 3, 4
+stream.observe(x => console.log(x)) // 1 , 2 , 3, 4 , 5
 
-observer.complete() // alias for end()
+observer.next(5)
+observer.complete()
 ```
 
+Returns [**Subject**](#subject-1)
 
-## API
+## subject()
 
-#### **subject( [initialValue] )**
+[src/index.js:21-23](https://github.com/tylors/most-subject/tree/master/src/index.js#L21-L23 "Source code on GitHub")
 
-```js
+Creates a basic Subject
+
+**Examples**
+
+```javascript
 import {subject} from 'most-subject'
+
+const {observer, stream} = subject()
+
+stream.observe(x => console.log(x)) // 1 , 2 , 3
+
+observer.next(1)
+observer.next(2)
+observer.next(3)
+observer.complete()
 ```
 
-**Arguments**
+Returns [**Subject**](#subject-1)
 
-  - initialValue (optional) :: any - A value for the stream to start with
+## Subject
 
-**Returns**
+A Subject is simply an object with the following properties
 
-  - sink :: [Sink](#sink) - A sink to imperatively push to a stream
-  - observer :: [Sink](#sink) - An alias to `sink` to more closely align with ES Observable specification.
-  - stream :: most.Stream - The stream the sink/observer pushes to.
+**Properties**
 
-#### **holdSubject(bufferSize = 1 [, initialValue])**
-```js
-import {holdSubject} from 'most-subject'
-```
+-   `observer` [**Observer**](#observer)
+-   `stream` **most.Stream** A most.js Stream instance
 
-**Arguments**
+## Observer
 
-  - bufferSize (defaults to 1) :: Number - Size of the buffer which will store past values. These values will be replayed upon observation.
+An Observer
 
-  - initialValue (optional) :: any - A value for the stream to start with
+**Properties**
 
-**Returns**
-
-  - sink :: [Sink](#sink) - A sink to imperatively push to a stream
-  - observer :: [Sink](#sink) - An alias to `sink` to more closely align with ES Observable specification.
-  - stream :: most.Stream - The stream the sink/observer pushes to.
-
-
-#### Sink
-
-**Methods**
-
-  - *add(value: any): void* - pushes a value to a sink's associated stream
-  - *next(value: any): void* - alias for `add()`
-  - *error(error: Error): void* - throws an error on a sink's associated stream and also ends the stream.
-  - *end(value: any): void* - ends a sinks' associated stream with the specified end value
-  - *complete(value: any): void* - alias for `end()`
+-   `next` **Function&lt;any&gt;** pushes a new value to the underlying Stream
+-   `error` **Function&lt;Error&gt;** pushes a new Error to and ends
+    the underlying Stream
+-   `complete` **Function&lt;Any&gt;** ends the underlying Stream

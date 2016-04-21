@@ -15,7 +15,7 @@ module.exports = function (src, file) {
     }
     catch (err) {
         if (err === 'STOP') return undefined;
-        if (err.constructor.name !== 'SyntaxError') throw err;
+        if (err.constructor.name !== 'SyntaxError') return err;
         return errorInfo(src, file);
     }
 };

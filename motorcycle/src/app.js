@@ -40,17 +40,17 @@ function main(sources) {
   }
 }
 
-function load(sink) {
-  sink.add(ENV.generateData().toArray())
+function load(observer) {
+  observer.next(ENV.generateData().toArray())
   Monitoring.renderRate.ping()
-  setTimeout(function () {load(sink)}, ENV.timeout)
+  setTimeout(function () {load(observer)}, ENV.timeout)
 }
 
 run(main, {
   DOM: makeDOMDriver('#app-container'),
   databases: function() {
-    const {sink, stream} = subject()
-    load(sink)
+    const {observer, stream} = subject()
+    load(observer)
     return stream
   }
 })

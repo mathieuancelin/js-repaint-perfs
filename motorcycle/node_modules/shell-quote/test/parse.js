@@ -17,6 +17,7 @@ test('parse shell commands', function (t) {
     t.same(parse('a\\ b"c d"\\ e f'), [ 'a bc d e', 'f' ]);
     t.same(parse('a\\ b"c d"\\ e\'f g\' h'), [ 'a bc d ef g', 'h' ]);
     t.same(parse("x \"bl'a\"'h'"), ['x', "bl'ah"])
-    
+    t.same(parse("x bl^'a^'h'", {}, { escape: '^'}), ['x', "bl'a'h"]);
+
     t.end();
 });

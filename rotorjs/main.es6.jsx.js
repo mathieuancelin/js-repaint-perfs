@@ -6,15 +6,28 @@
    For RotorJS, see https://github.com/kuraga/rotorjs
 */
 
-class DbmonApplication extends rotorjs.Application {
+let middleware = {
+  Cursor: rotorjsMiddlewares.Cursor_FreezerJs,
+  Loop: rotorjsMiddlewares.Loop_VirtualDom,
+  Trie: rotorjsMiddlewares.Trie_RouteTrie
+};
 
-  constructor(rootElement) {
-    super(rootElement);
+let {
+  Application,
+  Component,
+  RouterComponent
+} = rotorjs.getRotorJsClasses(middleware);
+
+class DbmonApplication extends Application {
+
+  constructor() {
+    super();
   }
 
   start() {
     let dbmon = new DbmonComponent(this, null, 'dbmon');
-    super.start(dbmon, 'dbmon');
+
+    super.start(dbmon);
   }
 
   stop() {
@@ -22,7 +35,7 @@ class DbmonApplication extends rotorjs.Application {
   }
 }
 
-class DbmonComponent extends rotorjs.Component {
+class DbmonComponent extends Component {
 
   constructor(application, parent, name) {
     let initialState = {
@@ -88,13 +101,17 @@ class DbmonComponent extends rotorjs.Component {
 let application, rootElement;
 
 window.onload = () => {
-  rootElement = document.getElementById('dbmon');
-  application = new DbmonApplication(rootElement);
+  application = new DbmonApplication();
   application.start();
+
+  rootElement = document.getElementById('dbmon');
+  rootElement.appendChild(application.target);
 };
 
 window.onunload = () => {
   application.stop();
+
+  rootElement.removeChild(application.target);
 };
 
 // Dirty fix, see https://github.com/Matt-Esch/virtual-dom/pull/297/files
