@@ -26,6 +26,8 @@
     { type: 'naive', id: 'sammy', url: './sammy', label: 'DBMON sammy' },
     { type: 'naive', id: 'vue', url: './vue', label: 'DBMON Vue.js' },
     { type: 'naive', id: 'backbone', url: './backbone', label: 'DBMON Backbone' },
+    { type: 'naive', id: 'backbone-marionette', url: './marionette', label: 'DBMON Backbone Marionette' },
+    { type: 'optimized', id: 'backbone-marionette', url: './marionette/opt.html', label: 'DBMON Backbone Marionette' },
     { type: 'naive', id: 'knockout', url: './knockout', label: 'DBMON Knockout' },
     { type: 'naive', id: 'regularjs', url: './regularjs', label: 'DBMON Regularjs' },
     { type: 'naive', id: 'maskjs', url: './mask/index.html', label: 'DBMON MaskJS' },
