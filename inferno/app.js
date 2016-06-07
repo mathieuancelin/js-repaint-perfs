@@ -21,8 +21,8 @@
 					tag: 'div',
 					props: { className: 'popover left' },
 					children: [
-						{tag: 'div', attrs: {'class': 'popover-content'}, text: query},
-						{tag: 'div', attrs: {'class': 'arrow'}}
+						{tag: 'div', props: { className: 'popover-content' }, text: query},
+						{tag: 'div', props: { className: 'arrow' }}
 					]
 				}
 			]
