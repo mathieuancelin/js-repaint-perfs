@@ -1,56 +1,81 @@
-var rootNode = null;
+(function() {
+	"use strict";
+	var elem = document.getElementById('app');
 
-function queries(query) {
-  return t7`
-    <td class="${ 'Query ' + query.elapsedClassName }">
-      <span class="foo">${ query.formatElapsed }</span>
-      <div class="popover left">
-        <div class="popover-content">${ query.query }</div>
-        <div class="arrow"></div>
-      </div>
-    </td>
-  `
-};
+	//allows support in < IE9
+	function map(func, array) {
+		var newArray = new Array(array.length);
+		for (var i = 0; i < array.length; i++) {
+			newArray[i] = func(array[i]);
+		}
+		return newArray;
+	}
 
-function database(db) {
-  return t7`
-    <tr key="${ db.dbname }">
+	var queryTpl = InfernoDOM.template(function (elapsedClassName, formatElapsed, query) {
+		return {
+			tag: 'td',
+			props: { className: elapsedClassName },
+			children: [
+				{tag: 'span', props: { className: 'foo' }, text: formatElapsed},
+				{
+					tag: 'div',
+					props: { className: 'popover left' },
+					children: [
+						{tag: 'div', props: { className: 'popover-content' }, text: query},
+						{tag: 'div', props: { className: 'arrow' }}
+					]
+				}
+			]
+		};
+	});
 
-      <td class="dbname">
-        ${ db.dbname }
-      </td>
+	function query(query) {
+		return queryTpl(query.elapsedClassName, query.formatElapsed, query.query);
+	}
 
-      <td class="query-count">
-        <span class="${ db.lastSample.countClassName }">
-          ${ db.lastSample.nbQueries }
-        </span>
-      </td>
+	var databaseTpl = InfernoDOM.template(function (dbname, countClassName, nbQueries, topFiveQueries) {
+		return {
+			tag: 'tr',
+			children: [
+				{tag: 'td', props: { className: 'dbname' }, text: dbname},
+				{
+					tag: 'td',
+					props: { className: 'query-count'},
+					children: {
+						tag: 'span',
+						props: { className: countClassName },
+						text: nbQueries
+					}
+				},
+				topFiveQueries
+			]
+		};
+	});
 
-      ${ db.lastSample.topFiveQueries.map( queries) }
+	function database(db) {
+		var lastSample = db.lastSample;
 
-    </tr>
-  `;
-};
+		return databaseTpl(
+			db.dbname,
+			lastSample.countClassName,
+			lastSample.nbQueries,
+			map(query, lastSample.topFiveQueries)
+		);
+	}
 
-var appElem = document.getElementById("app");
+	var tableTpl = InfernoDOM.template(function (dbs) {
+		return {
+			tag: 'table',
+			props: { className: 'table table-striped latest-data' },
+			children: { tag: 'tbody', children: dbs }
+		};
+	});
 
-function loadSamples() {
-  var dbs = ENV.generateData().toArray();
-
-  var table = t7`
-    <table class="table table-striped latest-data">
-      <tbody>
-        ${ dbs.map( database )}
-      </tbody>
-    </table>
-  `;
-
-  Inferno.render(table, appElem);
-
-  Monitoring.renderRate.ping();
-  setTimeout(loadSamples, ENV.timeout);
-};
-
-$(function() {
-  loadSamples();
-});
+	function render() {
+		var dbs = ENV.generateData().toArray();
+		InfernoDOM.render(tableTpl(map(database,dbs)), elem);
+		Monitoring.renderRate.ping();
+		setTimeout(render, ENV.timeout);
+	}
+	render();
+})();
