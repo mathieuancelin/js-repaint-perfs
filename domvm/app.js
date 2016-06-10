@@ -1,23 +1,21 @@
 $(function() {
-  domvm.view.config({useRaf: false});
-
   function DBMonView() {
-    return function(vm, data) {
+    return function(vm, dbs) {
       return ["div",
-        ["table", { class: "table table-striped latest-data" },
+        ["table.table.table-striped.latest-data",
           ["tbody",
-            data.map(function(db) {
+            dbs.map(function(db) {
               return ["tr",
-                ["td", { class: "dbname" }, db.dbname],
-                ["td", { class: "query-count" },
+                ["td.dbname", db.dbname],
+                ["td.query-count",
                   ["span", { class: db.lastSample.countClassName }, db.lastSample.nbQueries]
                 ],
                 db.lastSample.topFiveQueries.map(function(query) {
-                  return ["td", { class: "Query " + query.elapsedClassName },
+                  return ["td.Query", { class: query.elapsedClassName },
                     ["span", query.formatElapsed],
-                    ["div", { class: "popover left" },
-                      ["div", { class: "popover-content" }, query.query],
-                      ["div", { class: "arrow" }]
+                    [".popover.left",
+                      [".popover-content", query.query],
+                      [".arrow"],
                     ]
                   ];
                 })
@@ -26,7 +24,7 @@ $(function() {
           ]
         ]
       ];
-    }
+    };
   }
 
   function getData() {
