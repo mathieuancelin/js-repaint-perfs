@@ -55,7 +55,8 @@
     { type: 'naive', id: 'd3', url: './d3/index.html', label: 'DBMON D3' },
     { type: 'naive', id: 'morphdom', url: './morphdom/index.html', label: 'DBMON Morphdom' },
     { type: 'optimized', id: 'frzr', url: './frzr/index.html', label: 'DBMON FRZR' },
-    { type: 'naive', id: 'vidom', url: './vidom/index.html', label: 'DBMON vidom' }
+    { type: 'naive', id: 'vidom', url: './vidom/index.html', label: 'DBMON vidom' },
+    { type: 'optimized', id: 'cycle + xstream', label: 'DBMON Cycle.js + xstream', url: './cycle-xstream'}
   ];
 
   function Library() {
