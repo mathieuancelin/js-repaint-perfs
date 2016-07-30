@@ -37,6 +37,7 @@ You can test it at http://mathieuancelin.github.io/js-repaint-perfs/
 * [Morphdom](https://github.com/patrick-steele-idem/morphdom)
 * [FRZR](https://frzr.js.org)
 * [Vidom](https://github.com/dfilatov/vidom)
+* [Rionite](https://github.com/Riim/Rionite)
 
 ## Todo
 
