@@ -1,0 +1,9 @@
+<div>
+	<table class="table table-striped latest-data">
+		<tbody>
+			{% for databases %}
+				<Database dbname={{dbname}} lastSample={{lastSample}} />
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
