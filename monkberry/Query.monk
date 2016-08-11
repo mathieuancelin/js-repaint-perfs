@@ -1,0 +1,7 @@
+<td class={{"Query " + elapsedClassName}}>
+	{{formatElapsed}}
+	<div class="popover left">
+		<div class="popover-content">{{query}}</div>
+		<div class="arrow" />
+	</div>
+</td>

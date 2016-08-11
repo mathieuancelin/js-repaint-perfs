@@ -57,7 +57,8 @@
     { type: 'optimized', id: 'frzr', url: './frzr/index.html', label: 'DBMON FRZR' },
     { type: 'naive', id: 'vidom', url: './vidom/index.html', label: 'DBMON vidom' },
     { type: 'optimized', id: 'cycle + xstream', label: 'DBMON Cycle.js + xstream', url: './cycle-xstream' },
-    { type: 'naive', id: 'rionite', url: './rionite', label: 'DBMON Rionite' }
+    { type: 'naive', id: 'rionite', url: './rionite', label: 'DBMON Rionite' },
+    { type: 'naive', id: 'monkberry', url: './monkberry/index.html', label: 'Monkberry' }
   ];
 
   function Library() {
