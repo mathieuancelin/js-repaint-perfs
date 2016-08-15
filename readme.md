@@ -39,6 +39,7 @@ You can test it at http://mathieuancelin.github.io/js-repaint-perfs/
 * [Vidom](https://github.com/dfilatov/vidom)
 * [Rionite](https://github.com/Riim/Rionite)
 * [Monkberry](http://monkberry.js.org)
+* [Simulacra](http://simulacra.js.org)
 
 ## Todo
 
