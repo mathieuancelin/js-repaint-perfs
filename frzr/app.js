@@ -5,7 +5,7 @@ $(function () {
 
 	function Table () {
 		this.el = el('div', null,
-			el('table', { class: 'table table-striped latest-data' },
+			el('table', { className: 'table table-striped latest-data' },
 				el('tbody',
 					this.rows = new List(Row)
 				)
@@ -19,17 +19,17 @@ $(function () {
 
 	function Cell (initData, data, index) {
 		if (index === 0) {
-			this.el = el('td', { class: 'dbname' });
+			this.el = el('td', { className: 'dbname' });
 		} else if (index === 1) {
-			this.el = el('td', { class: 'query-count' },
+			this.el = el('td', { className: 'query-count' },
 				this.count = el('span')
 			);
 		} else {
 			this.el = el('td',
 				this.span = el('span'),
-				el('div', { class: 'popover left' },
-					this.popover = el('div', { class: 'popover-content' }),
-					el('div', { class: 'arrow' }, '')
+				el('div', { className: 'popover left' },
+					this.popover = el('div', { className: 'popover-content' }),
+					el('div', { className: 'arrow' }, '')
 				)
 			);
 		}
@@ -38,7 +38,6 @@ $(function () {
 	Cell.prototype.update = function (data, index) {
 		if (index === 0) {
 			this.el.textContent = data;
-			return;
 		} else if (index === 1) {
 			this.count.textContent = data[0];
 			this.count.className = data[1];
