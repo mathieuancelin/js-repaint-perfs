@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="description" content="DBMON Handlebars"/>
+    <link href="../styles.css" rel="stylesheet" type="text/css"/>
+    <meta charset="utf-8">
+    <title>dbmon (handlebars)</title>
+</head>
+<body>
+<!-- DBMon -->
+<div id="main">
+
+</div>
+<script id="tableTemplate" type="text/x-handlebars-template">
+    <table class="table table-striped latest-data">
+        <tbody>
+        {{#databases}}
+        <!-- Database -->
+        <tr>
+            <td class="dbname">
+                {{dbname}}
+            </td>
+            <!-- Sample -->
+            <td class="query-count">
+                <span class="{{lastSample.countClassName}}">
+                    {{lastSample.nbQueries}}
+                </span>
+            </td>
+            <!-- Query -->
+            {{#lastSample.topFiveQueries}}
+            <td class="{{elapsedClassName}}">
+                {{formatElapsed}}
+                <div class="popover left">
+                    <div class="popover-content">
+                        {{query}}
+                    </div>
+                    <div class="arrow"></div>
+                </div>
+            </td>
+            {{/lastSample.topFiveQueries}}
+        </tr>
+        {{/databases}}
+        </tbody>
+    </table>
+</script>
+
+<script src="../lib/handlebars-v4.0.5.js"></script>
+<script src="../ENV.js"></script>
+<script src="../lib/memory-stats.js"></script>
+<script src="../lib/monitor.js"></script>
+<script src="app.js"></script>
+<script src="../ga.js"></script>
+</body>
+</html>

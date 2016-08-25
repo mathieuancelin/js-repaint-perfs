@@ -1,0 +1,13 @@
+<tr key={{dbname}}>
+	<td class="dbname">
+		{{dbname}}
+	</td>
+	<td class="query-count">
+		<span class={{lastSample.countClassName}}>
+			{{lastSample.nbQueries}}
+		</span>
+	</td>
+	{% for lastSample.topFiveQueries %}
+		<Query elapsedClassName={{elapsedClassName}} formatElapsed={{formatElapsed}} query={{query}} />
+	{% endfor %}
+</tr>

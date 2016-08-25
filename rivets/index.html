@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="description" content="DBMON Rivets"/>
+    <link href="../styles.css" rel="stylesheet" type="text/css"/>
+    <meta charset="utf-8">
+    <title>dbmon (rivets)</title>
+</head>
+<body>
+<!-- DBMon -->
+<div id="dbmon">
+    <table class="table table-striped latest-data">
+        <tbody>
+        <!-- Database -->
+        <tr rv-each-database="databases">
+            <td class="dbname">
+                {database.dbname}
+            </td>
+            <!-- Sample -->
+            <td class="query-count">
+                <span rv-class="database.lastSample.countClassName">
+                    {database.lastSample.nbQueries}
+                </span>
+            </td>
+            <!-- Query -->
+            <td rv-each-top="database.lastSample.topFiveQueries" rv-class="top.elapsedClassName">
+                {top.formatElapsed}
+                <div class="popover left">
+                    <div class="popover-content">
+                        {top.query}
+                    </div>
+                    <div class="arrow"></div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="../lib/jquery-2.1.0.min.js"></script>
+<script src="../lib/rivets.bundled.min.js"></script>
+<script src="../ENV.js"></script>
+<script src="../lib/memory-stats.js"></script>
+<script src="../lib/monitor.js"></script>
+<script src="app.js"></script>
+<script src="../ga.js"></script>
+</body>
+</html>

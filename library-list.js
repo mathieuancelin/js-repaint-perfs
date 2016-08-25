@@ -2,6 +2,7 @@
 
   var list = [
     { type: 'todo', id: 'aurelia', label: 'DBMON Aurelia', url: '#' },
+    { type: 'naive', id: 'cycle', label: 'DBMON Cycle.js', url: './cycle'},
     { type: 'naive', id: 'ember', url: './ember', label: 'DBMON Ember' },
     { type: 'naive', id: 'angular', url: './angular', label: 'DBMON Angular' },
     { type: 'naive', id: 'angular-light', url: './angular-light', label: 'DBMON Angular Light' },
@@ -17,7 +18,7 @@
     { type: 'naive', id: 'inferno', url: './inferno', label: 'DBMON Inferno' },
     { type: 'naive', id: 'riot', url: './riot', label: 'DBMON Riot.js' },
     { type: 'optimized', id: 'riot', url: './riot/no-reorder.html', label: 'DBMON Riot.js ( no-reorder )' },
-    { type: 'naive', id: 'polymer', url: './polymer', label: 'DBMON Polymer 1.0' },
+    { type: 'naive', id: 'polymer', url: './polymer', label: 'DBMON Polymer 1.4' },
     { type: 'naive', id: 'vanilla', url: './vanilla-simple', label: 'DBMON vanilla' },
     { type: 'naive', id: 'dott', url: './dotT', label: 'DBMON dotT' },
     { type: 'naive', id: 'canvas', url: './canvas', label: 'DBMON canvas' },
@@ -25,11 +26,15 @@
     { type: 'naive', id: 'sammy', url: './sammy', label: 'DBMON sammy' },
     { type: 'naive', id: 'vue', url: './vue', label: 'DBMON Vue.js' },
     { type: 'naive', id: 'backbone', url: './backbone', label: 'DBMON Backbone' },
+    { type: 'naive', id: 'backbone-marionette', url: './marionette', label: 'DBMON Backbone Marionette' },
+    { type: 'optimized', id: 'backbone-marionette', url: './marionette/opt.html', label: 'DBMON Backbone Marionette' },
     { type: 'naive', id: 'knockout', url: './knockout', label: 'DBMON Knockout' },
     { type: 'naive', id: 'regularjs', url: './regularjs', label: 'DBMON Regularjs' },
     { type: 'naive', id: 'maskjs', url: './mask/index.html', label: 'DBMON MaskJS' },
     { type: 'naive', id: 'matreshkajs', url: './matreshka/index.html', label: 'DBMON Matreshka.js' },
     { type: 'naive', id: 'rotorjs', url: './rotorjs/index.html', label: 'DBMON RotorJS' },
+    { type: 'optimized', id: "cycle + snabbdom", label: "DBMON Cycle.js + Snabbdom", url: "./cycle-snabbdom"},
+    { type: 'optimized', id: 'motorcycle', label: 'DBMON Motorcycle.js', url: './motorcycle'},
     { type: 'naive', id: 'domvm', url: './domvm/index.html', label: 'DBMON domvm' },
     { type: 'naive', id: 'once', url: './once/index.html', label: 'DBMON once' },
     { type: 'naive', id: 'ripple', url: './ripple/index.html', label: 'DBMON ripple' },
@@ -41,6 +46,7 @@
     { type: 'optimized', id: 'angular-light', url: './angular-light/opt.html', label: 'DBMON Angular Light' },
     { type: 'optimized', id: 'angular2', url: './angular2/opt.html', label: 'DBMON Angular 2.0 Alpha' },
     { type: 'optimized', id: 'angular-track-by', url: './angular-track-by', label: 'DBMON Angular (track by $index)' },
+    { type: 'optimized', id: 'elem', url: './elm/opt.html', label: 'DBMON elm' },
     { type: 'optimized', id: 'vanilla', url: './vanilla-optimized', label: 'DBMON vanilla' },
     { type: 'optimized', id: 'maskjs', url: './mask/index_opt.html', label: 'DBMON MaskJS' },
     { type: 'optimized', id: 'vue', url: './vue/opt.html', label: 'DBMON Vue.js' },
@@ -48,7 +54,11 @@
     { type: 'naive', id: 're-frame', url: './re-frame/index.html', label: 're-frame (Reagent)' },
     { type: 'naive', id: 'd3', url: './d3/index.html', label: 'DBMON D3' },
     { type: 'naive', id: 'morphdom', url: './morphdom/index.html', label: 'DBMON Morphdom' },
-    { type: 'optimized', id: 'frzr', url: './frzr/index.html', label: 'DBMON FRZR' }
+    { type: 'optimized', id: 'frzr', url: './frzr/index.html', label: 'DBMON FRZR' },
+    { type: 'naive', id: 'vidom', url: './vidom/index.html', label: 'DBMON vidom' },
+    { type: 'optimized', id: 'cycle + xstream', label: 'DBMON Cycle.js + xstream', url: './cycle-xstream' },
+    { type: 'naive', id: 'rionite', url: './rionite', label: 'DBMON Rionite' },
+    { type: 'naive', id: 'monkberry', url: './monkberry/index.html', label: 'DBMON Monkberry' }
   ];
 
   function Library() {
