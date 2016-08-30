@@ -21,7 +21,9 @@ document.getElementById('app').appendChild(simulacra(data, [
         elapsedClassName: function (node, value) {
           node.className = value
         },
-        formatElapsed: id('timing'),
+        formatElapsed: function (node, value) {
+          node.childNodes[0].textContent = value
+        },
         query: id('query')
       } ]
     } ]
