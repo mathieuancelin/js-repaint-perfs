@@ -1,9 +1,5 @@
 "use strict"
 
-perfMonitor.startFPSMonitor()
-perfMonitor.startMemMonitor()
-perfMonitor.initProfiler("render")
-
 var data = [];
 
 var DBMon = dio.createComponent({
@@ -112,12 +108,10 @@ var DBMon = dio.createComponent({
 var render = dio.createRender(DBMon, '#app');
 
 function update() {
-	data = ENV.generateData().toArray()
-	perfMonitor.startProfile("render")
+	data = ENV.generateData().toArray();
 	
+	Monitoring.renderRate.ping();
 	render();
-
-	perfMonitor.endProfile("render")
 
 	setTimeout(update, ENV.timeout)
 }
