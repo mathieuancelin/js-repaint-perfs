@@ -40,6 +40,7 @@ You can test it at http://mathieuancelin.github.io/js-repaint-perfs/
 * [Rionite](https://github.com/Riim/Rionite)
 * [Monkberry](http://monkberry.js.org)
 * [Simulacra](http://simulacra.js.org)
+* [DIO.js](https://thysultan.com/dio)
 
 ## Todo
 
