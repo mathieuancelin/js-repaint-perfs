@@ -1,6 +1,8 @@
 var data = {
   dbs: ENV.generateData().toArray().map(function (db) {
-    db.topFiveQueries = db.lastSample.topFiveQueries
+    if (!db.topFiveQueries)
+      db.topFiveQueries = db.lastSample.topFiveQueries
+
     return db
   })
 }
@@ -22,7 +24,7 @@ document.getElementById('app').appendChild(simulacra(data, [
           node.className = value
         },
         formatElapsed: function (node, value) {
-          node.childNodes[0].textContent = value
+          node.firstChild.textContent = value
         },
         query: id('query')
       } ]
