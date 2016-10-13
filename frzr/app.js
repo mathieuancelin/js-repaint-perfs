@@ -1,4 +1,5 @@
-$(function () {
+(function () {
+	'use strict'
 	var el = frzr.el;
 	var mount = frzr.mount;
 	var List = frzr.List;
@@ -79,4 +80,4 @@ $(function () {
 			update();
 		}, ENV.timeout);
 	}
-});
+})()
