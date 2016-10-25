@@ -1,19 +1,18 @@
 var App = Sugar.Component.extend({
-	init: function(config) {
-		config = this.cover(config, {
-			'target': '#app',
-			'model' : {
-				'databases': []
+	init: function (config) {
+		this.Super('init', config, {
+			target: '#app',
+			model: {
+				databases: []
 			}
 		});
-		this.Super('init', arguments);
 	}
 });
 
 var app = Sugar.core.create('app', App);
 
 
-function loadSamples() {
+function loadSamples () {
 	app.vm.set('databases', ENV.generateData().toArray());
 	Monitoring.renderRate.ping();
 	setTimeout(loadSamples, ENV.timeout);
