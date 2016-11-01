@@ -36,6 +36,7 @@
     { type: 'optimized', id: "cycle + snabbdom", label: "DBMON Cycle.js + Snabbdom", url: "./cycle-snabbdom"},
     { type: 'optimized', id: 'motorcycle', label: 'DBMON Motorcycle.js', url: './motorcycle'},
     { type: 'naive', id: 'domvm', url: './domvm/index.html', label: 'DBMON domvm' },
+    { type: 'optimized', id: 'domvm-optimized', url: './domvm-optimized/index.html', label: 'DBMON domvm' },
     { type: 'naive', id: 'once', url: './once/index.html', label: 'DBMON once' },
     { type: 'naive', id: 'ripple', url: './ripple/index.html', label: 'DBMON ripple' },
     { type: 'naive', id: 'diffhtml', url: './diffhtml/index.html', label: 'DBMON diffHTML' },

@@ -1,30 +1,28 @@
 $(function() {
+  var h = (tag, arg1, arg2) => domvm.defineElement(tag, arg1, arg2, domvm.FIXED_BODY);
+
   function DBMonView() {
-    return function(vm, dbs) {
-      return ["div",
-        ["table.table.table-striped.latest-data",
-          ["tbody",
-            dbs.map(function(db) {
-              return ["tr",
-                ["td.dbname", db.dbname],
-                ["td.query-count",
-                  ["span", { class: db.lastSample.countClassName }, db.lastSample.nbQueries]
-                ],
-                db.lastSample.topFiveQueries.map(function(query) {
-                  return ["td.Query", { class: query.elapsedClassName },
-                    ["span", query.formatElapsed],
-                    [".popover.left",
-                      [".popover-content", query.query],
-                      [".arrow"],
-                    ]
-                  ];
-                })
-              ];
-            })
-          ]
-        ]
-      ];
-    };
+    return (vm, dbs) =>
+      h("div", [
+        h("table.table.table-striped.latest-data", [
+          h("tbody", dbs.map(db =>
+            h("tr", [
+              h("td.dbname", db.dbname),
+              h("td.query-count", [
+                h("span", { class: db.lastSample.countClassName }, db.lastSample.nbQueries)
+              ])
+            ].concat(db.lastSample.topFiveQueries.map(query =>
+              h("td", { class: query.elapsedClassName }, [
+                h("span", query.formatElapsed),
+                h(".popover.left", [
+                  h(".popover-content", query.query),
+                  h(".arrow"),
+                ])
+              ])
+            )))
+          ))
+        ])
+      ])
   }
 
   function getData() {
@@ -37,7 +35,7 @@ $(function() {
     setTimeout(update, ENV.timeout);
   };
 
-  var view = domvm.view(DBMonView, getData(), false).mount(document.getElementById("app"));
+  var view = domvm.createView(DBMonView, getData(), false).mount(document.getElementById("app"));
 
   update();
 });
