@@ -38,11 +38,12 @@
   }
 
   function Row () {
-    this.el = new List('tr', Cell)
+    this.list = new List('tr', Cell)
+    this.el = this.list.el
   }
 
   Row.prototype.update = function (db) {
-    this.el.update(
+    this.list.update(
       [
         db.dbname,
         [ db.lastSample.nbQueries, db.lastSample.countClassName ]
