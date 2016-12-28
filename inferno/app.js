@@ -2,78 +2,65 @@
 	"use strict";
 	var elem = document.getElementById('app');
 
-	//allows support in < IE9
-	function map(func, array) {
-		var newArray = new Array(array.length);
-		for (var i = 0; i < array.length; i++) {
-			newArray[i] = func(array[i]);
+	var createVNode = Inferno.createVNode;
+	var staticNode = createVNode(2, 'div', { className: 'arrow' }, null, null, null, null, true);
+	var tableProps = {
+		className: 'table table-striped latest-data'
+	};
+	var dbName = {
+		className: 'dbname'
+	};
+	var dbQueryCount = {
+		className: 'query-count'
+	};
+	var foo = {
+		className: 'foo'
+	};
+	var popoverLeft = {
+		className: 'popover left'
+	};
+	var popoverContent = {
+		className: 'popover-content'
+	};
+
+	function renderBenchmark(dbs) {
+		var length = dbs.length;
+		var databases = new Array(length);
+
+		for (var i = 0; i < length; i++) {
+			var db = dbs[i];
+			var lastSample = db.lastSample;
+			var children = new Array(7);
+
+			children[0] = createVNode(2, 'td', dbName, db.dbname, null, null, null, true);
+			children[1] = createVNode(2, 'td', dbQueryCount, createVNode(2, 'span', {
+				className: lastSample.countClassName
+			}, lastSample.nbQueries, null, null, null, true), null, null, null, true);
+
+			for (var i2 = 0; i2 < 5; i2++) {
+				var query = lastSample.topFiveQueries[i2];
+
+				children[i2 + 2] = createVNode(66, 'td', {
+					className: query.elapsedClassName
+				}, [
+					createVNode(2, 'div', foo, query.formatElapsed, null, null, null, true),
+					createVNode(66, 'div', popoverLeft, [
+						createVNode(2, 'div', popoverContent, query.query, null, null, null, true),
+						staticNode
+					], null, null, null, true)
+				], null, null, null, true);
+				databases[i] = createVNode(66, 'tr', null, children, null, null, null, true);
+			}
 		}
-		return newArray;
+
+		Inferno.render(
+			createVNode(2, 'table', tableProps, createVNode(66, 'tbody', null, databases, null, null, null, true), null, null, null, true),
+		elem);
 	}
-
-	var queryTpl = InfernoDOM.template(function (elapsedClassName, formatElapsed, query) {
-		return {
-			tag: 'td',
-			props: { className: elapsedClassName },
-			children: [
-				{tag: 'span', props: { className: 'foo' }, text: formatElapsed},
-				{
-					tag: 'div',
-					props: { className: 'popover left' },
-					children: [
-						{tag: 'div', props: { className: 'popover-content' }, text: query},
-						{tag: 'div', props: { className: 'arrow' }}
-					]
-				}
-			]
-		};
-	});
-
-	function query(query) {
-		return queryTpl(query.elapsedClassName, query.formatElapsed, query.query);
-	}
-
-	var databaseTpl = InfernoDOM.template(function (dbname, countClassName, nbQueries, topFiveQueries) {
-		return {
-			tag: 'tr',
-			children: [
-				{tag: 'td', props: { className: 'dbname' }, text: dbname},
-				{
-					tag: 'td',
-					props: { className: 'query-count'},
-					children: {
-						tag: 'span',
-						props: { className: countClassName },
-						text: nbQueries
-					}
-				},
-				topFiveQueries
-			]
-		};
-	});
-
-	function database(db) {
-		var lastSample = db.lastSample;
-
-		return databaseTpl(
-			db.dbname,
-			lastSample.countClassName,
-			lastSample.nbQueries,
-			map(query, lastSample.topFiveQueries)
-		);
-	}
-
-	var tableTpl = InfernoDOM.template(function (dbs) {
-		return {
-			tag: 'table',
-			props: { className: 'table table-striped latest-data' },
-			children: { tag: 'tbody', children: dbs }
-		};
-	});
 
 	function render() {
-		var dbs = ENV.generateData().toArray();
-		InfernoDOM.render(tableTpl(map(database,dbs)), elem);
+		var dbs = ENV.generateData(false).toArray();
+		renderBenchmark(dbs);
 		Monitoring.renderRate.ping();
 		setTimeout(render, ENV.timeout);
 	}
