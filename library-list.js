@@ -65,7 +65,8 @@
     { type: 'naive', id: 'simulacra', url: './simulacra/index.html', label: 'DBMON Simulacra' },
     { type: 'optimized', id: 'simulacra', url: './simulacra/opt.html', label: 'DBMON Simulacra' },
     { type: 'optimized', id: 'dio', url: './dio/index.html', label: 'DBMON DIO.js' },
-    { type: 'optimized', id: 'redom', url: './redom/index.html', label: 'DBMON RE:DOM' }
+    { type: 'optimized', id: 'redom', url: './redom/index.html', label: 'DBMON RE:DOM' },
+    { type: 'naive', id: 'hyperapp', url: './hyperapp', label: 'DBMON HyperApp' },
   ];
 
   function Library() {
