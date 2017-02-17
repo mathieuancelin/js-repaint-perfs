@@ -1,4 +1,4 @@
-let UI = stem.UI;
+import {UI} from "UIBase";
 
 class BenchmarkElement extends UI.Element {
     renderDatabase(database) {

@@ -1,6 +1,7 @@
-let UI = stem.UI;
+import {UI} from "UIBase";
+import {NOOP_FUNCTION} from "base/Utils";
 
-UI.Element.prototype.addListenersFromOptions = stem.NOOP_FUNCTION;
+UI.Element.prototype.addListenersFromOptions = NOOP_FUNCTION;
 UI.Element.prototype.applyNodeAttributes = function () {
     if (this.options.className) {
         this.node.className = this.options.className;
@@ -66,3 +67,4 @@ class BenchmarkElement extends UI.Element {
 let node = document.getElementById("dbmon");
 let benchmarkElement = new BenchmarkElement();
 benchmarkElement.bindToNode(node, true);
+
