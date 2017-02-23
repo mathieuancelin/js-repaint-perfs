@@ -40,13 +40,18 @@
     },
     attached: function() {
       // when we are inserted into DOM, start watching the time
-      this.refreshData();
-    },
-    refreshData: function() {
-      this.databases = ENV.generateData().toArray();
-      Monitoring.renderRate.ping();
-      this.async(this.refreshData, 1);//ENV.timeout);
+      window.dbElem = this;
+      refreshData();
     }
   });
+
+  window.dbElem = null;
+
+  function refreshData() {
+      window.dbElem.databases = ENV.generateData().toArray();
+      Monitoring.renderRate.ping();
+      setTimeout(refreshData);
+  }
+
 </script>
 </dom-module>
