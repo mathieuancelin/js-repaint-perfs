@@ -42,6 +42,7 @@ You can test it at https://mathieuancelin.github.io/js-repaint-perfs/
 * [Simulacra](http://simulacra.js.org)
 * [DIO.js](https://thysultan.com/dio)
 * [RE:DOM](https://redom.js.org)
+* [StemJS](https://stemjs.org)
 
 ## Todo
 
