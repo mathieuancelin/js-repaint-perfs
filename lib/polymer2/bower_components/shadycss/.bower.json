@@ -1,0 +1,37 @@
+{
+  "name": "shadycss",
+  "main": "scoping-shim.min.js",
+  "authors": [
+    "The Polymer Authors"
+  ],
+  "license": "BSD-3-Clause",
+  "keywords": [
+    "webcomponents"
+  ],
+  "homepage": "https://github.com/webcomponents/shadycss",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "web-component-tester": "^5",
+    "es6-promise": "stefanpenner/es6-promise#^4.0.0",
+    "template": "webcomponents/template#master",
+    "html-imports": "webcomponents/html-imports#master",
+    "custom-elements": "webcomponents/custom-elements#master",
+    "shadydom": "webcomponents/shadydom#master",
+    "webcomponents-platform": "webcomponents/webcomponents-platform#master"
+  },
+  "_release": "d121c6e2fa",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "d121c6e2faf0b14a82b7b73fc73c4d8f20f27003"
+  },
+  "_source": "https://github.com/webcomponents/shadycss.git",
+  "_target": "master",
+  "_originalSource": "webcomponents/shadycss"
+}

@@ -1,0 +1,62 @@
+<link rel="import" href="../lib/polymer2/bower_components/polymer/polymer.html">
+<link rel="import" href="shared-styles.html">
+
+<dom-module id="db-table">
+    <template>
+        <style include="shared-styles"></style>
+        <table class="table table-striped latest-data">
+            <tbody>
+            <template is="dom-repeat" items="[[databases]]" as="db" strip-whitespace>
+                <tr>
+                    <td class="dbname">[[db.dbname]]</td>
+                    <td class="query-count">
+                        <span class$="[[db.lastSample.countClassName]]">[[db.lastSample.nbQueries]]</span>
+                    </td>
+                    <template is="dom-repeat" items="[[db.lastSample.topFiveQueries]]" as="q"
+                              strip-whitespace>
+                        <td class$="[[q.elapsedClassName]]">
+                            <span>[[q.formatElapsed]]</span>
+                            <div class="popover left">
+                                <div class="popover-content">[[q.query]]</div>
+                                <div class="arrow"></div>
+                            </div>
+                        </td>
+                    </template>
+                </tr>
+            </template>
+            </tbody>
+        </table>
+    </template>
+
+    <script>
+        class DbTable extends Polymer.Element {
+            static get is() { return 'db-table'; }
+            static get config() {
+                return {
+                    properties: {
+                        databases: {
+                            type: Array,
+                            value: function() { return []; }
+                        }
+                    }
+                };
+            }
+            connectedCallback() {
+                super.connectedCallback();
+                window.dbElem = this;
+                refreshData();
+            }
+        }
+
+        window.dbElem = null;
+
+        function refreshData() {
+            window.dbElem.databases = ENV.generateData().toArray();
+            Monitoring.renderRate.ping();
+            setTimeout(refreshData);
+        }
+
+        window.customElements.define(DbTable.is, DbTable);
+
+    </script>
+</dom-module>
