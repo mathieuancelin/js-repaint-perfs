@@ -12,21 +12,22 @@
     function buildQuery(row, top5, q) {
         var query = document.createElement('td');
         var elapsed = document.createTextNode(q.formatElapsed || '');
-        var popover = document.createElement('div');
+        var popoverDiv = document.createElement('div');
         var popoverContent = document.createElement('div');
+        var popover = document.createTextNode(q.query || '');
         var arrow = document.createElement('div');
 
         query.className = q.elapsedClassName;
-        popover.className = 'popover left';
+        popoverDiv.className = 'popover left';
         popoverContent.className = 'popover-content';
         arrow.className = 'arrow';
 
         row.appendChild(query);
         query.appendChild(elapsed);
-        query.appendChild(popover);
-        popover.appendChild(popoverContent);
-        popoverContent.textContent = q.query || '';
-        popover.appendChild(arrow);
+        query.appendChild(popoverDiv);
+        popoverDiv.appendChild(popoverContent);
+        popoverContent.appendChild(popover);
+        popoverDiv.appendChild(arrow);
         top5.push({
             query: query,
             elapsed: elapsed,
@@ -43,21 +44,23 @@
     // </table>
     function buildRow(tbody, db) {
         var row = document.createElement('tr');
-        var dbname = document.createElement('td');
-        var lastSample = document.createElement('td');
+        var dbrow = document.createElement('td');
+        var dbname = document.createTextNode(db.dbname);
+        var lastSampleRow = document.createElement('td');
         var lastSampleSpan = document.createElement('span');
+        var lastSample = document.createTextContent(db.lastSample.nbQueries);
         var top5 = [];
 
-        dbname.className = 'dbname';
-        lastSample.className = 'query-count';
+        dbrow.className = 'dbname';
+        lastSampleRow.className = 'query-count';
         lastSampleSpan.className = db.lastSample.countClassName;
 
         tbody.appendChild(row);
-        row.appendChild(dbname);
-        dbname.textContent = db.dbname;
-        row.appendChild(lastSample);
-        lastSample.appendChild(lastSampleSpan);
-        lastSampleSpan.textContent = db.lastSample.nbQueries;
+        row.appendChild(dbrow);
+        dbrow.appendChild(dbname);
+        row.appendChild(lastSampleRow);
+        lastSampleRow.appendChild(lastSampleSpan);
+        lastSampleSpan.appendChild(lastSample);
         
         for (var i = 0; i < db.lastSample.topFiveQueries.length; i++) {
             buildQuery(row, top5, db.lastSample.topFiveQueries[i]);
@@ -65,7 +68,7 @@
         
         nodes.push({
             dbname: dbname,
-            lastSample: lastSampleSpan,
+            lastSample: lastSample,
             top5: top5
         });
     }
@@ -93,57 +96,48 @@
         return databases;
     }
     
-    function patchRow(changes, node, last, current) {
+    function patchRow(node, last, current) {
         if (last.dbname !== current.dbname) {
-            changes.push({text: true, node: node.dbname, value: current.dbname});
+            node.dbname.nodeValue = current.dbname;
         }
 
         if (last.lastSample.countClassName !== current.lastSample.countClassName) {
-            changes.push({text: false, node: node.lastSample, value: current.lastSample.countClassName});
+            node.lastSample.className = current.lastSample.countClassName;
         }
 
         if (last.lastSample.nbQueries !== current.lastSample.nbQueries) {
-            changes.push({text: true, node: node.lastSample, value: current.lastSample.nbQueries});
+            node.lastSample.nodeValue = current.lastSample.nbQueries;
         }
 
         for (var i = 0; i < node.top5.length; i++) {
+            var child = node.top5[i];
             var lastQ = last.lastSample.topFiveQueries[i];
             var currentQ = current.lastSample.topFiveQueries[i];
 
             if (lastQ.elapsedClassName !== currentQ.elapsedClassName) {
-                changes.push({text: false, node: node.top5[i].query, value: currentQ.elapsedClassName});
+                child.query.className = currentQ.elapsedClassName;
             }
 
             if (lastQ.formatElapsed !== currentQ.formatElapsed) {
-                changes.push({text: true, node: node.top5[i].elapsed, value: currentQ.formatElapsed});
+                child.elapsed.nodeValue = currentQ.formatElapsed || '';
             }
 
             if (lastQ.query !== currentQ.query) {
-                changes.push({text: true, node: node.top5[i].popover, value: currentQ.query});
+                child.popover.nodeValue = currentQ.query || '';
             }
         }
     }
 
     function refresh() {
-        // Set now, to not delay patching
-        setTimeout(refresh, ENV.timeout);
-        var changes = [];
         var databases = ENV.generateData().toArray();
 
         for (var i = 0; i < databases.length; i++) {
-            patchRow(changes, nodes[i], lastDatabases[i], databases[i]);
-        }
-
-        for (var i = 0; i < changes.length; i++) {
-            if (changes[i].text) {
-                changes[i].node.textContent = changes[i].value
-            } else {
-                changes[i].node.className = changes[i].value
-            }
+            patchRow(nodes[i], lastDatabases[i], databases[i]);
         }
 
         lastDatabases = databases;
         Monitoring.renderRate.ping();
+        setTimeout(refresh, ENV.timeout);
     }
     
     Monitoring.renderRate.ping();
