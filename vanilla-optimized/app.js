@@ -86,7 +86,7 @@
         app.appendChild(table);
         table.appendChild(tbody);
 
-        for (var i = 0; i < lastDatabases.length; i++) {
+        for (var i = 0; i < databases.length; i++) {
             buildRow(tbody, databases[i]);
         }
 
