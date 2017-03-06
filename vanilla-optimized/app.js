@@ -137,42 +137,9 @@
 
         lastDatabases = databases;
         Monitoring.renderRate.ping();
-    }
-
-    var frameRequested = false;
-    var timeoutHit = false;
-
-    function throttleAnimation() {
-        if (timeoutHit) {
-            timeoutHit = false;
-            refresh();
-        } else {
-            frameRequested = true;
-        }
-        requestAnimationFrame(throttleAnimation);
-    }
-
-    function throttleTimeout() {
-        if (frameRequested) {
-            frameRequested = false;
-            refresh();
-        } else {
-            timeoutHit = true;
-        }
-        setTimeout(throttleTimeout, ENV.timeout);
-    }
-
-    function simpleSchedule() {
-        refresh();
-        setTimeout(simpleSchedule, ENV.timeout);
+        setTimeout(refresh, ENV.timeout);
     }
 
     Monitoring.renderRate.ping();
-
-    if (typeof requestAnimationFrame === 'function') {
-        requestAnimationFrame(throttleAnimation);
-        setTimeout(throttleTimeout, ENV.timeout);
-    } else {
-        setTimeout(simpleSchedule, ENV.timeout);
-    }
+    setTimeout(refresh, ENV.timeout);
 })();
