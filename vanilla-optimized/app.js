@@ -139,7 +139,43 @@
         Monitoring.renderRate.ping();
         setTimeout(refresh, ENV.timeout);
     }
-    
+
+    var frameRequested = false;
+    var timeoutHit = false;
+
+    function throttleAnimation() {
+        if (timeoutHit) {
+            timeoutHit = false;
+            refresh();
+        } else {
+            frameRequested = true;
+        }
+        requestAnimationFrame(throttleAnimation);
+    }
+
+    function throttleTimeout() {
+        if (frameRequested) {
+            frameRequested = false;
+            refresh();
+        } else {
+            timeoutHit = true;
+        }
+        Monitoring.renderRate.ping();
+        setTimeout(throttleTimeout, ENV.timeout);
+    }
+
+    function simpleSchedule() {
+        refresh();
+        Monitoring.renderRate.ping();
+        setTimeout(simpleSchedule, ENV.timeout);
+    }
+
     Monitoring.renderRate.ping();
-    setTimeout(refresh, ENV.timeout);
+
+    if (typeof requestAnimationFrame === 'function') {
+        requestAnimationFrame(throttleAnimation);
+        setTimeout(throttleTimeout, ENV.timeout);
+    } else {
+        setTimeout(simpleSchedule, ENV.timeout);
+    }
 })();
