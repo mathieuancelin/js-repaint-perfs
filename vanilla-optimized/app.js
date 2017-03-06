@@ -137,7 +137,6 @@
 
         lastDatabases = databases;
         Monitoring.renderRate.ping();
-        setTimeout(refresh, ENV.timeout);
     }
 
     var frameRequested = false;
@@ -160,13 +159,11 @@
         } else {
             timeoutHit = true;
         }
-        Monitoring.renderRate.ping();
         setTimeout(throttleTimeout, ENV.timeout);
     }
 
     function simpleSchedule() {
         refresh();
-        Monitoring.renderRate.ping();
         setTimeout(simpleSchedule, ENV.timeout);
     }
 
