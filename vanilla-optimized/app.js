@@ -1,19 +1,47 @@
 ;(function () {
-    var lastDatabases = ENV.generateData().toArray();
     var nodes = [];
-    var app = document.getElementById('app');
-    var table = document.createElement('table');
-    var tbody = document.createElement('tbody');
-    table.className = 'table table-striped latest-data';
-    tbody.id = 'table';
-    while (app.firstChild) app.removeChild(app.firstChild);
-    app.appendChild(table);
-    table.appendChild(tbody);
-    for (var i = 0; i < lastDatabases.length; i++) {
-        renderRow(lastDatabases[i]);
+    var lastDatabases = generate();
+
+    // <td class="{{elapsedClassName}}">
+    //   {{formatElapsed}}
+    //   <div class="popover left">
+    //     <div class="popover-content">{{query}}</div>
+    //     <div class="arrow"></div>
+    //   </div>
+    // </td>
+    function buildQuery(row, top5, q) {
+        var query = document.createElement('td');
+        var elapsed = document.createTextNode(q.formatElapsed || '');
+        var popover = document.createElement('div');
+        var popoverContent = document.createElement('div');
+        var arrow = document.createElement('div');
+
+        query.className = q.elapsedClassName;
+        popover.className = 'popover left';
+        popoverContent.className = 'popover-content';
+        arrow.className = 'arrow';
+
+        row.appendChild(query);
+        query.appendChild(elapsed);
+        query.appendChild(popover);
+        popover.appendChild(popoverContent);
+        popoverContent.textContent = q.query || '';
+        popover.appendChild(arrow);
+        top5.push({
+            query: query,
+            elapsed: elapsed,
+            popover: popoverContent
+        });
     }
-    
-    function renderRow(db) {
+
+    // <tr>
+    //   <td class="dbname">{{dbname}}</td>
+    //   <td class="query-count">
+    //     <span class="{{lastSample.countClassName}}">{{lastSample.nbQueries}}</span>
+    //   </td>
+    //   {{queries...}}
+    // </table>
+    function buildRow(tbody, db) {
         var row = document.createElement('tr');
         var dbname = document.createElement('td');
         var lastSample = document.createElement('td');
@@ -26,35 +54,13 @@
 
         tbody.appendChild(row);
         row.appendChild(dbname);
+        dbname.textContent = db.dbname;
         row.appendChild(lastSample);
         lastSample.appendChild(lastSampleSpan);
-        dbname.textContent = db.dbname;
         lastSampleSpan.textContent = db.lastSample.nbQueries;
         
         for (var i = 0; i < db.lastSample.topFiveQueries.length; i++) {
-            var q = db.lastSample.topFiveQueries[i];
-            var query = document.createElement('td');
-            var elapsed = document.createTextNode(q.formatElapsed || '');
-            var popover = document.createElement('div');
-            var popoverContent = document.createElement('div');
-            var arrow = document.createElement('div');
-
-            query.className = q.elapsedClassName;
-            popover.className = 'popover left';
-            popoverContent.className = 'popover-content';
-            arrow.className = 'arrow';
-
-            row.appendChild(query);
-            query.appendChild(elapsed);
-            query.appendChild(popover);
-            popover.appendChild(popoverContent);
-            popoverContent.textContent = q.query || '';
-            popover.appendChild(arrow);
-            top5.push({
-                query: query,
-                elapsed: elapsed,
-                popover: popoverContent
-            });
+            buildQuery(row, top5, db.lastSample.topFiveQueries[i]);
         }
         
         nodes.push({
@@ -63,7 +69,29 @@
             top5: top5
         });
     }
-    
+
+    // <table class="table table-striped latest-data">
+    //   <tbody>
+    //     {{rows...}}
+    //   </tbody>
+    // </table>
+    function generate() {
+        var databases = ENV.generateData().toArray();
+        var app = document.getElementById('app');
+        var table = document.createElement('table');
+        var tbody = document.createElement('tbody');
+        table.className = 'table table-striped latest-data';
+
+        while (app.firstChild) app.removeChild(app.firstChild);
+        app.appendChild(table);
+        table.appendChild(tbody);
+
+        for (var i = 0; i < lastDatabases.length; i++) {
+            buildRow(tbody, databases[i]);
+        }
+
+        return databases;
+    }
     
     function patchRow(node, last, current) {
         if (last.dbname !== current.dbname) {
@@ -88,16 +116,16 @@
             }
 
             if (lastQ.formatElapsed !== currentQ.formatElapsed) {
-                child.elapsed.textContent = currentQ.formatElapsed;
+                child.elapsed.nodeValue = currentQ.formatElapsed;
             }
 
             if (lastQ.query !== currentQ.query) {
-                child.popoverContent.textContent = currentQ.query;
+                child.popover.textContent = currentQ.query;
             }
         }
     }
 
-    function render() {
+    function refresh() {
         var databases = ENV.generateData().toArray();
 
         for (var i = 0; i < databases.length; i++) {
@@ -106,9 +134,9 @@
 
         lastDatabases = databases;
         Monitoring.renderRate.ping();
-        setTimeout(render, ENV.timeout);
+        setTimeout(refresh, ENV.timeout);
     }
     
     Monitoring.renderRate.ping();
-    setTimeout(render, ENV.timeout);
+    setTimeout(refresh, ENV.timeout);
 })();
