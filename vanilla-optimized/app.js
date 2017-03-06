@@ -48,7 +48,7 @@
         var dbname = document.createTextNode(db.dbname);
         var lastSampleRow = document.createElement('td');
         var lastSampleSpan = document.createElement('span');
-        var lastSample = document.createTextContent(db.lastSample.nbQueries);
+        var lastSample = document.createTextNode(db.lastSample.nbQueries);
         var top5 = [];
 
         dbrow.className = 'dbname';
