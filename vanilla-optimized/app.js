@@ -93,48 +93,57 @@
         return databases;
     }
     
-    function patchRow(node, last, current) {
+    function patchRow(changes, node, last, current) {
         if (last.dbname !== current.dbname) {
-            node.dbname.textContext = current.dbname;
+            changes.push({text: true, node: node.dbname, value: current.dbname});
         }
 
         if (last.lastSample.countClassName !== current.lastSample.countClassName) {
-            node.lastSample.className = current.lastSample.countClassName;
+            changes.push({text: false, node: node.lastSample, value: current.lastSample.countClassName});
         }
 
         if (last.lastSample.nbQueries !== current.lastSample.nbQueries) {
-            node.lastSample.textContent = current.lastSample.nbQueries
+            changes.push({text: true, node: node.lastSample, value: current.lastSample.nbQueries});
         }
 
         for (var i = 0; i < node.top5.length; i++) {
-            var child = node.top5[i];
             var lastQ = last.lastSample.topFiveQueries[i];
             var currentQ = current.lastSample.topFiveQueries[i];
 
-            if (lastQ.elapsedClassName !== currentQ.elapsedClassName) {
-                child.query.className = currentQ.elapsedClassName;
+            if (lastQ.elapsedClassName !== currentQ.elapsedClassName) {{
+                changes.push({text: false, node: node.top5[i].query, value: currentQ.elapsedClassName});
             }
 
             if (lastQ.formatElapsed !== currentQ.formatElapsed) {
-                child.elapsed.nodeValue = currentQ.formatElapsed;
+                changes.push({text: true, node: node.top5[i].elapsed, value: currentQ.formatElapsed});
             }
 
             if (lastQ.query !== currentQ.query) {
-                child.popover.textContent = currentQ.query;
+                changes.push({text: true, node: node.top5[i].popover, value: currentQ.query});
             }
         }
     }
 
     function refresh() {
+        // Set now, to not delay patching
+        setTimeout(refresh, ENV.timeout);
+        var changes = [];
         var databases = ENV.generateData().toArray();
 
         for (var i = 0; i < databases.length; i++) {
-            patchRow(nodes[i], lastDatabases[i], databases[i]);
+            patchRow(changes, nodes[i], lastDatabases[i], databases[i]);
+        }
+
+        for (var i = 0; i < changes.length; i++) {
+            if (changes[i].text) {
+                changes[i].node.textContent = changes[i].value
+            } else {
+                changes[i].node.className = changes[i].value
+            }
         }
 
         lastDatabases = databases;
         Monitoring.renderRate.ping();
-        setTimeout(refresh, ENV.timeout);
     }
     
     Monitoring.renderRate.ping();
