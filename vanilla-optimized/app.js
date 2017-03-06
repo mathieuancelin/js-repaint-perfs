@@ -110,7 +110,7 @@
             var lastQ = last.lastSample.topFiveQueries[i];
             var currentQ = current.lastSample.topFiveQueries[i];
 
-            if (lastQ.elapsedClassName !== currentQ.elapsedClassName) {{
+            if (lastQ.elapsedClassName !== currentQ.elapsedClassName) {
                 changes.push({text: false, node: node.top5[i].query, value: currentQ.elapsedClassName});
             }
 
