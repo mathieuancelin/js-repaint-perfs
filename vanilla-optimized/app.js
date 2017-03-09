@@ -102,7 +102,7 @@
         }
 
         if (last.lastSample.countClassName !== current.lastSample.countClassName) {
-            node.lastSample.className = current.lastSample.countClassName;
+            node.lastSample.parentNode.className = current.lastSample.countClassName;
         }
 
         if (last.lastSample.nbQueries !== current.lastSample.nbQueries) {
