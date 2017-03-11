@@ -1,13 +1,15 @@
-webcomponents.js
+webcomponents.js (v1 spec polyfills)
 ================
 
 [![Build Status](https://travis-ci.org/webcomponents/webcomponentsjs.svg?branch=master)](https://travis-ci.org/webcomponents/webcomponentsjs)
 
+> **Note**. For polyfills that work with the older Custom Elements and Shadow DOM v0 specs, see the [v0 branch](https://github.com/webcomponents/webcomponentsjs/tree/v0).
+
 A suite of polyfills supporting the [Web Components](http://webcomponents.org) specs:
 
-- **Custom Elements**: allows authors to define their own custom tags ([spec](https://w3c.github.io/webcomponents/spec/custom/)).
-- **HTML Imports**: a way to include and reuse HTML documents via other HTML documents ([spec](https://w3c.github.io/webcomponents/spec/imports/)).
-- **Shadow DOM**: provides encapsulation by hiding DOM subtrees under shadow roots ([spec](https://w3c.github.io/webcomponents/spec/shadow/)).
+- **Custom Elements v1**: allows authors to define their own custom tags ([spec](https://w3c.github.io/webcomponents/spec/custom/), [tutorial](https://developers.google.com/web/fundamentals/getting-started/primers/customelements)).
+- **HTML Imports**: a way to include and reuse HTML documents via other HTML documents ([spec](https://w3c.github.io/webcomponents/spec/imports/), [tutorial](https://www.html5rocks.com/en/tutorials/webcomponents/imports/)).
+- **Shadow DOM v1**: provides encapsulation by hiding DOM subtrees under shadow roots ([spec](https://w3c.github.io/webcomponents/spec/shadow/), [tutorial](https://developers.google.com/web/fundamentals/getting-started/primers/shadowdom)).
 
 For browsers that need it, there are also some minor polyfills included:
 - [`HTMLTemplateElement`](https://github.com/webcomponents/template)
@@ -20,8 +22,8 @@ The polyfills are built (concatenated & minified) into several bundles that targ
 different browsers and spec readiness:
 
 - `webcomponents-hi.js` -- HTML Imports (needed by Safari Tech Preview)
-- `webcomponents-hi-ce.js` -- HTML Imports and Custom Elements (needed by Safari 10)
-- `webcomponents-hi-sd-ce.js` -- HTML Imports, Custom Elements and Shady DOM/CSS (needed by Safari 9, Firefox, Edge)
+- `webcomponents-hi-ce.js` -- HTML Imports and Custom Elements v1 (needed by Safari 10)
+- `webcomponents-hi-sd-ce.js` -- HTML Imports, Custom Elements v1 and Shady DOM/CSS (needed by Safari 9, Firefox, Edge)
 - `webcomponents-sd-ce.js` -- Custom Elements and Shady DOM/CSS (no HTML Imports)
 - `webcomponents-lite.js` -- all of the polyfills: HTML Imports, Custom Elements, Shady DOM/CSS and generic platform polyfills (such as ES6 Promise, Constructable events, etc.) (needed by Internet Explorer 11), and Template (needed by IE 11 and Edge)
 
@@ -36,7 +38,7 @@ Note that because the bundle will be loaded asynchronously, you should wait for 
 loaded and are ready to be used (i.e. if you want to dynamically load other custom
 elements, etc.). Here's an example:
 
-```
+```html
 <!-- Load polyfills; note that "loader" will load these async -->
 <script src="bower_components/webcomponentsjs/webcomponents-loader.js"></script>
 
@@ -58,6 +60,10 @@ elements, etc.). Here's an example:
   });
 </script>
 ```
+
+## `webcomponents-es5-loader.js`
+
+Custom Elements must be ES6 classes (https://html.spec.whatwg.org/multipage/scripting.html#custom-element-conformance). Since most projects need to support a wide range of browsers that don't necessary support ES6, it may make sense to compile your project to ES5. However, ES5-style custom element classes will not work with native Custom Elements because ES5-style classes cannot properly extend ES6 classes, like `HTMLElement`.
 
 ## Browser Support
 
