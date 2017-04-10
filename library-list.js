@@ -1,7 +1,8 @@
 (function() {
 
   var list = [
-    { type: 'todo', id: 'aurelia', label: 'DBMON Aurelia', url: '#' },
+    { type: 'naive', id: 'aurelia', label: 'DBMON Aurelia', url: './aurelia' },
+    { type: 'optimized', id: 'aurelia', label: 'DBMON Aurelia', url: './aurelia-optimized' },
     { type: 'naive', id: 'cycle', label: 'DBMON Cycle.js', url: './cycle'},
     { type: 'naive', id: 'ember', url: './ember', label: 'DBMON Ember' },
     { type: 'naive', id: 'angular', url: './angular', label: 'DBMON Angular' },
