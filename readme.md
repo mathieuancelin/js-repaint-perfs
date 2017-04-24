@@ -10,6 +10,7 @@ You can test it at https://mathieuancelin.github.io/js-repaint-perfs/
 
 * [Angular](https://angularjs.org/)
 * [Angular 2.0](https://angular.io/)
+* [Aurelia](http://aurelia.io/)
 * [Elem](https://github.com/mathieuancelin/Elem)
 * [elem-vdom](https://github.com/mathieuancelin/elem-vdom)
 * [Ember](http://emberjs.com/)
@@ -43,7 +44,3 @@ You can test it at https://mathieuancelin.github.io/js-repaint-perfs/
 * [DIO.js](https://thysultan.com/dio)
 * [RE:DOM](https://redom.js.org)
 * [StemJS](https://stemjs.org)
-
-## Todo
-
-* [Aurelia](http://aurelia.io/)
