@@ -20,7 +20,7 @@
     { type: 'naive', id: 'riot', url: './riot', label: 'DBMON Riot.js' },
     { type: 'optimized', id: 'riot', url: './riot/no-reorder.html', label: 'DBMON Riot.js ( no-reorder )' },
     { type: 'naive', id: 'polymer', url: './polymer', label: 'DBMON Polymer 1.8' },
-    { type: 'naive', id: 'polymer2', url: './polymer2', label: 'DBMON Polymer 2.0 (preview, pure ES6)' },
+    { type: 'naive', id: 'polymer2', url: './polymer2', label: 'DBMON Polymer 2.0 (rc.2, pure ES6)' },
     { type: 'naive', id: 'vanilla', url: './vanilla-simple', label: 'DBMON vanilla' },
     { type: 'naive', id: 'dott', url: './dotT', label: 'DBMON dotT' },
     { type: 'naive', id: 'canvas', url: './canvas', label: 'DBMON canvas' },
