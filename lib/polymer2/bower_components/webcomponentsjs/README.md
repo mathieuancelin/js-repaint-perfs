@@ -31,12 +31,15 @@ If you are only targeting a specific browser, you can just use the bundle that's
 needed by it; alternatively, if your server is capable of serving different assets based on user agent, you can send the polyfill bundle that's necessary for the browser making that request.
 
 ## `webcomponents-loader.js`
-
 Alternatively, this repo also comes with `webcomponents-loader.js`, a client-side
 loader that dynamically loads the minimum polyfill bundle, using feature detection.
 Note that because the bundle will be loaded asynchronously, you should wait for the `WebComponentsReady` before you can safely assume that all the polyfills have
 loaded and are ready to be used (i.e. if you want to dynamically load other custom
-elements, etc.). Here's an example:
+elements, etc.).
+
+Additionally, you can check if `window.WebComponents` exists to know if the `WebComponentsReady` event will fire, and you can check if `window.WebComponents.ready` is true to check if the `WebComponentsReady` event has already fired.
+
+Here's an example:
 
 ```html
 <!-- Load polyfills; note that "loader" will load these async -->
@@ -61,9 +64,24 @@ elements, etc.). Here's an example:
 </script>
 ```
 
-## `webcomponents-es5-loader.js`
+## `custom-elements-es5-adapter.js`
+According to the spec, Custom Elements must be ES6 classes (https://html.spec.whatwg.org/multipage/scripting.html#custom-element-conformance). Since most projects need to support a wide range of browsers that don't necessary support ES6, it may make sense to compile your project to ES5. However, ES5-style custom element classes will **not** work with native Custom Elements because ES5-style classes cannot properly extend ES6 classes, like `HTMLElement`.
 
-Custom Elements must be ES6 classes (https://html.spec.whatwg.org/multipage/scripting.html#custom-element-conformance). Since most projects need to support a wide range of browsers that don't necessary support ES6, it may make sense to compile your project to ES5. However, ES5-style custom element classes will not work with native Custom Elements because ES5-style classes cannot properly extend ES6 classes, like `HTMLElement`.
+To work around this, load `custom-elements-es5-adapter.js` before declaring new Custom Elements.
+
+**The adapter must NOT be compiled.**
+
+```html
+<!-- Load Custom Elements es5 adapter -->
+<script src="bower_components/webcomponentsjs/custom-elements-es5-adapter.js"></script>
+<!-- Load polyfills; note that "loader" will load these async -->
+<script src="bower_components/webcomponentsjs/webcomponents-loader.js"></script>
+<!-- Load the es5 compiled custom element definition -->
+<link rel="import" href="my-es5-element.html">
+
+<!-- Use the custom element -->
+<my-es5-element></my-es5-element>
+```
 
 ## Browser Support
 
