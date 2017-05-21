@@ -61,11 +61,6 @@
       /*rgb(100, 100, 100);*/
     }
 
-    .all {
-      background-color: green;
-      /*rgb(100, 100, 100);*/
-    }
-
     .container {
       display: flex;
       flex-direction: row;
@@ -127,6 +122,10 @@
       text-align: right;
     }
 
+    tr {
+      text-align: center;
+    }
+
     @keyframes blop {
       0% {
         transform: scale(1);
@@ -159,16 +158,32 @@
       </div>
     </div>
   </div>
-  <div class="container">
-    <div class="child all">
-      <a target="_blank" href="./all.html">Run all</a>
-    </div>
+  <div id="render-box">
+    <div id="render-info"></div>
+    <iframe id="render-frame" height="1080" width="1920"></iframe>
   </div>
-  <div id="list"></div>
+  <div>
+    <table id="ranking">
+      <thead>
+        <tr>
+          <th style="min-width:25px"></th>
+          <th style="min-width:250px">Name</th>
+          <th style="min-width:100px">Rate/sec 1%</th>
+          <th style="min-width:100px">25%</th>
+          <th style="min-width:100px">50%</th>
+          <th data-sort-default aria-sort="descending" style="min-width:100px">100%</th>
+        </tr>
+      </thead>
+      <tbody id="ranking-body">
+      </tbody>
+    </table>
+  </div>
   <script src="./elem-vdom/elem.js"></script>
   <script src="./list.js"></script>
-  <script src="./library-list.js"></script>
+  <script src="./lib/monitor-all.js"></script>
   <script src="./ga.js"></script>
+  <script src="https://cdn.rawgit.com/tristen/tablesort/gh-pages/dist/tablesort.min.js"></script>
+  <script src="https://cdn.rawgit.com/tristen/tablesort/gh-pages/dist/sorts/tablesort.number.min.js"></script>
 </body>
 
 </html>
