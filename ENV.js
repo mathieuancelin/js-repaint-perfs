@@ -24,10 +24,10 @@ var ENV = ENV || (function() {
     var className = 'Query elapsed';
     if (elapsed >= 10.0) {
       className += ' warn_long';
-    }
+    } 
     else if (elapsed >= 1.0) {
       className += ' warn';
-    }
+    } 
     else {
       className += ' short';
     }
@@ -38,10 +38,10 @@ var ENV = ENV || (function() {
     var countClassName = "label";
     if (queries >= 20) {
       countClassName += " label-important";
-    }
+    } 
     else if (queries >= 10) {
       countClassName += " label-warning";
-    }
+    } 
     else {
       countClassName += " label-success";
     }
@@ -177,6 +177,7 @@ var ENV = ENV || (function() {
   function mutations(value) {
     if (value) {
       mutationsValue = value;
+      document.querySelector('#ratioval').innerHTML = 'mutations : ' + (mutationsValue * 100).toFixed(0) + '%';
       return mutationsValue;
     } else {
       return mutationsValue;
@@ -186,7 +187,7 @@ var ENV = ENV || (function() {
   var body = document.querySelector('body');
   var theFirstChild = body.firstChild;
 
-  var sliderContainer = document.createElement( 'div' );
+  var sliderContainer = document.createElement('div');
   sliderContainer.style.cssText = "display: flex";
   var slider = document.createElement('input');
   var text = document.createElement('label');
@@ -196,13 +197,12 @@ var ENV = ENV || (function() {
   slider.style.cssText = 'margin-bottom: 10px; margin-top: 5px';
   slider.addEventListener('change', function(e) {
     ENV.mutations(e.target.value / 100);
-    document.querySelector('#ratioval').innerHTML = 'mutations : ' + (ENV.mutations() * 100).toFixed(0) + '%';
   });
-  sliderContainer.appendChild( text );
-  sliderContainer.appendChild( slider );
-  body.insertBefore( sliderContainer, theFirstChild );
+  sliderContainer.appendChild(text);
+  sliderContainer.appendChild(slider);
+  body.insertBefore(sliderContainer, theFirstChild);
 
-  return  {
+  return {
     generateData: getData,
     rows: 50,
     timeout: 0,
