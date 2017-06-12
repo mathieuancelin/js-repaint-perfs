@@ -1,130 +1,174 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>dbmon</title>
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700" rel="stylesheet" type="text/css">
-    <style>
-      body {
-        background-color: rgb(28, 28, 28);
-        font-family: "Open Sans Condensed", "Helvetica Neue";
-      }
+
+<head>
+  <meta charset="utf-8">
+  <title>dbmon</title>
+  <link href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700" rel="stylesheet" type="text/css">
+  <style>
+    body {
+      background-color: rgb(28, 28, 28);
+      font-family: "Open Sans Condensed", "Helvetica Neue";
+    }
+
+    #render-frame {
+      background-color: white;
+    }
+
+    #render-info {
+      color: white;
+    }
+
+    #ranking {
+      color: white;
+    }
+
+    .title {
+      color: rgb(102, 102, 102);
+      font-weight: bold;
+    }
+
+    @media(min-width: 1025px) {
       .title {
-        color: rgb(102, 102, 102);
-        font-weight: bold;
+        font-size: 80px;
       }
-      @media(min-width: 1025px) {
-        .title {
-          font-size: 80px;
-        }
+    }
+
+    @media(max-width: 1024px) {
+      .title {
+        font-size: 40px;
       }
-      @media(max-width: 1024px) {
-        .title {
-          font-size: 40px;
-        }
+    }
+
+    a {
+      color: white;
+      text-decoration: none;
+      width: 100%;
+    }
+
+    .optimized {
+      background-color: #FF6347;
+      /*#FF6347;*/
+    }
+
+    .todo {
+      background-color: #2167FF;
+      /*#0EB26D;*/
+    }
+
+    .naive {
+      background-color: #EBA636;
+      /*rgb(100, 100, 100);*/
+    }
+
+    .all {
+      background-color: green;
+      /*rgb(100, 100, 100);*/
+    }
+
+    .container {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      padding: 0;
+      margin: 0;
+      justify-content: flex-start;
+    }
+
+    .legend {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    .child {
+      padding: 0px;
+      width: 200px;
+      height: 200px;
+      margin-top: 10px;
+      margin-left: 5px;
+      margin-right: 5px;
+      color: white;
+      font-weight: bold;
+      font-size: 20px;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .child:hover {
+      animation-name: blop;
+      animation-iteration-count: infinite;
+      animation-timing-function: linear;
+      animation-duration: 2s;
+    }
+
+    .legendChild {
+      width: 200px;
+      margin-top: 5px;
+      color: white;
+      text-align: center;
+      display: flex;
+      align-items: center;
+    }
+
+    .color {
+      width: 15px;
+      height: 15px;
+    }
+
+    .fw {
+      margin-left: 10px;
+      margin-right: 10px;
+      font-size: 12px;
+      color: white;
+      width: 120px;
+      text-align: right;
+    }
+
+    @keyframes blop {
+      0% {
+        transform: scale(1);
       }
-      a {
-        color: white;
-        text-decoration: none;
-        width: 100%;
+      50% {
+        transform: scale(1.05);
       }
-      .optimized {
-        background-color: #FF6347; /*#FF6347;*/
+      100% {
+        transform: scale(1);
       }
-      .todo {
-        background-color: #2167FF; /*#0EB26D;*/
-      }
-      .naive {
-        background-color: #EBA636; /*rgb(100, 100, 100);*/
-      }
-      .container {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        padding: 0;
-        margin: 0;
-        justify-content: flex-start;
-      }
-      .legend {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-      }
-      .child {
-        padding: 0px;
-        width: 200px;
-        height: 200px;
-        margin-top: 10px;
-        margin-left: 5px;
-        margin-right: 5px;
-        color: white;
-        font-weight: bold;
-        font-size: 20px;
-        text-align: center;
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-      }
-      .child:hover {
-        animation-name: blop;
-        animation-iteration-count: infinite;
-        animation-timing-function: linear;
-        animation-duration: 2s;
-      }
-      .legendChild {
-        width: 200px;
-        margin-top: 5px;
-        color: white;
-        text-align: center;
-        display: flex;
-        align-items: center;
-      }
-      .color {
-        width: 15px;
-        height: 15px;
-      }
-      .fw {
-        margin-left: 10px;
-        margin-right: 10px;
-        font-size: 12px;
-        color: white;
-        width: 120px;
-        text-align: right;
-      }
-      @keyframes blop {
-        0% {
-          transform: scale(1);
-        }
-        50% {
-          transform: scale(1.05);
-        }
-        100% {
-          transform: scale(1);
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
-      <span class="title">REPAINT RATE CHALLENGE</span>
-      <div class="legend">
-        <div class="legendChild">
-          <span class="fw">Todo implementation</span>
-          <div class="color todo"></div>
-        </div>
-        <div class="legendChild">
-          <span class="fw">Naive implementation</span>
-          <div class="color naive"></div>
-        </div>
-        <div class="legendChild">
-          <span class="fw">Optimized implementation</span>
-          <div class="color optimized"></div>
-        </div>
+    }
+  </style>
+</head>
+
+<body>
+  <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+    <span class="title">REPAINT RATE CHALLENGE</span>
+    <div class="legend">
+      <div class="legendChild">
+        <span class="fw">Todo implementation</span>
+        <div class="color todo"></div>
+      </div>
+      <div class="legendChild">
+        <span class="fw">Naive implementation</span>
+        <div class="color naive"></div>
+      </div>
+      <div class="legendChild">
+        <span class="fw">Optimized implementation</span>
+        <div class="color optimized"></div>
       </div>
     </div>
-    <div id="list"></div>
-    <script src="./elem-vdom/elem.js"></script>
-    <script src="./library-list.js"></script>
-    <script src="./ga.js"></script>
-  </body>
+  </div>
+  <div class="container">
+    <div class="child all">
+      <a target="_blank" href="./all.html">Run all</a>
+    </div>
+  </div>
+  <div id="list"></div>
+  <script src="./elem-vdom/elem.js"></script>
+  <script src="./list.js"></script>
+  <script src="./library-list.js"></script>
+  <script src="./ga.js"></script>
+</body>
+
 </html>

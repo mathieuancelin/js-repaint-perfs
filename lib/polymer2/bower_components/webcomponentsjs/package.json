@@ -1,11 +1,17 @@
 {
   "name": "webcomponents.js",
-  "version": "0.7.22",
+  "version": "1.0.0-rc.11",
   "description": "webcomponents.js",
   "main": "webcomponents.js",
   "directories": {
     "test": "tests"
   },
+  "keywords": [
+    "webcomponents",
+    "web-components",
+    "polyfill",
+    "shim"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/webcomponents/webcomponentsjs.git"
@@ -19,19 +25,21 @@
     "build": "gulp build",
     "test": "wct"
   },
-  "homepage": "http://webcomponents.org",
+  "homepage": "https://webcomponents.org/polyfills",
   "devDependencies": {
-    "babel-preset-babili": "0.0.9",
+    "babel-preset-babili": "0.0.12",
     "bower": "^1.8.0",
     "del": "^2.2.2",
+    "eslint": "^3.16.1",
+    "google-closure-compiler": "^20170409.0.0",
     "gulp": "^3.8.8",
-    "gulp-babel": "^6.1.2",
     "gulp-rename": "^1.2.2",
-    "gulp-sourcemaps": "1.9.0",
+    "gulp-sourcemaps": "^2.4.1",
+    "rollup-plugin-babel": "^2.7.1",
     "rollup-stream": "^1.14.0",
     "run-sequence": "^1.2.2",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
-    "web-component-tester": "^6.0.0-prerelease.4"
+    "web-component-tester": "^6.0.0-prerelease.5"
   }
 }
