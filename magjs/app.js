@@ -1,14 +1,13 @@
 var DB = {}
-DB.databases=mag.prop([])
 
 DB.view = function(state, props) {
 
-  state.databases = props.databases().map(function(database) {
+  state.databases = props.databases.map(function(database) {
 
     return {
       dbname: database.dbname,
       samples: database.lastSample.topFiveQueries.map(function(query) {
-        
+
         return {
           _class: "Query " + query.elapsedClassName,
           _text: query.formatElapsed,
@@ -24,14 +23,14 @@ DB.view = function(state, props) {
   });
 
 }
-
-var instance = mag.module("dbmon", DB, {databases:DB.databases});
+var props = {databases: []};
+var instance = mag.module("dbmon", DB, props);
 
 function loadSamples() {
-  DB.databases(ENV.generateData().toArray());
+  props.databases = ENV.generateData().toArray();
   Monitoring.renderRate.ping();
+  instance.draw(1); //clear cache
   setTimeout(loadSamples, ENV.timeout);
-  instance.draw()
 }
 
 loadSamples();
