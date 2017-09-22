@@ -69,5 +69,6 @@ var List =[
 		{ type: 'naive', id: 'hyperapp', url: './hyperapp', label: 'DBMON HyperApp' },
 		{ type: 'naive', id: 'stemjs', url: './stemjs/index.html', label: 'DBMON StemJS'},
 		{ type: 'optimized', id: 'stemjs', url: './stemjs-optimized', label: 'DBMON StemJS'},
+		{ type: 'naive', id: 'mol', url: './mol/index.html', label: 'DBMON $mol'},
 	];
 	
