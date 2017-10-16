@@ -17,6 +17,7 @@ You can test it at https://mathieuancelin.github.io/js-repaint-perfs/
 * [Hyperapp](https://hyperapp.js.org)
 * [Mithril](http://mithril.js.org/)
 * [MagJS](https://github.com/magnumjs/mag.js)
+* [$mol](https://github.com/eigenmethod/mol)
 * [Ractive](http://www.ractivejs.org/)
 * [React](https://facebook.github.io/react/)
 * [React-canvas](#)
