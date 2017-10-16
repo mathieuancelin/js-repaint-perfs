@@ -14,6 +14,7 @@ You can test it at https://mathieuancelin.github.io/js-repaint-perfs/
 * [Elem](https://github.com/mathieuancelin/Elem)
 * [elem-vdom](https://github.com/mathieuancelin/elem-vdom)
 * [Ember](http://emberjs.com/)
+* [Hyperapp](https://hyperapp.js.org)
 * [Mithril](http://mithril.js.org/)
 * [MagJS](https://github.com/magnumjs/mag.js)
 * [Ractive](http://www.ractivejs.org/)

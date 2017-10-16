@@ -1,29 +1,55 @@
-app({
-    root: document.getElementById("app"),
-    model: [],
-    view: model =>
-        h("div", {}, [
-            h("table", { class: "table table-striped latest-data" }, [
-                h("tbody", {}, model.map(db => h("tr", { key: db.dbname }, [
-                    h("td", { class: "dbname" }, [db.dbname]),
-                    h("td", { class: "query-count" }, [
-                        h("span", { class: db.lastSample.countClassName }, [db.lastSample.nbQueries])
-                    ]),
-                    db.lastSample.topFiveQueries.map(query =>
-                        h("td", { class: query.elapsedClassName }, [
-                            query.formatElapsed,
-                            h("div", { class: "popover left" }, [
-                                h("div", { class: "popover-content" }, [query.query]),
-                                h("div", { class: "arrow" })
-                            ])
-                        ]))
-                ])))
-            ])
-        ]),
-    update: {
-        generate: _ => ENV.generateData().toArray(Monitoring.renderRate.ping())
+'div,span,table,tbody,tr,td'.split(',').map(function(tag) {
+  window[tag] = hyperapp.h.bind(null, tag);
+});
+
+hyperapp.app(
+  {
+    state: { rows: [] },
+    view: state =>
+      div(
+        {},
+        table(
+          { class: 'table table-striped latest-data' },
+          tbody(
+            {},
+            state.rows.map(row =>
+              tr(
+                { key: row.dbname },
+                td({ class: 'dbname' }, [row.dbname]),
+                td(
+                  { class: 'query-count' },
+                  span(
+                    { class: row.lastSample.countClassName },
+                    row.lastSample.nbQueries
+                  )
+                ),
+                row.lastSample.topFiveQueries.map(query =>
+                  td(
+                    { class: query.elapsedClassName },
+                    query.formatElapsed,
+                    div(
+                      { class: 'popover left' },
+                      div(
+                        { class: 'popover-content' },
+                        query.query,
+                        div({ class: 'arrow' })
+                      )
+                    )
+                  )
+                )
+              )
+            )
+          )
+        )
+      ),
+    actions: {
+      generate: () => ({
+        rows: ENV.generateData().toArray(Monitoring.renderRate.ping())
+      })
     },
-    subs: [
-        (_, msg) => setInterval(msg.generate, ENV.timeout)
-    ]
-})
+    init(state, actions) {
+      setInterval(actions.generate, ENV.timeout);
+    }
+  },
+  document.getElementById('app')
+);
