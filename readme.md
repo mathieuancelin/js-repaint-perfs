@@ -46,3 +46,4 @@ You can test it at https://mathieuancelin.github.io/js-repaint-perfs/
 * [DIO.js](https://thysultan.com/dio)
 * [RE:DOM](https://redom.js.org)
 * [StemJS](https://stemjs.org)
+* [Stencil](https://stenciljs.com)
