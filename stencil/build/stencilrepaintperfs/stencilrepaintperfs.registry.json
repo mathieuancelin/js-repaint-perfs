@@ -1,0 +1,12 @@
+{
+  "namespace": "stencilrepaintperfs",
+  "fsNamespace": "stencilrepaintperfs",
+  "loader": "../stencilrepaintperfs.js",
+  "core": "stencilrepaintperfs.b22lb5oq.js",
+  "corePolyfilled": "stencilrepaintperfs.6agyhks2.js",
+  "components": {
+    "db-mon": {
+      "$": "gueaecxf"
+    }
+  }
+}
