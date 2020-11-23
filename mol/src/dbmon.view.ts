@@ -7,19 +7,28 @@ namespace $.$$ {
 
 		@ $mol_mem
 		data() {
-			$mol_state_time.now( ENV.timeout )
+			$mol_state_time.now( ENV.timeout || 15 )
 			Monitoring.renderRate.ping();
 			return ENV.generateData().toArray()
 		}
-
+		
 		databases() {
 			return Object.keys( this.data() ).map( index => this.Database( index ) )
+		}
+
+		database( id : string ) {
+			return [
+				this.Name( id ) ,
+				this.Query_count( id ) ,
+				... this.top_queries( id ) ,
+			]
 		}
 
 		name( id : string ) {
 			return this.data()[ id ].dbname
 		}
 
+		@ $mol_mem_key
 		last_sample( id : string ) {
 			return this.data()[ id ].lastSample
 		}
@@ -32,12 +41,18 @@ namespace $.$$ {
 			return this.last_sample( id ).countClassName
 		}
 
-		top_queries( db : string ) {
-			return Object.keys( this.last_sample( db ).topFiveQueries ).map( query => this.Query({ db , query }) )
+		@ $mol_mem_key
+		top_queries_data( db : string ) {
+			return this.last_sample( db ).topFiveQueries
 		}
 
+		top_queries( db : string ) {
+			return Object.keys( this.top_queries_data( db ) ).map( query => this.Query({ db , query }) )
+		}
+
+		@ $mol_mem_key
 		top_query( id : { db : string , query : string } ) {
-			return this.last_sample( id.db ).topFiveQueries[ id.query ]
+			return this.top_queries_data( id.db )[ id.query ]
 		}
 
 		query_elapsed( id : { db : string , query : string } ) {
